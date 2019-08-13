@@ -11,6 +11,7 @@ import ChooseStyle from './components/ChooseStyle';
 import Quest from './components/Quest';
 import Selfie from './components/Selfie';
 import ChooseModel from './components/ChooseModel/ChooseModel';
+import TryOn from './components/TryOn/TryOn';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/quest" component={Quest} />
         <Route path="/selfie" component={Selfie} />
         <Route path="/chooseModel" component={ChooseModel} />
+        <Route path="/tryOn" component={TryOn} />
       </div>
     </Router>
   );
