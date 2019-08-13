@@ -10,7 +10,7 @@ const axios = require('axios');
 class TryOn extends React.Component {
   constructor(props) {
     super(props)
-    
+
     this.state = {
       model: 'shutterstock_1189496695.jpg',
       outfit: {
@@ -22,6 +22,10 @@ class TryOn extends React.Component {
     }
 
     this.getProductList = this.getProductList.bind(this);
+    this.handleClothOffClick = this.handleClothOffClick.bind(this);
+    this.handlePantsOffClick = this.handlePantsOffClick.bind(this);
+    this.renderCloth = this.renderCloth.bind(this);
+    this.renderPants = this.renderPants.bind(this);
     this.confirm = this.confirm.bind(this);
   }
 
@@ -59,6 +63,44 @@ class TryOn extends React.Component {
       });
   }
 
+  handleClothOffClick(e) {
+    this.setState({
+      outfit: { 
+        ...this.state.outfit, 
+        cloth: ''
+      }
+    })
+  }
+
+  handlePantsOffClick(e) {
+    this.setState({
+      outfit: { 
+        ...this.state.outfit, 
+        pants: ''
+      }
+    })
+  }
+
+  renderCloth(outfit) {
+    return (
+      <img 
+        className="model"
+        onClick={(e) => this.handleClothOffClick(e)}
+        src={`http://localhost:3001/photo/cloth/${outfit.cloth}`} alt={`${outfit.cloth}`}
+      />
+    )
+  }
+
+  renderPants(outfit) {
+    return (
+      <img 
+        className="model"
+        onClick={(e) => this.handlePantsOffClick(e)}
+        src={`http://localhost:3001/photo/pants/${outfit.pants}`} alt={`${outfit.pants}`}
+      />
+    )
+  }
+
   confirm() {
     console.log(this.state);
   }
@@ -92,24 +134,6 @@ class TryOn extends React.Component {
       })
     } 
 
-    const handleClothOffClick = (e) => {
-      this.setState({
-        outfit: { 
-          ...this.state.outfit, 
-          cloth: ''
-        }
-      })
-    }
-
-    const handlePantsOffClick = (e) => {
-      this.setState({
-        outfit: { 
-          ...this.state.outfit, 
-          pants: ''
-        }
-      })
-    }
-
     return (
       <div>
         <div className="slide-container">
@@ -117,16 +141,8 @@ class TryOn extends React.Component {
             className="model"
             src={`http://localhost:3001/photo/model/${model}`} alt={`${model}`}
           />
-          <img 
-            className="model"
-            onClick={(e) => handleClothOffClick(e)}
-            src={`http://localhost:3001/photo/cloth/${outfit.cloth}`} alt={`${outfit.cloth}`}
-          />
-          <img 
-            className="model"
-            onClick={(e) => handlePantsOffClick(e)}
-            src={`http://localhost:3001/photo/pants/${outfit.pants}`} alt={`${outfit.pants}`}
-          />
+          { outfit.cloth? this.renderCloth(outfit):undefined }
+          { outfit.pants? this.renderPants(outfit):undefined }
         </div>
         <div className="slide-container">
           <Slider {...settings}>
