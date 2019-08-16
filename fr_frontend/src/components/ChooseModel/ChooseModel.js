@@ -11,12 +11,10 @@ class ChooseModel extends React.Component {
   constructor(props) {
     super(props)
       this.state = {
-        model: '',
         modelList: []
       }
 
       this.getModelList = this.getModelList.bind(this);
-      this.confirm = this.confirm.bind(this);
   }
 
   componentDidMount () {
@@ -43,10 +41,6 @@ class ChooseModel extends React.Component {
       });
   }
 
-  confirm() {
-    console.log(this.state.model);
-  }
- 
   render() {
     const { modelList } = this.state;
     const settings = {
@@ -59,9 +53,7 @@ class ChooseModel extends React.Component {
     };
 
     const imageClick = (e) => {
-      this.setState({
-        model: e.target.getAttribute('data-value')
-      })
+      this.props.confirm(e.target.getAttribute('data-value'))
     } 
 
     return (
@@ -74,7 +66,7 @@ class ChooseModel extends React.Component {
                 <div key={`slide-${idx}`}>
                   <img 
                     className="model"
-                    onClick={(e) => imageClick(e)}
+                    onClick={imageClick}
                     data-value={d.photo}
                     src={`http://localhost:3001/photo/model/${d.photo}`} alt={`${d.photo}`}
                   />
@@ -84,7 +76,7 @@ class ChooseModel extends React.Component {
           }
           </Slider>
         </div>
-        <button onClick={this.confirm}>
+        <button onClick={this.props.confirm}>
           確認
         </button>
       </div>

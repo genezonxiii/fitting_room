@@ -14,24 +14,56 @@ import ChooseModel from './components/ChooseModel/ChooseModel';
 import TryOn from './components/TryOn/TryOn';
 import Order from './components/Order/Order';
 
-function App() {
-  return (
-    <Router>
-      <div>
-        <Header />
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      test: 'melvin'
+    }
 
-        <Route exact path="/" component={Home} />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-        <Route path="/style" component={ChooseStyle} />
-        <Route path="/quest" component={Quest} />
-        <Route path="/selfie" component={Selfie} />
-        <Route path="/chooseModel" component={ChooseModel} />
-        <Route path="/tryOn" component={TryOn} />
-        <Route path="/order" component={Order} />
-      </div>
-    </Router>
-  );
+    this.onModelConfirm = this.onModelConfirm.bind(this);
+  }
+
+  onModelConfirm(model) {
+    console.log('onModelConfirm');
+    this.setState({
+      model: model
+    })
+  }
+
+  render() {
+    return (
+      <Router>
+        <div>
+          <Header />
+
+          <Route exact path="/" component={Home} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          <Route path="/style" component={ChooseStyle} />
+          <Route path="/quest" component={Quest} />
+          <Route path="/selfie" component={Selfie} />
+          <Route 
+            path="/chooseModel"
+            render={(props) => <ChooseModel 
+                confirm={this.onModelConfirm} 
+                {...props} 
+              />
+            }
+          />
+          <Route 
+            path="/tryOn"
+            render={(props) => <TryOn 
+                model={this.state.model}
+                {...props} 
+              />
+            }
+          />
+          <Route path="/order" component={Order} />
+        </div>
+      </Router>
+    );
+  }
 }
 
 export default App;

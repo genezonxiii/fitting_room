@@ -12,7 +12,7 @@ class TryOn extends React.Component {
     super(props)
 
     this.state = {
-      model: 'shutterstock_1189496695.jpg',
+      model: this.props.model,
       outfit: {
         cloth: '',
         pants: ''
