@@ -38,7 +38,7 @@ class TryOn extends React.Component {
   getProductList(kind) {
     var self = this; 
 
-    axios.get(`http://localhost:3001/api/product/${kind}`)
+    axios.get(`http://localhost:3001/api/product/list/${kind}`)
       .then(function(response) {
         // handle success
         switch (kind) {
@@ -51,6 +51,8 @@ class TryOn extends React.Component {
             self.setState({
               pantsList: response.data
             });
+            break;
+          default:
             break;
         }
       })
