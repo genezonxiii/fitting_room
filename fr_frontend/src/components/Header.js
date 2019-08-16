@@ -19,6 +19,9 @@ function Header() {
       <li>
         <Link to="/tryOn">我的試衣間</Link>
       </li>
+      <li>
+        <Link to="/Order">我要試穿</Link>
+      </li>
     </ul>
   );
 }
