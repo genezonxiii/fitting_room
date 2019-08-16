@@ -8,6 +8,9 @@ var db = require('../model/db');
 var log4js = require('../log4js').log4js;
 var logger = log4js.getLogger('photo');
 
+// moment
+var moment = require('moment');
+
 router.get('/model/:sex', function (req, res) {
   logger.debug(`model: ${req.params.sex}`)
 
@@ -26,12 +29,30 @@ router.get('/model/:sex', function (req, res) {
   });
 })
 
-router.get('/product/:kind', function (req, res) {
+router.get('/product/list/:kind', function (req, res) {
   logger.debug(`product: ${req.params.kind}`)
 
   let query = `SELECT * FROM tb_product where kind = ?`;
   db.getConnection(function(err, connection) { 
     connection.query(query, [req.params.kind], function(err, rows) {
+      connection.release();
+
+      if (err) {
+          logger.error(err);
+          return;
+      }
+
+      res.send(rows);
+    })
+  });
+})
+
+router.get('/product/:product_id', function (req, res) {
+  logger.debug(`product - product id: ${req.params.product_id}`)
+
+  let query = `SELECT * FROM tb_product where product_id = ?`;
+  db.getConnection(function(err, connection) { 
+    connection.query(query, [req.params.product_id], function(err, rows) {
       connection.release();
 
       if (err) {
@@ -62,12 +83,14 @@ router.get('/detail/:product_id', function (req, res) {
   });
 })
 
-router.get('/size/:product_id/:color', function (req, res) {
-  logger.debug(`size - product id: ${req.params.product_id}, color: ${req.params.color}`)
-
-  let query = `SELECT * FROM tb_product_detail where product_id = ?`;
+router.get('/size/:product_id/', function (req, res) {
+  const product_id = req.params.product_id,
+    size = req.params.size;
+  logger.debug(`size - product id: ${product_id}`)
+  
+  let query = `SELECT * FROM tb_product_detail where product_id = ? group by size order by size`;
   db.getConnection(function(err, connection) { 
-    connection.query(query, [req.params.product_id], function(err, rows) {
+    connection.query(query, [product_id, size], function(err, rows) {
       connection.release();
 
       if (err) {
@@ -79,5 +102,110 @@ router.get('/size/:product_id/:color', function (req, res) {
     })
   });
 })
+
+router.get('/color/:product_id/:size', function (req, res) {
+  const product_id = req.params.product_id,
+    size = req.params.size;
+  logger.debug(`color - product id: ${product_id}, size: ${size}`)
+  
+  let query = `SELECT * FROM tb_product_detail where product_id = ? and size = ?`;
+  db.getConnection(function(err, connection) { 
+    connection.query(query, [product_id, size], function(err, rows) {
+      connection.release();
+
+      if (err) {
+          logger.error(err);
+          return;
+      }
+
+      res.send(rows);
+    })
+  });
+})
+
+router.post('/order', function (req, res) {
+  let user_id = '1', 
+    order_no = '',
+    detail = req.body.detail;
+  
+  db.getConnection(function(err, connection) { 
+    // get seq
+    let query_seq = `SELECT * FROM tb_config WHERE kind=? and type=?`;
+    connection.query(query_seq, ['order', 'seq'], function(err, rows) {
+      if (err) { throw err; }
+      let seq = rows[0].value;
+      let order_yyyymmdd = moment().format('YYYYMMDD');
+
+      // order no
+      order_no = `${order_yyyymmdd}${paddingZero(seq, 4)}`;
+
+      // BEGIN TRANSACTION
+      connection.beginTransaction(function(err) {
+        if (err) { throw err; }
+
+        let query_update = `UPDATE tb_config SET value = value + 1 WHERE kind = ? AND type = ?`;
+        connection.query(query_update, ['order', 'seq'], function(err, result) {
+          if (err) {
+              logger.error(err);
+              return connection.rollback(function() {
+                throw error;
+              });
+          }
+        });
+
+        // master
+        let query = `INSERT INTO tb_sale (user_id, order_no, sale_date) values (?, ?, now())`;
+        connection.query(query, [user_id, order_no], function(err, result) {
+          const sale_id = result.insertId;
+          const mResult = result;
+
+          if (err) {
+              logger.error(err);
+              return connection.rollback(function() {
+                throw error;
+              });
+          }
+
+          // detail list
+          detail.forEach(function(item) {
+            let query = `INSERT INTO tb_sale_detail (sale_id, product_id, color, size, qty) values (?, ?, ?, ?, ?)`;
+            connection.query(query, [sale_id, item.product_id, item.color, item.size, item.qty], function(err, result) {
+              if (err) {
+                  logger.error(err);
+                  return connection.rollback(function() {
+                    throw error;
+                  });
+              }
+            });
+          })
+
+          // COMMIT
+          connection.commit(function(err) {
+            if (err) {
+              return connection.rollback(function() {
+                throw err;
+              });
+            }
+            connection.release();
+            logger.debug(`Order No: ${order_no}`);
+
+            const resResult = {
+              affectedRows: result.affectedRows,
+              order_no: order_no
+            }
+
+            res.send(resResult);
+          });
+        })
+      });
+    })
+  });
+})
+
+function paddingZero(n, width, z) {
+  z = z || '0';
+  n = n + '';
+  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+}
 
 module.exports = router;
