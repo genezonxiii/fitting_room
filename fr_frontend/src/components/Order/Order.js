@@ -8,6 +8,7 @@ class Order extends React.Component {
     super(props)
 
     this.state = {
+      user: this.props.user,
       orderList: this.props.orderList,
       product: {
         product_id: '',
@@ -35,7 +36,7 @@ class Order extends React.Component {
     const { orderList, finalOrderList } = this.state;
 
     const order = {
-      user_id: '1',
+      user_id: this.props.user.id,
       detail: finalOrderList
     }
 

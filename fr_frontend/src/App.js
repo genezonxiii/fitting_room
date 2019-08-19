@@ -18,11 +18,19 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      test: 'melvin'
+      isLogin: false
     }
 
+    this.onLoginConfirm = this.onLoginConfirm.bind(this);
     this.onModelConfirm = this.onModelConfirm.bind(this);
     this.onTryOnConfirm = this.onTryOnConfirm.bind(this);
+  }
+
+  onLoginConfirm(result) {
+    this.setState({
+      isLogin: result.success,
+      user: result.result
+    })
   }
 
   onModelConfirm(model) {
@@ -54,10 +62,20 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          <Header />
+          <Header 
+            user={this.state.user}
+          />
 
           <Route exact path="/" component={Home} />
-          <Route path="/login" component={Login} />
+          <Route 
+            path="/login" 
+            render={(props) => <Login 
+                user={this.state.user}
+                confirm={this.onLoginConfirm} 
+                {...props} 
+              />
+            }
+          />
           <Route path="/register" component={Register} />
           <Route path="/style" component={ChooseStyle} />
           <Route path="/quest" component={Quest} />
@@ -82,6 +100,7 @@ class App extends React.Component {
           <Route 
             path="/order"
             render={(props) => <Order 
+                user={this.state.user}
                 orderList={this.state.orderList}
                 {...props} 
               />

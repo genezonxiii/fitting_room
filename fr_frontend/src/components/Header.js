@@ -1,9 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Header() {
+function Header(props) {
   return (
     <ul>
+      <div>
+        {props.user && props.user.id?`${props.user.nick_name} 您好!!`:null}
+      </div>
       <li>
         <Link to="/">首頁</Link>
       </li>

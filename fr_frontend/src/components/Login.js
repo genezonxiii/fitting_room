@@ -1,27 +1,40 @@
 import React, { Component } from "react";
 
+const axios = require('axios');
+
 class Login extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			user: {
-				mobile: ''
-			}
+			mobile: ''
 		}
 		this.onChangeMobile = this.onChangeMobile.bind(this);
 		this.confirm = this.confirm.bind(this);
 	}
 
 	onChangeMobile (e) {
-		this.setState({ user: { ...this.state.user, mobile: e.target.value} });
+		this.setState({ mobile: e.target.value });
 	}
 
 	confirm() {
-		console.log(this.state.user);
+    var self = this; 
+
+    axios.get(`http://localhost:3001/api/user/${this.state.mobile}`)
+      .then(function(response) {
+        // handle success
+        self.props.confirm(response.data);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .finally(function () {
+        // always executed
+      });
 	}
 
 	render() {
-		const { user } = this.state;
+		const { mobile } = this.state;
 
 		return (
 			<div>
@@ -33,7 +46,7 @@ class Login extends Component {
 							type="text"
 							placeholder="手機號碼"
 							onChange={this.onChangeMobile}
-							value={user.mobile}
+							value={mobile}
 						/>
 					</label>
 				</div>
