@@ -14,8 +14,8 @@ class TryOn extends React.Component {
     this.state = {
       model: this.props.model,
       outfit: {
-        cloth: '',
-        pants: ''
+        cloth: {},
+        pants: {}
       },
       clothList: [],
       pantsList: []
@@ -69,7 +69,7 @@ class TryOn extends React.Component {
     this.setState({
       outfit: { 
         ...this.state.outfit, 
-        cloth: ''
+        cloth: {}
       }
     })
   }
@@ -78,7 +78,7 @@ class TryOn extends React.Component {
     this.setState({
       outfit: { 
         ...this.state.outfit, 
-        pants: ''
+        pants: {}
       }
     })
   }
@@ -88,7 +88,7 @@ class TryOn extends React.Component {
       <img 
         className="model"
         onClick={(e) => this.handleClothOffClick(e)}
-        src={`http://localhost:3001/photo/cloth/${outfit.cloth}`} alt={`${outfit.cloth}`}
+        src={`http://localhost:3001/photo/cloth/${outfit.cloth.photo}`} alt={`${outfit.cloth.photo}`}
       />
     )
   }
@@ -98,13 +98,14 @@ class TryOn extends React.Component {
       <img 
         className="model"
         onClick={(e) => this.handlePantsOffClick(e)}
-        src={`http://localhost:3001/photo/pants/${outfit.pants}`} alt={`${outfit.pants}`}
+        src={`http://localhost:3001/photo/pants/${outfit.pants.photo}`} alt={`${outfit.pants.photo}`}
       />
     )
   }
 
   confirm() {
-    console.log(this.state);
+    const { outfit } = this.state;
+    this.props.confirm(outfit);
   }
  
   render() {
@@ -119,19 +120,31 @@ class TryOn extends React.Component {
     };
 
     const handleClothOnClick = (e) => {
+      const { clothList } = this.state;
+      const id = e.target.getAttribute('data-key');
+      let cloth = clothList.find((item)=>{
+        return item.product_id.toString() === id;
+      });
+
       this.setState({
         outfit: { 
           ...this.state.outfit, 
-          cloth: e.target.getAttribute('data-value')
+          cloth: cloth
         }
       })
     } 
 
     const handlePantsOnClick = (e) => {
+      const { pantsList } = this.state;
+      const id = e.target.getAttribute('data-key');
+      let pants = pantsList.find((item)=>{
+        return item.product_id.toString() === id;
+      });
+
       this.setState({
         outfit: { 
           ...this.state.outfit, 
-          pants: e.target.getAttribute('data-value')
+          pants: pants
         }
       })
     } 
@@ -143,8 +156,8 @@ class TryOn extends React.Component {
             className="model"
             src={`http://localhost:3001/photo/model/${model}`} alt={`${model}`}
           />
-          { outfit.cloth? this.renderCloth(outfit):undefined }
-          { outfit.pants? this.renderPants(outfit):undefined }
+          { outfit.cloth && outfit.cloth.product_id? this.renderCloth(outfit):undefined }
+          { outfit.pants && outfit.pants.product_id? this.renderPants(outfit):undefined }
         </div>
         <div className="slide-container">
           <Slider {...settings}>
@@ -155,7 +168,7 @@ class TryOn extends React.Component {
                   <img 
                     className="model"
                     onClick={(e) => handleClothOnClick(e)}
-                    data-value={d.photo}
+                    data-key={d.product_id}
                     src={`http://localhost:3001/photo/cloth/${d.photo}`} alt={`${d.photo}`}
                   />
                 </div>
@@ -173,7 +186,7 @@ class TryOn extends React.Component {
                   <img 
                     className="model"
                     onClick={(e) => handlePantsOnClick(e)}
-                    data-value={d.photo}
+                    data-key={d.product_id}
                     src={`http://localhost:3001/photo/pants/${d.photo}`} alt={`${d.photo}`}
                   />
                 </div>

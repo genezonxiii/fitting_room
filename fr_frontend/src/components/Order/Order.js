@@ -8,10 +8,7 @@ class Order extends React.Component {
     super(props)
 
     this.state = {
-      orderList: [
-        {product_id: 1, c_product_id: 'c001', brand: 'cdri'}, 
-        {product_id: 5, c_product_id: 'p001', brand: 'cdri'}
-      ],
+      orderList: this.props.orderList,
       product: {
         product_id: '',
         kind: '',
