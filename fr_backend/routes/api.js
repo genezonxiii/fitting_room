@@ -124,7 +124,7 @@ router.get('/color/:product_id/:size', function (req, res) {
 })
 
 router.post('/order', function (req, res) {
-  let user_id = '1', 
+  let user_id = req.body.user_id, 
     order_no = '',
     detail = req.body.detail;
   
@@ -198,6 +198,27 @@ router.post('/order', function (req, res) {
           });
         })
       });
+    })
+  });
+})
+
+router.get('/user/:mobile', function (req, res) {
+  logger.debug(`mobile: ${req.params.mobile}`)
+
+  let query = `SELECT * FROM tb_user where mobile = ?`;
+  db.getConnection(function(err, connection) { 
+    connection.query(query, [req.params.mobile], function(err, rows) {
+      connection.release();
+
+      if (err) {
+          logger.error(err);
+          return;
+      }
+
+      logger.debug(`Result length: ${rows.length}`);
+      let succ = rows.length > 0? true:false;
+      delete rows[0].email;
+      res.send({success: succ, result: rows[0]});
     })
   });
 })
