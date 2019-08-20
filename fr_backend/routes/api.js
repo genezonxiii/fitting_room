@@ -6,7 +6,7 @@ var db = require('../model/db');
 
 // log4js
 var log4js = require('../log4js').log4js;
-var logger = log4js.getLogger('photo');
+var logger = log4js.getLogger('API');
 
 // moment
 var moment = require('moment');
@@ -222,6 +222,45 @@ router.get('/user/:mobile', function (req, res) {
     })
   });
 })
+
+
+router.post('/user', function (req, res) {
+  const { mobile, nick_name, email } = req.body;
+  logger.debug(mobile, nick_name, email);
+  db.getConnection(function(err, connection) {
+
+    // check user exists 
+    let query_seq = `SELECT * FROM tb_user WHERE mobile=?`;
+    connection.query(query_seq, [mobile], function(err, rows) {
+      if (err) { throw err; }
+
+      if (rows.length > 0) {
+        res.send({
+          success: false, 
+          msg: "User Exists"
+        });
+        return;
+      }
+
+      // register new user
+      let query = `INSERT INTO tb_user (mobile, nick_name, email) values (?, ?, ?)`;
+      connection.query(query, [mobile, nick_name, email], function(err, result) {
+        if (err) {
+          logger.error(err);
+          return;
+        }
+
+        res.send({
+          success: true, 
+          result: {
+            id: result.insertId
+          }
+        });
+      })
+    })
+  })
+})
+
 
 function paddingZero(n, width, z) {
   z = z || '0';
