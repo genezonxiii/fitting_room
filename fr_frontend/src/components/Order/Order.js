@@ -33,6 +33,7 @@ class Order extends React.Component {
   }
 
   confirm() {
+    var self = this;
     const { orderList, finalOrderList } = this.state;
 
     const order = {
@@ -47,6 +48,7 @@ class Order extends React.Component {
         .then(function(response) {
           // handle success
           console.log(response);
+          self.props.confirm();
         })
         .catch(function (error) {
           // handle error
@@ -255,7 +257,7 @@ class Order extends React.Component {
         { product.product_id?this.renderProduct():undefined }
 
         <button onClick={this.confirm}>
-          test
+          確認
         </button>
       </div>
     );

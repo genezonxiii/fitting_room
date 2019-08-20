@@ -10,21 +10,27 @@ function Header(props) {
       <li>
         <Link to="/">首頁</Link>
       </li>
-      <li>
-        <Link to="/login">登入</Link>
-      </li>
-      <li>
-        <Link to="/register">新申請</Link>
-      </li>
-      <li>
-        <Link to="/style">風格挑選</Link>
-      </li>
-      <li>
-        <Link to="/tryOn">我的試衣間</Link>
-      </li>
-      <li>
-        <Link to="/Order">我要試穿</Link>
-      </li>
+      {
+        !props.isLogin?
+          <li>
+            <Link to="/login">登入</Link>
+          </li>
+          :null
+      }
+      {
+        !props.isLogin?
+          <li>
+            <Link to="/register">新申請</Link>
+          </li>
+          :null
+      }
+      {
+        props.isLogin?
+        <span onClick={props.handleLogout}>
+            登出<i className="fa fa-sign-out" />
+        </span>
+        :null
+      }
     </ul>
   );
 }

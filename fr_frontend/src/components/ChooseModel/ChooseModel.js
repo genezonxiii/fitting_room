@@ -53,7 +53,7 @@ class ChooseModel extends React.Component {
     };
 
     const imageClick = (e) => {
-      this.props.confirm(e.target.getAttribute('data-value'))
+      this.props.choose(e.target.getAttribute('data-value'))
     } 
 
     return (
