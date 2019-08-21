@@ -14,6 +14,9 @@ import ChooseModel from './components/ChooseModel/ChooseModel';
 import TryOn from './components/TryOn/TryOn';
 import Order from './components/Order/Order';
 
+import MOrder from './components/Manage/Order/MOrder';
+import MOrderDetail from './components/Manage/Detail/MDetail';
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -167,6 +170,9 @@ class App extends React.Component {
               }
             }
           />
+
+          <Route exact path="/manage/order" component={MOrder} />
+          <Route exact path="/manage/detail" component={MOrderDetail} />
         </div>
       </Router>
     );

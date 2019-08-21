@@ -1,0 +1,16 @@
+.order_list {
+  border-width: 1px;
+  border-color: 'black';
+}
+.order_image {
+	width: 10%;
+}
+.order {
+
+}
+.column {
+	margin: 2px 5px;
+}
+.model {
+	width: 10%;
+}
