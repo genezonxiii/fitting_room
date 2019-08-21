@@ -9,6 +9,7 @@ var cors = require('cors')
 var apiRouter = require('./routes/api');
 var photoRouter = require('./routes/photo');
 var systemRouter = require('./routes/system');
+var mapiRouter = require('./routes/manage_api');
 
 var app = express();
 
@@ -26,6 +27,9 @@ app.use(cors())
 app.use('/api', apiRouter);
 app.use('/photo', photoRouter);
 app.use('/system', systemRouter);
+
+// manage
+app.use('/mapi', mapiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
