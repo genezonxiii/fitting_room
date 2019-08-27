@@ -411,19 +411,26 @@ h2.clothes-select-title {
   text-align: center; }
   .figure-fitting-wrap .fitting-figure {
     width: 100%; }
-  .figure-fitting-wrap .fitting-clothes-wrap, .figure-fitting-wrap .fitting-pants-wrap {
+  .figure-fitting-wrap .fitting-clothes-wrap,
+  .figure-fitting-wrap .fitting-pants-wrap,
+  .figure-fitting-wrap .fitting-shoes-wrap {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     width: 100%; }
-    .figure-fitting-wrap .fitting-clothes-wrap img, .figure-fitting-wrap .fitting-pants-wrap img {
+    .figure-fitting-wrap .fitting-clothes-wrap img,
+    .figure-fitting-wrap .fitting-pants-wrap img,
+    .figure-fitting-wrap .fitting-shoes-wrap img {
       object-fit: cover;
       width: 100%; }
   .figure-fitting-wrap .fitting-clothes-wrap {
-    top: 16%;
+    top: 15%;
     z-index: 2; }
   .figure-fitting-wrap .fitting-pants-wrap {
-    bottom: 8%; }
+    bottom: 14%;
+    z-index: 1; }
+  .figure-fitting-wrap .fitting-shoes-wrap {
+    bottom: 0; }
 
 .clothes-info-section {
   width: 65%;
