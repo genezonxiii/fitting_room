@@ -184,7 +184,7 @@ class TryOn extends React.Component {
           handleLogout={this.props.handleLogout}
         />
         
-        <HomeNav title="我的試衣間" />
+        <HomeNav title="我的試衣間" handleHome={this.props.handleHome} />
 
         <div className="fittingroom-wrap">
           <Figure

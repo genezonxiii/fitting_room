@@ -33,6 +33,13 @@ function Figure(props) {
 		        </div>
 		        :null
         }
+        <div className="fitting-shoes-wrap">
+          <img 
+          	className="fitting-shoes" 
+          	src={`http://localhost:3001/photo/shoe/shoes-03_pair.png`}
+          	alt=""
+          />
+        </div>
       </div>
     </div>
   )

@@ -110,7 +110,7 @@ class Quest extends Component {
       		handleLogout={this.props.handleLogout}
     		/>
 
-      	<HomeNav title="填寫資料" />
+      	<HomeNav title="填寫資料" handleHome={this.props.handleHome} />
 
       	<div className="fittingroom-wrap">
 

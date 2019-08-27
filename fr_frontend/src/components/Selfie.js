@@ -37,7 +37,7 @@ class Selfie extends React.Component {
           handleLogout={this.props.handleLogout}
         />
 
-        <HomeNav title="拍照" />
+        <HomeNav title="拍照" handleHome={this.props.handleHome} />
 
         <div className="take-photo-wrap">
           

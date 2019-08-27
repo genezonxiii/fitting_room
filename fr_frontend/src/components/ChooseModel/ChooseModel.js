@@ -68,7 +68,7 @@ class ChooseModel extends React.Component {
           handleLogout={this.props.handleLogout}
         />
 
-        <HomeNav title="自行選擇" />
+        <HomeNav title="自行選擇" handleHome={this.props.handleHome} />
 
         <Slider {...settings}>
         {

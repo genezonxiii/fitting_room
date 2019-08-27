@@ -228,7 +228,7 @@ class Order extends React.Component {
           handleLogout={this.props.handleLogout}
         />
         
-        <HomeNav title="我要試穿" />
+        <HomeNav title="我要試穿" handleHome={this.props.handleHome} />
 
         <div className="tryon-wrap">
 

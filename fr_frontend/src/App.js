@@ -25,6 +25,7 @@ class App extends React.Component {
       isLogin: false
     }
 
+    this.handleHome = this.handleHome.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.onLoginConfirm = this.onLoginConfirm.bind(this);
     this.onModelChoose = this.onModelChoose.bind(this);
@@ -37,6 +38,14 @@ class App extends React.Component {
     this.setState({
       isLogin: false,
       user: {}
+    })
+  }
+
+  handleHome() {
+    this.setState({
+      isModel: false,
+      isTryOn: false,
+      model: ''
     })
   }
 
@@ -135,6 +144,7 @@ class App extends React.Component {
                 return <Quest 
                   user={this.state.user}
                   handleLogout={this.handleLogout}
+                  handleHome={this.handleHome}
                   {...props} 
                 />
               }
@@ -146,6 +156,7 @@ class App extends React.Component {
                 return <Selfie 
                   user={this.state.user}
                   handleLogout={this.handleLogout}
+                  handleHome={this.handleHome}
                   {...props} 
                 />
               }
@@ -160,6 +171,7 @@ class App extends React.Component {
                 <ChooseModel 
                   user={this.state.user}
                   handleLogout={this.handleLogout}
+                  handleHome={this.handleHome}
                   choose={this.onModelChoose}
                   confirm={this.onModelConfirm} 
                   {...props} 
@@ -176,6 +188,7 @@ class App extends React.Component {
                 <TryOn 
                   user={this.state.user}
                   handleLogout={this.handleLogout}
+                  handleHome={this.handleHome}
                   model={this.state.model}
                   confirm={this.onTryOnConfirm}
                   {...props} 
@@ -191,6 +204,8 @@ class App extends React.Component {
                 :
                 <Order 
                   user={this.state.user}
+                  handleLogout={this.handleLogout}
+                  handleHome={this.handleHome}
                   orderList={this.state.orderList}
                   confirm={this.onOrderConfirm}
                   {...props} 
