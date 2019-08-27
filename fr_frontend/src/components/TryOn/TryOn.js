@@ -1,6 +1,13 @@
 import React from "react";
 import Slider from "react-slick";
 
+import HomeNav from "../HomeNav";
+import UserInfo from "../UserInfo";
+import Figure from "../Figure";
+import ClothTabs from "../ClothTabs";
+import TabContent from "../TabContent";
+import ClothInfo from "../ClothInfo";
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./TryOn.css";
@@ -18,14 +25,22 @@ class TryOn extends React.Component {
         pants: {}
       },
       clothList: [],
-      pantsList: []
+      pantsList: [],
+      clothTabs: {
+        active: 0,
+        tabs: [
+          {tab: "#tabs-1", src: "tab-icon_clothes.png", desc: "上衣", kind: "cloth"},
+          {tab: "#tabs-2", src: "tab-icon_pants.png", desc: "褲/裙", kind: "pants"}
+          // {tab: "#tabs-3", src: "tab-icon_dress.png", desc: "洋裝", kind: "onepiece"},
+          // {tab: "#tabs-4", src: "tab-icon_shoes.png", desc: "鞋子"}
+        ]
+      }
     }
 
     this.getProductList = this.getProductList.bind(this);
     this.handleClothOffClick = this.handleClothOffClick.bind(this);
     this.handlePantsOffClick = this.handlePantsOffClick.bind(this);
-    this.renderCloth = this.renderCloth.bind(this);
-    this.renderPants = this.renderPants.bind(this);
+    this.handleTabClick = this.handleTabClick.bind(this);
     this.confirm = this.confirm.bind(this);
   }
 
@@ -83,33 +98,44 @@ class TryOn extends React.Component {
     })
   }
 
-  renderCloth(outfit) {
-    return (
-      <img 
-        className="model"
-        onClick={(e) => this.handleClothOffClick(e)}
-        src={`http://localhost:3001/photo/cloth/${outfit.cloth.photo}`} alt={`${outfit.cloth.photo}`}
-      />
-    )
-  }
-
-  renderPants(outfit) {
-    return (
-      <img 
-        className="model"
-        onClick={(e) => this.handlePantsOffClick(e)}
-        src={`http://localhost:3001/photo/pants/${outfit.pants.photo}`} alt={`${outfit.pants.photo}`}
-      />
-    )
+  handleTabClick(e) {
+    this.setState({
+      clothTabs: {
+        ...this.state.clothTabs, 
+        active: parseInt(e.target.getAttribute('data-key'))
+      }
+    })
   }
 
   confirm() {
     const { outfit } = this.state;
     this.props.confirm(outfit);
   }
+
+  renderControl() {
+    return (
+      <div className="footer-control-wrap">
+        <a
+          className="btn btn-icon-round btn-red" 
+          type="button"
+        >
+          <div className='icon-round-bkg'><i className="mdi mdi-delete"></i></div>
+          <span>清空試衣籃</span>
+        </a>
+        <a 
+          className="btn btn-icon-round btn-yellow" 
+          type="button"
+          onClick={this.confirm}
+        >
+          <div className='icon-round-bkg'><i className="mdi mdi-tshirt-crew-outline"></i></div>
+          <span>我要試穿</span>
+        </a>
+      </div>
+    )
+  }
  
   render() {
-    const { model, outfit, clothList, pantsList } = this.state;
+    const { model, outfit, clothList, pantsList, clothTabs } = this.state;
     const settings = {
       dots: true,
       arrows: true,
@@ -150,54 +176,75 @@ class TryOn extends React.Component {
     } 
 
     return (
-      <div>
-        <div className="slide-container">
-          <img 
-            className="model"
-            src={`http://localhost:3001/photo/model/${model}`} alt={`${model}`}
+      <div className="page-body">
+        <div className="bkg-circle-gray bkg-circle-big"></div>
+
+        <UserInfo 
+          user={this.props.user}
+          handleLogout={this.props.handleLogout}
+        />
+        
+        <HomeNav title="我的試衣間" />
+
+        <div className="fittingroom-wrap">
+          <Figure
+            model={model}
+            outfit={outfit}
+            handleClothOffClick={this.handleClothOffClick}
+            handlePantsOffClick={this.handlePantsOffClick}
           />
-          { outfit.cloth && outfit.cloth.product_id? this.renderCloth(outfit):undefined }
-          { outfit.pants && outfit.pants.product_id? this.renderPants(outfit):undefined }
+
+          <div className="clothes-info-section">
+
+            <div className="clothes-tab-wrap">
+              <ClothTabs
+                clothTabs={clothTabs}
+                handleTabClick={this.handleTabClick}
+              />
+            </div>
+
+            <div className="tabs_container">
+              {
+                clothTabs.active == 0?
+                <TabContent
+                  id="#tabs-1"
+                  list={clothList}
+                  outfit={outfit.cloth}
+                  handleClick={handleClothOnClick}
+                />
+                :null
+              }
+              {
+                clothTabs.active == 1?
+                <TabContent
+                  id="#tabs-2"
+                  list={pantsList}
+                  outfit={outfit.pants}
+                  handleClick={handlePantsOnClick}
+                />
+                :null
+              }
+            </div>
+
+            {
+              clothTabs.active == 0 && outfit.cloth.product_id?
+              <ClothInfo
+                outfit={outfit.cloth}
+              />
+              :null
+            }
+            {
+              clothTabs.active == 1 && outfit.pants.product_id?
+              <ClothInfo
+                outfit={outfit.pants}
+              />
+              :null
+            }
+
+          </div>
         </div>
-        <div className="slide-container">
-          <Slider {...settings}>
-          {
-            clothList.map(function(d, idx){
-              return (
-                <div key={`s-cloth-${idx}`}>
-                  <img 
-                    className="model"
-                    onClick={(e) => handleClothOnClick(e)}
-                    data-key={d.product_id}
-                    src={`http://localhost:3001/photo/cloth/${d.photo}`} alt={`${d.photo}`}
-                  />
-                </div>
-              )
-            })
-          }
-          </Slider>
-        </div>
-        <div className="slide-container">
-          <Slider {...settings}>
-          {
-            pantsList.map(function(d, idx){
-              return (
-                <div key={`s-pants-${idx}`}>
-                  <img 
-                    className="model"
-                    onClick={(e) => handlePantsOnClick(e)}
-                    data-key={d.product_id}
-                    src={`http://localhost:3001/photo/pants/${d.photo}`} alt={`${d.photo}`}
-                  />
-                </div>
-              )
-            })
-          }
-          </Slider>
-        </div>
-        <button onClick={this.confirm}>
-          確認
-        </button>
+
+        { this.renderControl() }
       </div>
     );
   }

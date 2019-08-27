@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.css';
+import './styles.css';
+import './vendor/materialdesignicons.min.css';
 
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
 import Home from './components/Home';
-import Header from './components/Header';
 import Login from './components/Login';
 import Register from './components/Register';
 import ChooseStyle from './components/ChooseStyle';
@@ -49,21 +50,18 @@ class App extends React.Component {
   }
 
   onModelChoose(model) {
-    console.log('onModelChoose');
     this.setState({
       model: model
     })
   }
 
   onModelConfirm() {
-    console.log('onModelConfirm');
     this.setState({
       isModel: true
     })
   }
 
   onTryOnConfirm(outfit) {
-    console.log('onTryOnConfirm');
     let orderList = [];
 
     // cloth
@@ -93,12 +91,6 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          <Header 
-            isLogin={isLogin}
-            handleLogout={this.handleLogout}
-            user={user}
-          />
-
           <Route exact path="/" component={Home} />
           <Route 
             path="/login" 
@@ -114,7 +106,19 @@ class App extends React.Component {
               }
             }
           />
-          <Route path="/register" component={Register} />
+          <Route 
+            path="/register" 
+            render={(props) => {
+                return isLogin?
+                <Redirect to="/style"/>
+                :
+                <Register 
+                  user={user}
+                  {...props} 
+                />
+              }
+            }
+          />
           <Route 
             path="/style" 
             render={(props) => {
@@ -125,8 +129,28 @@ class App extends React.Component {
               }
             }
           />
-          <Route path="/quest" component={Quest} />
-          <Route path="/selfie" component={Selfie} />
+          <Route 
+            path="/quest" 
+            render={(props) => {
+                return <Quest 
+                  user={this.state.user}
+                  handleLogout={this.handleLogout}
+                  {...props} 
+                />
+              }
+            }
+          />
+          <Route 
+            path="/selfie"
+            render={(props) => {
+                return <Selfie 
+                  user={this.state.user}
+                  handleLogout={this.handleLogout}
+                  {...props} 
+                />
+              }
+            }
+          />
           <Route 
             path="/chooseModel"
             render={(props) => {
@@ -134,6 +158,8 @@ class App extends React.Component {
                 <Redirect to="/tryOn"/>
                 :
                 <ChooseModel 
+                  user={this.state.user}
+                  handleLogout={this.handleLogout}
                   choose={this.onModelChoose}
                   confirm={this.onModelConfirm} 
                   {...props} 
@@ -148,6 +174,8 @@ class App extends React.Component {
                 <Redirect to="/order"/>
                 :
                 <TryOn 
+                  user={this.state.user}
+                  handleLogout={this.handleLogout}
                   model={this.state.model}
                   confirm={this.onTryOnConfirm}
                   {...props} 

@@ -1,4 +1,8 @@
 import React from "react";
+import HomeNav from "../HomeNav";
+import UserInfo from "../UserInfo";
+import ClothInfo from "../ClothInfo";
+
 import "./Order.css";
 
 const axios = require('axios');
@@ -10,26 +14,24 @@ class Order extends React.Component {
     this.state = {
       user: this.props.user,
       orderList: this.props.orderList,
-      product: {
-        product_id: '',
-        kind: '',
-        c_product_id: '',
-        product_name: '',
-        brand: '',
-        photo: '',
-        desc: '',
-        color: '',
-        size: ''
-      },
+      product: {},
       sizeList: [],
       colorList: [],
       finalOrderList: []
     }
 
-    this.renderProduct = this.renderProduct.bind(this);
+    this.setSizeAndColor = this.setSizeAndColor.bind(this);
     this.renderSize = this.renderSize.bind(this);
     this.renderColor = this.renderColor.bind(this);
     this.confirm = this.confirm.bind(this);
+  }
+
+  componentDidMount() {
+    let order = this.props.orderList[0];
+    this.setSizeAndColor(order);
+    this.setState({
+      product: order
+    })
   }
 
   confirm() {
@@ -60,205 +62,242 @@ class Order extends React.Component {
     }
   }
 
+  setSizeAndColor(order) {
+    const self=this;
+    axios.get(`http://localhost:3001/api/detail/${order.product_id}`)
+      .then(function(response) {
+        // handle success
+        const result = response.data;
+
+        // distinct Size
+        let setSize = new Set();
+        result.forEach(item=>{
+          setSize.add(item.size)
+        })
+
+        let arSize = [];
+
+        // put color list into size
+        setSize.forEach(item=>{
+          let setColor = new Set();
+          let filter_array = result.filter(d => d.size === item);
+
+          filter_array.forEach(color => {
+            setColor.add(color)
+          })
+
+          let target = Object.assign({}, filter_array[0], {
+            detail: Array.from(setColor )
+          })
+          arSize.push(target);
+        })
+
+        let defColorList = arSize.length>0?arSize[0].detail:[];
+
+        defColorList = order.size?arSize.find(item=>item.size===order.size).detail:defColorList;
+
+        // default color and size
+        self.setState({
+          sizeList: arSize,
+          colorList: defColorList
+        })
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .finally(function () {
+        // always executed
+      });
+  }
+
   renderSize() {
-    const { product, sizeList } = this.state;
-    const product_id = product.product_id;
+    const { product, sizeList, orderList } = this.state;
 
     const handleBtnSizeClick = (e) => {
       const size = e.target.getAttribute('data-key');
+      const colorList=sizeList.find(item=>item.size===size).detail;
+      const newProduct = {
+        ...product,
+        size: size,
+        color: ''
+      };
 
-      var self = this;
-      axios.get(`http://localhost:3001/api/color/${product_id}/${size}`)
-        .then(function(response) {
-          // handle success
-          self.setState({
-            colorList: response.data,
-            product: {
-              ...self.state.product,
-              size: size
-            }
-          })
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
-        })
-        .finally(function () {
-          // always executed
-        });
+      const newOrderList = orderList.map(order=>order.product_id===product.product_id?newProduct:order);
+
+      this.setState({
+        colorList: colorList,
+        orderList: newOrderList,
+        product: newProduct
+      })
     }
 
     return (
-      <div>
+      <div className="form-row">
+        <div className="clothes-size-wrap">
         {
           sizeList.map(function(d, idx){
             return (
-              <button 
+              <span 
                 key={`size-${idx}`}
+                className={product.size === d.size ? 'clothes-size-option active' : 'clothes-size-option'}
                 data-key={d.size}
                 onClick={(e) => handleBtnSizeClick(e)}
               >
                 {d.size}
-              </button>
+              </span>
             )
           })
         }
+        </div>
       </div>
     )
   }
 
   renderColor() {
-    const { product, colorList } = this.state;
-    const product_id = product.product_id;
+    const { product, colorList, orderList } = this.state;
     let { finalOrderList } = this.state;
-    
+
     const handleBtnColorClick = (e) => {
       const color = e.target.getAttribute('data-key');
-      const newProduct = Object.assign({}, product, {
+      const newProduct = {
+        ...product,
         color: color,
         qty: 1
-      });
+      };
+
+      const newOrderList = orderList.map(order=>order.product_id===product.product_id?newProduct:order);
 
       const found = finalOrderList.some(el => el.product_id === newProduct.product_id);
       if (!found) {
         finalOrderList.push(newProduct);
       } else {
-        finalOrderList = finalOrderList.map((item) => {
-          if (item.product_id === newProduct.product_id) {
-            return newProduct;
-          } else {
-            return item;
-          }
-        })
+        finalOrderList = finalOrderList.map(item => item.product_id === newProduct.product_id?newProduct:item)
       };
 
       this.setState({
+        orderList: newOrderList,
         product: newProduct,
         finalOrderList: finalOrderList
       })
     }
 
     return (
-      <div>
+      <div className="form-row">
+        <div className="clothes-color-wrap">
         {
           colorList.map(function(d, idx){
             return (
-              <button 
+              <span 
                 key={`color-${idx}`}
+                className={product.color === d.color ? `clothes-color-option ${d.color_code} active` : `clothes-color-option ${d.color_code}`}
                 data-key={d.color}
                 onClick={(e) => handleBtnColorClick(e)}
               >
-                {d.color}
-              </button>
+              </span>
             )
           })
         }
-      </div>
-    )
-  }
-
-  renderProduct() {
-    const { product, colorList } = this.state;
-    const product_id = product.product_id;
-
-    return (
-      <div>
-        料號：{product.c_product_id}<br/>
-        品名：{product.product_name}<br/>
-        品牌：{product.brand}<br/>
-        {
-          product.size?`選擇尺寸: ${product.size}`:undefined
-        }
-        {
-          product.color?`選擇顏色: ${product.color}`:undefined
-        }
-
-        <img 
-          className="order_image"
-          src={`http://localhost:3001/photo/${product.kind}/${product.photo}`} 
-          alt={`${product.photo}`}
-        />
-        { this.renderSize() }
-        { colorList.length > 0?this.renderColor():undefined }
+        </div>
       </div>
     )
   }
 
   render() {
-    const { orderList, product } = this.state;
+    const { orderList, product, sizeList, colorList } = this.state;
     
     const handleDivClick = (e) => {
-      e.stopPropagation();
+      const product_id = parseInt(e.target.getAttribute('data-key'));
+      if (!product_id) return;
 
-      const product_id = e.target.getAttribute('data-key');
+      let order = orderList.find(order=>order.product_id===product_id);
 
-      var self = this;
-      axios.get(`http://localhost:3001/api/product/${product_id}`)
-        .then(function(response) {
-          // handle success
-
-          //reset colorList
-          self.setState({
-            product: response.data[0],
-            colorList: []
-          })
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
-        })
-        .finally(function () {
-          // always executed
-        });
-
-      axios.get(`http://localhost:3001/api/size/${product_id}`)
-        .then(function(response) {
-          // handle success
-          self.setState({
-            sizeList: response.data
-          })
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
-        })
-        .finally(function () {
-          // always executed
-        });
+      this.setSizeAndColor(order);
+      this.setState({
+        product: order
+      })
     }
 
     return (
-      <div>
-        <div 
-          className="order_list"
-        >
-          {
-            orderList.map(function(d, idx){
-              return (
-                <div 
-                  key={`${idx}`}
-                  onClick={(e) => handleDivClick(e)}
-                >
-                  <div data-key={d.product_id}>
-                    {d.product_id}
+      <div className="page-body">
+
+        <div className="bkg-circle-gray bkg-circle-big"></div>
+
+        <UserInfo 
+          user={this.props.user}
+          handleLogout={this.props.handleLogout}
+        />
+        
+        <HomeNav title="我要試穿" />
+
+        <div className="tryon-wrap">
+
+          <div className="clothes-customize-section ">
+            {
+              product && product.product_id?
+              <div className="clothes-thumbnail">
+                <img 
+                  src={`http://localhost:3001/photo/${product.kind}/${product.photo}`}
+                  alt={product.photo}
+                />
+              </div>
+              :null
+            }
+
+            {
+              product && product.product_id?
+              <ClothInfo
+                outfit={product}
+                sizeList={sizeList}
+                colorList={colorList}
+                renderSize={this.renderSize}
+                renderColor={this.renderColor}
+              />
+              :null
+            }
+          </div>
+
+          <div className="clothes-list-section">
+            <div className="clothes-list-wrap">
+            {
+              orderList.map(function(d, idx){
+                return (
+                  <div 
+                    key={`order-list-${idx}`}
+                    className={product.product_id === d.product_id ? 'clothes-list-card active' : 'clothes-list-card'}
+                    data-key={d.product_id}
+                    onClick={(e) => handleDivClick(e)}
+                  >
+                    <div className="clothes-thumbnail" data-key={d.product_id}>
+                      <img 
+                        src={`http://localhost:3001/photo/${d.kind}/${d.photo}`}
+                        alt={d.photo}
+                        data-key={d.product_id}
+                      />
+                    </div>
+
+                    <ClothInfo
+                      outfit={d}
+                    />
                   </div>
-                  <div data-key={d.product_id}>
-                    料號: {d.c_product_id}
-                  </div>
-                  <div data-key={d.product_id}>
-                    品牌: {d.brand}
-                  </div>
-                </div>
-              )
-            })
-          }
+                )
+              })
+            }
+            </div>
+          </div>
+
         </div>
 
-        { product.product_id?this.renderProduct():undefined }
-
-        <button onClick={this.confirm}>
-          確認
-        </button>
+        <div className="footer-control-wrap">
+          <a 
+            className="btn btn-icon-round btn-blue" 
+            type="button"
+            onClick={this.confirm}
+          >
+            <div className='icon-round-bkg'><i className="mdi mdi-voice"></i></div>
+            <span>通知店員</span>
+          </a>
+        </div>
       </div>
     );
   }

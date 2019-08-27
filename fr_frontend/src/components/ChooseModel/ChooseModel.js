@@ -1,9 +1,11 @@
 import React from "react";
 import Slider from "react-slick";
 
+import HomeNav from "../HomeNav";
+import UserInfo from "../UserInfo";
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./ChooseModel.css";
 
 const axios = require('axios');
  
@@ -57,28 +59,44 @@ class ChooseModel extends React.Component {
     } 
 
     return (
-      <div>
-        <div className="slide-container">
-          <Slider {...settings}>
-          {
-            modelList.map(function(d, idx){
-              return (
-                <div key={`slide-${idx}`}>
-                  <img 
-                    className="model"
-                    onClick={imageClick}
-                    data-value={d.photo}
-                    src={`http://localhost:3001/photo/model/${d.photo}`} alt={`${d.photo}`}
-                  />
-                </div>
-              )
-            })
-          }
-          </Slider>
+      <div className="page-body">
+        <div className="bkg-circle-green bkg-circle-big"></div>
+        <div className="bkg-circle-green bkg-circle-small"></div>
+
+        <UserInfo 
+          user={this.props.user}
+          handleLogout={this.props.handleLogout}
+        />
+
+        <HomeNav title="自行選擇" />
+
+        <Slider {...settings}>
+        {
+          modelList.map(function(d, idx){
+            return (
+              <div key={`slide-${idx}`}>
+                <img 
+                  className="model"
+                  onClick={imageClick}
+                  data-value={d.photo}
+                  src={`http://localhost:3001/photo/model/${d.photo}`} alt={`${d.photo}`}
+                />
+              </div>
+            )
+          })
+        }
+        </Slider>
+
+        <div className="footer-control-wrap">
+          <a 
+            className="btn btn-icon-round btn-blue" 
+            type="button"
+            onClick={this.props.confirm}
+          >
+            <div className='icon-round-bkg'><i className="mdi mdi-check-circle-outline"></i></div>
+            <span>符合風格</span>
+          </a>
         </div>
-        <button onClick={this.props.confirm}>
-          確認
-        </button>
       </div>
     );
   }

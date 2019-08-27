@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import LoginToggle from "./LoginToggle";
 import * as constants from './constant';
 
 const axios = require('axios');
@@ -107,44 +108,52 @@ class Register extends Component {
 	render() {
 		const { user } = this.state;
 		return (
-			<div>
-				<h2>新申請</h2>
-				<div>
-					<label>
-						手機號碼
-						<input
-							type="text"
-							placeholder="手機號碼"
-							onChange={this.onChangeMobile}
-							value={user.mobile}
-						/>
-					</label>
+			<div className="login-body">
+				<h1 className="sys-title">虛擬試衣間</h1>
+
+				<div className="login-panel-wrap">
+
+					<LoginToggle />
+
+					<div className="login-panel">
+						<label htmlFor="userMobile">帳戶申請</label>
+						<div className="input-icon-group">
+							<i className="mdi mdi-cellphone-iphone"></i>
+							<input
+								id="userMobile"
+								type="text"
+								placeholder="手機號碼"
+								onChange={this.onChangeMobile}
+								value={user.mobile}
+							/>
+						</div>
+						<div className="input-icon-group">
+							<i className="mdi mdi-account"></i>
+							<input
+								type="text"
+								placeholder="暱稱"
+								onChange={this.onChangeNickName}
+								value={user.nick_name}
+							/>
+						</div>
+						<div className="input-icon-group">
+							<i className="mdi mdi-email-open"></i>
+							<input
+								type="text"
+								placeholder="電子信箱"
+								onChange={this.onChangeEmail}
+								value={user.email}
+							/>
+						</div>
+						<a 
+							className="btn-login btn-register"
+							onClick={this.required}
+						>
+							註冊
+						</a>
+					</div>
+
 				</div>
-				<div>
-					<label>
-						暱稱
-						<input
-							type="text"
-							placeholder="暱稱"
-							onChange={this.onChangeNickName}
-							value={user.nick_name}
-						/>
-					</label>
-				</div>
-				<div>
-					<label>
-						電子信箱
-						<input
-							type="text"
-							placeholder="電子信箱"
-							onChange={this.onChangeEmail}
-							value={user.email}
-						/>
-					</label>
-				</div>
-				<button onClick={this.required}>
-					確認
-				</button>
 			</div>
 		)
 	}

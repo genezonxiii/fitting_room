@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import LoginToggle from "./LoginToggle";
 
 const axios = require('axios');
 
@@ -37,22 +38,34 @@ class Login extends Component {
 		const { mobile } = this.state;
 
 		return (
-			<div>
-				<h2>登入</h2>
-				<div>
-					<label>
-						手機
-						<input
-							type="text"
-							placeholder="手機號碼"
-							onChange={this.onChangeMobile}
-							value={mobile}
-						/>
-					</label>
+			<div className="login-body">
+				<h1 className="sys-title">虛擬試衣間</h1>
+
+				<div className="login-panel-wrap">
+
+					<LoginToggle />
+
+					<div className="login-panel">
+						<label htmlFor="userLogin">會員登入</label>
+						<div className="input-icon-group">
+							<i className="mdi mdi-cellphone-iphone"></i>
+							<input
+								id="userLogin"
+								type="text"
+								placeholder="請輸入手機號碼"
+								onChange={this.onChangeMobile}
+								value={mobile}
+							/>
+						</div>
+						<a 
+							className="btn-login btn-signin"
+							onClick={this.confirm}
+						>
+							登入
+						</a>
+					</div>
+
 				</div>
-				<button onClick={this.confirm}>
-					登入
-				</button>
 			</div>
 		)
 	}
