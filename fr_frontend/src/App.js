@@ -1,7 +1,9 @@
 import React from 'react';
 import './App.css';
-import './styles.css';
+
+import 'react-id-swiper/lib/styles/css/swiper.css';
 import './vendor/materialdesignicons.min.css';
+import './styles.css';
 
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
@@ -174,6 +176,7 @@ class App extends React.Component {
                   handleHome={this.handleHome}
                   choose={this.onModelChoose}
                   confirm={this.onModelConfirm} 
+                  model={this.state.model}
                   {...props} 
                 />
               }

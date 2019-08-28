@@ -1,11 +1,8 @@
 import React from "react";
-import Slider from "react-slick";
+import Swiper from 'react-id-swiper';
 
 import HomeNav from "../HomeNav";
 import UserInfo from "../UserInfo";
-
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 const axios = require('axios');
  
@@ -45,14 +42,25 @@ class ChooseModel extends React.Component {
 
   render() {
     const { modelList } = this.state;
-    const settings = {
-      dots: true,
-      arrows: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 2,
-      slidesToScroll: 1
-    };
+    const self = this;
+
+    const params = {
+      slidesPerView: 3,
+      spaceBetween: 30,
+      slidesPerGroup: 3,
+      loop: true,
+      loopFillGroupWithBlank: true,
+      shouldSwiperUpdate: true,
+      pagination: {
+        el: '.swiper-pagination',
+        type: 'bullets',
+        clickable: true
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      }
+    }
 
     const imageClick = (e) => {
       this.props.choose(e.target.getAttribute('data-value'))
@@ -70,22 +78,43 @@ class ChooseModel extends React.Component {
 
         <HomeNav title="自行選擇" handleHome={this.props.handleHome} />
 
-        <Slider {...settings}>
-        {
-          modelList.map(function(d, idx){
-            return (
-              <div key={`slide-${idx}`}>
-                <img 
-                  className="model"
-                  onClick={imageClick}
-                  data-value={d.photo}
-                  src={`http://localhost:3001/photo/model/${d.photo}`} alt={`${d.photo}`}
-                />
-              </div>
-            )
-          })
-        }
-        </Slider>
+        <div className="choose-byself-wrap">
+
+          <Swiper {...params}>
+          {
+            modelList.map(function(d, idx){
+              return (
+                <div 
+                  key={`slide-${idx}`}
+                >
+                  <div 
+                    className="clothes-figure-wrap" 
+                    data-value={d.photo} 
+                    onClick={imageClick}
+                  >
+                    <img 
+                      className="model"
+                      src={`http://localhost:3001/photo/model/${d.photo}`} alt={`${d.photo}`}
+                      data-value={d.photo}
+                    />
+                    <a 
+                      className={self.props.model === d.photo?'btn-choose-figure active':'btn-choose-figure'}
+                      data-value={d.photo}
+                    >
+                      <i 
+                        className="mdi mdi-heart"
+                        data-value={d.photo}
+                      >
+                      </i>
+                    </a>
+                  </div>
+                </div>
+              )
+            })
+          }
+          </Swiper>
+
+        </div>
 
         <div className="footer-control-wrap">
           <a 
