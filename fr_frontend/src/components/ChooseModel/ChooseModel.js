@@ -3,6 +3,7 @@ import Swiper from 'react-id-swiper';
 
 import HomeNav from "../HomeNav";
 import UserInfo from "../UserInfo";
+import * as CONSTANT from '../constant';
 
 const axios = require('axios');
  
@@ -24,7 +25,7 @@ class ChooseModel extends React.Component {
   getModelList(sex) {
     var self = this; 
 
-    axios.get(`http://localhost:3001/api/model/${sex}`)
+    axios.get(`${CONSTANT.WS_URL}/api/model/${sex}`)
       .then(function(response) {
         // handle success
         self.setState({
@@ -94,7 +95,7 @@ class ChooseModel extends React.Component {
                   >
                     <img 
                       className="model"
-                      src={`http://localhost:3001/photo/model/${d.photo}`} alt={`${d.photo}`}
+                      src={`${CONSTANT.WS_URL}/photo/model/${d.photo}`} alt={`${d.photo}`}
                       data-value={d.photo}
                     />
                     <a 

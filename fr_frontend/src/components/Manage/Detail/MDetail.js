@@ -1,5 +1,6 @@
 import React from "react";
 import "./MDetail.css";
+import * as CONSTANT from '../../constant';
 
 const axios = require('axios');
  
@@ -21,7 +22,7 @@ class MOrderDetail extends React.Component {
 
   getDetailList() {
     var self = this;
-    axios.get(`http://localhost:3001/mapi/detail/1`)
+    axios.get(`${CONSTANT.WS_URL}/mapi/detail/1`)
       .then(function(response) {
         // handle success
         self.setState({
@@ -63,7 +64,7 @@ class MOrderDetail extends React.Component {
                 </span>
                 <img 
                   className="model"
-                  src={`http://localhost:3001/photo/${item.kind}/${item.photo}`} 
+                  src={`${CONSTANT.WS_URL}/photo/${item.kind}/${item.photo}`} 
                   alt={`${item.photo}`}
                 />
               </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import * as CONSTANT from './constant';
 
 function Figure(props) {
   return (
@@ -6,7 +7,7 @@ function Figure(props) {
       <div className="figure-fitting-wrap">
         <img 
         	className="fitting-figure" 
-        	src={`http://localhost:3001/photo/model/${props.model}`}
+        	src={`${CONSTANT.WS_URL}/photo/model/${props.model}`}
         	alt={props.model}
         />
         {
@@ -14,7 +15,7 @@ function Figure(props) {
 		        <div className="fitting-clothes-wrap">
 		          <img 
 		          	className="fitting-clothes" 
-		          	src={`http://localhost:3001/photo/cloth/${props.outfit.cloth.photo}`}
+		          	src={`${CONSTANT.WS_URL}/photo/cloth/${props.outfit.cloth.photo}`}
 		          	alt={props.outfit.cloth.photo} 
 		          	onClick={props.handleClothOffClick}
 		          />
@@ -26,7 +27,7 @@ function Figure(props) {
 						<div className="fitting-pants-wrap">
 		          <img 
 			          className="fitting-pants" 
-			          src={`http://localhost:3001/photo/pants/${props.outfit.pants.photo}`} 
+			          src={`${CONSTANT.WS_URL}/photo/pants/${props.outfit.pants.photo}`} 
 			          alt={props.outfit.pants.photo}
 			          onClick={props.handlePantsOffClick}
 		          />
@@ -36,7 +37,7 @@ function Figure(props) {
         <div className="fitting-shoes-wrap">
           <img 
           	className="fitting-shoes" 
-          	src={`http://localhost:3001/photo/shoe/shoes-03_pair.png`}
+          	src={`${CONSTANT.WS_URL}/photo/shoe/shoes-03_pair.png`}
           	alt=""
           />
         </div>

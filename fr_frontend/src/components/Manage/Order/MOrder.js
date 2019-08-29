@@ -1,5 +1,6 @@
 import React from "react";
 import "./MOrder.css";
+import * as CONSTANT from '../../constant';
 
 const axios = require('axios');
  
@@ -21,7 +22,7 @@ class Order extends React.Component {
 
   getList() {
     var self = this;
-    axios.get(`http://localhost:3001/mapi/order`)
+    axios.get(`${CONSTANT.WS_URL}/mapi/order`)
       .then(function(response) {
         // handle success
         self.setState({

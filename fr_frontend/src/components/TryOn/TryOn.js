@@ -11,6 +11,7 @@ import ClothInfo from "../ClothInfo";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./TryOn.css";
+import * as CONSTANT from '../constant';
 
 const axios = require('axios');
  
@@ -53,7 +54,7 @@ class TryOn extends React.Component {
   getProductList(kind) {
     var self = this; 
 
-    axios.get(`http://localhost:3001/api/product/list/${kind}`)
+    axios.get(`${CONSTANT.WS_URL}/api/product/list/${kind}`)
       .then(function(response) {
         // handle success
         switch (kind) {

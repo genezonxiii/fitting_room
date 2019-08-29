@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import LoginToggle from "./LoginToggle";
+import * as CONSTANT from './constant';
 
 const axios = require('axios');
 
@@ -20,7 +21,7 @@ class Login extends Component {
 	confirm() {
     var self = this; 
 
-    axios.get(`http://localhost:3001/api/user/${this.state.mobile}`)
+    axios.get(`${CONSTANT.WS_URL}/api/user/${this.state.mobile}`)
       .then(function(response) {
         // handle success
         self.props.confirm(response.data);

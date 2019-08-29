@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import LoginToggle from "./LoginToggle";
-import * as constants from './constant';
+import * as CONSTANT from './constant';
 
 const axios = require('axios');
 
@@ -61,13 +61,13 @@ class Register extends Component {
     let errorMsg = [];
 
     if (user.mobile == '') {
-    	errorMsg.push(constants.REQUIRED_MOBILE)
+    	errorMsg.push(CONSTANT.REQUIRED_MOBILE)
     }
     if (user.nick_name == '') {
-    	errorMsg.push(constants.REQUIRED_NICKNAME)
+    	errorMsg.push(CONSTANT.REQUIRED_NICKNAME)
     }
     if (user.email == '') {
-    	errorMsg.push(constants.REQUIRED_EMAIL)
+    	errorMsg.push(CONSTANT.REQUIRED_EMAIL)
     }
 
     errorMsg.length > 0? alert(errorMsg.join("\r\n")):this.valid()
@@ -78,10 +78,10 @@ class Register extends Component {
 		let errorMsg = []
 
 		if(!this.validateMobile(user.mobile)) {
-			errorMsg.push(constants.ERROR_MSG_MOBILE)
+			errorMsg.push(CONSTANT.ERROR_MSG_MOBILE)
 		}
 		if(!this.validateEmail(user.email)) {
-			errorMsg.push(constants.ERROR_MSG_EMAIL)
+			errorMsg.push(CONSTANT.ERROR_MSG_EMAIL)
 		}
 
     errorMsg.length > 0? alert(errorMsg.join("\r\n")):this.confirm()
@@ -90,7 +90,7 @@ class Register extends Component {
 	confirm() {
 		var self = this; 
 
-    axios.post(`http://localhost:3001/api/user`, this.state.user)
+    axios.post(`${CONSTANT.WS_URL}/api/user`, this.state.user)
       .then(function(response) {
         // handle success
         alert(`${self.state.user.nick_name} 您好, 註冊成功!請重新登入!`);

@@ -1,4 +1,5 @@
 import React from "react";
+import * as CONSTANT from './constant';
 
 function TabContent(props) {
   return (
@@ -15,7 +16,7 @@ function TabContent(props) {
               className={props.outfit.product_id === item.product_id ? 'clothes-image-card active' : 'clothes-image-card'}
             >
               <img 
-              	src={`http://localhost:3001/photo/${item.kind}/${item.photo}`} 
+              	src={`${CONSTANT.WS_URL}/photo/${item.kind}/${item.photo}`} 
               	alt={`${item.photo}`}
               	data-key={item.product_id}
               	onClick={(e) => props.handleClick(e)}

@@ -4,6 +4,7 @@ import UserInfo from "../UserInfo";
 import ClothInfo from "../ClothInfo";
 
 import "./Order.css";
+import * as CONSTANT from '../constant';
 
 const axios = require('axios');
  
@@ -46,7 +47,7 @@ class Order extends React.Component {
     if(finalOrderList.length == 0 || finalOrderList.length < orderList.length) {
       console.log('not yet');
     } else {
-      axios.post(`http://localhost:3001/api/order`, order)
+      axios.post(`${CONSTANT.WS_URL}/api/order`, order)
         .then(function(response) {
           // handle success
           console.log(response);
@@ -64,7 +65,7 @@ class Order extends React.Component {
 
   setSizeAndColor(order) {
     const self=this;
-    axios.get(`http://localhost:3001/api/detail/${order.product_id}`)
+    axios.get(`${CONSTANT.WS_URL}/api/detail/${order.product_id}`)
       .then(function(response) {
         // handle success
         const result = response.data;
@@ -237,7 +238,7 @@ class Order extends React.Component {
               product && product.product_id?
               <div className="clothes-thumbnail">
                 <img 
-                  src={`http://localhost:3001/photo/${product.kind}/${product.photo}`}
+                  src={`${CONSTANT.WS_URL}/photo/${product.kind}/${product.photo}`}
                   alt={product.photo}
                 />
               </div>
@@ -270,7 +271,7 @@ class Order extends React.Component {
                   >
                     <div className="clothes-thumbnail" data-key={d.product_id}>
                       <img 
-                        src={`http://localhost:3001/photo/${d.kind}/${d.photo}`}
+                        src={`${CONSTANT.WS_URL}/photo/${d.kind}/${d.photo}`}
                         alt={d.photo}
                         data-key={d.product_id}
                       />
