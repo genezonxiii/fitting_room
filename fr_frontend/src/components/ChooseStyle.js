@@ -1,5 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import iconTakePhoto from "./../images/icon_take-photo.svg";
+import iconChooseByself from "./../images/icon_choose-byself.svg";
+import iconFillForm from "./../images/icon_fill-form.svg";
 
 function ChooseStyle() {
   return (
@@ -14,7 +17,7 @@ function ChooseStyle() {
             className="clothes-select-btn"
           >
             <img 
-              src="images/icon_take-photo.svg" 
+              src={iconTakePhoto}
               alt=""
             />
           </Link>
@@ -29,7 +32,7 @@ function ChooseStyle() {
             className="clothes-select-btn"
           >
             <img 
-              src="images/icon_choose-byself.svg" 
+              src={iconChooseByself}
               alt=""
             />
           </Link>
@@ -43,7 +46,7 @@ function ChooseStyle() {
             to="quest" 
             className="clothes-select-btn">
             <img 
-              src="images/icon_fill-form.svg" 
+              src={iconFillForm}
               alt=""
             />
           </Link>

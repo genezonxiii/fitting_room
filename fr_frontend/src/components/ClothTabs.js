@@ -12,7 +12,7 @@ function ClothTabs(props) {
 			    >
 				    <a href={item.tab}>
 		  				<img 
-		  					src={`images/${item.src}`} 
+		  					src={item.src}
 		  					alt="" 
 		  					data-key={index}
 		  					onClick={props.handleTabClick}

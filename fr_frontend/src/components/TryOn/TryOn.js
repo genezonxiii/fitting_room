@@ -8,6 +8,8 @@ import TabContent from "../TabContent";
 import ClothInfo from "../ClothInfo";
 
 import "./TryOn.css";
+import tabClothes from "./../../images/tab-icon_clothes.png";
+import tabPants from "./../../images/tab-icon_pants.png";
 import * as CONSTANT from '../constant';
 
 const axios = require('axios');
@@ -27,8 +29,8 @@ class TryOn extends React.Component {
       clothTabs: {
         active: 0,
         tabs: [
-          {tab: "#tabs-1", src: "tab-icon_clothes.png", desc: "上衣", kind: "cloth"},
-          {tab: "#tabs-2", src: "tab-icon_pants.png", desc: "褲/裙", kind: "pants"}
+          {tab: "#tabs-1", src: tabClothes, desc: "上衣", kind: "cloth"},
+          {tab: "#tabs-2", src: tabPants, desc: "褲/裙", kind: "pants"}
           // {tab: "#tabs-3", src: "tab-icon_dress.png", desc: "洋裝", kind: "onepiece"},
           // {tab: "#tabs-4", src: "tab-icon_shoes.png", desc: "鞋子"}
         ]

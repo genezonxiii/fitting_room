@@ -1,32 +1,36 @@
 import React, { Component } from "react";
 import HomeNav from "./HomeNav";
 import UserInfo from "./UserInfo";
+import imgManBody from "./../images/man-body-silhouette.png";
+import imgWomanBody from "./../images/woman-body-silhouette.png";
+import imgBody from "./../images/body-silhouette.png";
 
 const data = [{
 	id: 'figureM',
 	value: 'M',
 	label: '男',
-	img: 'man-body-silhouette.png'
+	img: imgManBody
 }, {
 	id: 'figureF',
 	value: 'F',
 	label: '女',
-	img: 'woman-body-silhouette.png'
+	img: imgWomanBody
 }, {
 	id: 'figureX',
 	value: 'X',
 	label: '不提供',
-	img: 'body-silhouette.png'
+	img: imgBody
 }];
 
 class Quest extends Component {
 	constructor(props) {
 		super(props)
+		const defData = data[1];
 		this.state = {
-			figure: 'man-body-silhouette.png',
+			figure: defData.img,
 			quest: {
 				age: '',
-				sex: 'M'
+				sex: defData.value
 			}
 		}
 		this.onChangeAge = this.onChangeAge.bind(this);
@@ -61,7 +65,7 @@ class Quest extends Component {
         <div className="figure-fitting-wrap">
           <img 
           	className="fitting-figure" 
-          	src={`images/${figure}`} 
+          	src={figure} 
           	alt={figure} 
           />
         </div>

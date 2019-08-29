@@ -17,7 +17,7 @@ body {
   padding: 0; }
 
 .login-body {
-  background: url("/images/login-bkg.jpg") no-repeat;
+  background: url("./images/login-bkg.jpg") no-repeat;
   background-size: cover;
   background-position: center center;
   display: flex;
@@ -198,7 +198,7 @@ h1.sys-title {
   top: 1rem;
   z-index: 1; }
   .home-navbar a.go-home {
-    background: url("/images/icon_nav-home.svg") no-repeat;
+    background: url("./images/icon_nav-home.svg") no-repeat;
     display: block;
     float: left;
     width: 60px;
@@ -296,7 +296,7 @@ h2.clothes-select-title {
   justify-content: center; }
 
 .photo-section-inner {
-  background: #aaa url("/images/icon_photo.svg") no-repeat center center;
+  background: #aaa url("./images/icon_photo.svg") no-repeat center center;
   background-size: 72px 60px;
   border: 10px solid #fff;
   position: relative;
@@ -475,16 +475,16 @@ ul.clothes-tabs {
     position: relative;
     text-align: center; }
     ul.clothes-tabs li:nth-child(1) {
-      background: url("/images/tab-icon_clothes_gray.png") no-repeat top center;
+      background: url("./images/tab-icon_clothes_gray.png") no-repeat top center;
       background-size: 64px; }
     ul.clothes-tabs li:nth-child(2) {
-      background: url("/images/tab-icon_pants_gray.png") no-repeat top center;
+      background: url("./images/tab-icon_pants_gray.png") no-repeat top center;
       background-size: 64px; }
     ul.clothes-tabs li:nth-child(3) {
-      background: url("/images/tab-icon_dress_gray.png") no-repeat top center;
+      background: url("./images/tab-icon_dress_gray.png") no-repeat top center;
       background-size: 64px; }
     ul.clothes-tabs li:nth-child(4) {
-      background: url("/images/tab-icon_shoes_gray.png") no-repeat top center;
+      background: url("./images/tab-icon_shoes_gray.png") no-repeat top center;
       background-size: 64px; }
     ul.clothes-tabs li a {
       color: #aaa;
@@ -559,7 +559,7 @@ ul.clothes-tabs {
     border-radius: 12px;
     background: rgba(0, 0, 0, 0.1); }
     .clothes-image-grid .card-check-toggle.active {
-      background-image: url("/images/toggle-active.svg"); }
+      background-image: url("./images/toggle-active.svg"); }
 
 .clothes-info-wrap {
   padding: 15px; }
