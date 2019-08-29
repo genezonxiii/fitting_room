@@ -1,5 +1,4 @@
 import React from "react";
-import Slider from "react-slick";
 
 import HomeNav from "../HomeNav";
 import UserInfo from "../UserInfo";
@@ -8,8 +7,6 @@ import ClothTabs from "../ClothTabs";
 import TabContent from "../TabContent";
 import ClothInfo from "../ClothInfo";
 
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import "./TryOn.css";
 import * as CONSTANT from '../constant';
 
