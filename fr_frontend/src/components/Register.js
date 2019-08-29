@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import LoginToggle from "./LoginToggle";
 import * as CONSTANT from './constant';
 
@@ -8,6 +9,7 @@ class Register extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
+			isRegister: false,
 			user: {
 				mobile: '',
 				nick_name: '',
@@ -22,6 +24,8 @@ class Register extends Component {
 		this.valid = this.valid.bind(this);
 		this.resetUser = this.resetUser.bind(this);
 		this.confirm = this.confirm.bind(this);
+
+		this.renderRedirect = this.renderRedirect.bind(this);
 	}
 
 	onChangeMobile (e) {
@@ -38,6 +42,7 @@ class Register extends Component {
 
 	resetUser() {
 		this.setState({
+			isRegister: true,
 			user: {
 				mobile: '',
 				nick_name: '',
@@ -93,7 +98,12 @@ class Register extends Component {
     axios.post(`${CONSTANT.WS_URL}/api/user`, this.state.user)
       .then(function(response) {
         // handle success
-        alert(`${self.state.user.nick_name} 您好, 註冊成功!請重新登入!`);
+        if (response.data.success) {
+        	alert(`${self.state.user.nick_name} 您好, 註冊成功!請重新登入!`);
+        } else {
+        	alert('註冊失敗，這個手機號碼已有人使用!');
+        }
+
         self.resetUser();
       })
       .catch(function (error) {
@@ -105,10 +115,17 @@ class Register extends Component {
       });
 	}
 
+	renderRedirect() {
+		return (
+			<Redirect exact from="/register" to="/login" />
+		)
+	}
+
 	render() {
 		const { user } = this.state;
 		return (
 			<div className="login-body">
+				{ this.state.isRegister? this.renderRedirect():null }
 				<h1 className="sys-title">虛擬試衣間</h1>
 
 				<div className="login-panel-wrap">
