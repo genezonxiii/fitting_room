@@ -134,14 +134,6 @@ class TryOn extends React.Component {
  
   render() {
     const { model, outfit, clothList, pantsList, clothTabs } = this.state;
-    const settings = {
-      dots: true,
-      arrows: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 2,
-      slidesToScroll: 1
-    };
 
     const handleClothOnClick = (e) => {
       const { clothList } = this.state;
