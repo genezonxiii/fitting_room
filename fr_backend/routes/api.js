@@ -216,9 +216,13 @@ router.get('/user/:mobile', function (req, res) {
       }
 
       logger.debug(`Result length: ${rows.length}`);
-      let succ = rows.length > 0? true:false;
-      delete rows[0].email;
-      res.send({success: succ, result: rows[0]});
+      
+      if(rows.length > 0){
+        delete rows[0].email;
+        res.send({success: true, result: rows[0]})
+      } else {
+        res.send({success: false, result: []})
+      }
     })
   });
 })
