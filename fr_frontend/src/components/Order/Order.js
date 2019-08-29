@@ -44,7 +44,7 @@ class Order extends React.Component {
       detail: finalOrderList
     }
 
-    if(finalOrderList.length == 0 || finalOrderList.length < orderList.length) {
+    if(finalOrderList.length === 0 || finalOrderList.length < orderList.length) {
       console.log('not yet');
     } else {
       axios.post(`${CONSTANT.WS_URL}/api/order`, order)

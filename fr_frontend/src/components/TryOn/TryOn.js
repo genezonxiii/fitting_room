@@ -195,7 +195,7 @@ class TryOn extends React.Component {
 
             <div className="tabs_container">
               {
-                clothTabs.active == 0?
+                clothTabs.active === 0?
                 <TabContent
                   id="#tabs-1"
                   list={clothList}
@@ -205,7 +205,7 @@ class TryOn extends React.Component {
                 :null
               }
               {
-                clothTabs.active == 1?
+                clothTabs.active === 1?
                 <TabContent
                   id="#tabs-2"
                   list={pantsList}
@@ -217,14 +217,14 @@ class TryOn extends React.Component {
             </div>
 
             {
-              clothTabs.active == 0 && outfit.cloth.product_id?
+              clothTabs.active === 0 && outfit.cloth.product_id?
               <ClothInfo
                 outfit={outfit.cloth}
               />
               :null
             }
             {
-              clothTabs.active == 1 && outfit.pants.product_id?
+              clothTabs.active === 1 && outfit.pants.product_id?
               <ClothInfo
                 outfit={outfit.pants}
               />
