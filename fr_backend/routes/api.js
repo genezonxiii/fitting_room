@@ -15,6 +15,7 @@ router.get('/model/:sex', function (req, res) {
   logger.debug(`model: ${req.params.sex}`)
 
   let query = `SELECT * FROM tb_model where sex = ?`;
+  query = req.params.sex === 'all'?'SELECT * FROM tb_model':query;
   db.getConnection(function(err, connection) { 
     connection.query(query, [req.params.sex], function(err, rows) {
       connection.release();
@@ -29,12 +30,12 @@ router.get('/model/:sex', function (req, res) {
   });
 })
 
-router.get('/product/list/:kind', function (req, res) {
-  logger.debug(`product: ${req.params.kind}`)
+router.get('/product/list/:kind/:sex', function (req, res) {
+  logger.debug(`product: ${req.params.kind}, ${req.params.sex}`)
 
-  let query = `SELECT * FROM tb_product where kind = ?`;
+  let query = `SELECT * FROM tb_product where kind = ? and sex = ?`;
   db.getConnection(function(err, connection) { 
-    connection.query(query, [req.params.kind], function(err, rows) {
+    connection.query(query, [req.params.kind, req.params.sex], function(err, rows) {
       connection.release();
 
       if (err) {
