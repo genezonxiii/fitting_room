@@ -5,6 +5,7 @@ module.exports = {
 	    password: "mysql",
 	    database: "fitting_room"
 	},
+	photo_path: 'd:/fitting_room',
 	log4js: {
 		appenders: { 
 			file: { 
