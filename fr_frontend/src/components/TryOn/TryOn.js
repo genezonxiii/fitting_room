@@ -10,6 +10,8 @@ import ClothInfo from "../ClothInfo";
 import "./TryOn.css";
 import tabClothes from "./../../images/tab-icon_clothes.png";
 import tabPants from "./../../images/tab-icon_pants.png";
+import tabDress from "./../../images/tab-icon_dress.png";
+import tabShoes from "./../../images/tab-icon_shoes.png";
 import * as CONSTANT from '../constant';
 
 const axios = require('axios');
@@ -22,17 +24,21 @@ class TryOn extends React.Component {
       model: this.props.model,
       outfit: {
         cloth: {},
-        pants: {}
+        pants: {},
+        dress: {},
+        shoes: {}
       },
       clothList: [],
       pantsList: [],
+      dressList: [],
+      shoesList: [],
       clothTabs: {
         active: 0,
         tabs: [
           {tab: "#tabs-1", src: tabClothes, desc: "上衣", kind: "cloth"},
-          {tab: "#tabs-2", src: tabPants, desc: "褲/裙", kind: "pants"}
-          // {tab: "#tabs-3", src: "tab-icon_dress.png", desc: "洋裝", kind: "onepiece"},
-          // {tab: "#tabs-4", src: "tab-icon_shoes.png", desc: "鞋子"}
+          {tab: "#tabs-2", src: tabPants, desc: "褲/裙", kind: "pants"},
+          {tab: "#tabs-3", src: tabDress, desc: "洋裝", kind: "dress"},
+          {tab: "#tabs-4", src: tabShoes, desc: "鞋子", kind: "shoes"}
         ]
       }
     }
@@ -40,14 +46,18 @@ class TryOn extends React.Component {
     this.getProductList = this.getProductList.bind(this);
     this.handleClothOffClick = this.handleClothOffClick.bind(this);
     this.handlePantsOffClick = this.handlePantsOffClick.bind(this);
+    this.handleDressOffClick = this.handleDressOffClick.bind(this);
+    this.handleShoesOffClick = this.handleShoesOffClick.bind(this);
     this.handleTabClick = this.handleTabClick.bind(this);
     this.confirm = this.confirm.bind(this);
   }
 
   componentDidMount () {
-    const cloth = 'cloth', pants = 'pants';
+    const cloth = 'cloth', pants = 'pants', dress = 'dress', shoes = 'shoes';
     this.getProductList(cloth);
     this.getProductList(pants);
+    this.getProductList(dress);
+    this.getProductList(shoes);
   }
 
   getProductList(kind) {
@@ -65,6 +75,16 @@ class TryOn extends React.Component {
           case 'pants':
             self.setState({
               pantsList: response.data
+            });
+            break;
+          case 'dress':
+            self.setState({
+              dressList: response.data
+            });
+            break;
+          case 'shoes':
+            self.setState({
+              shoesList: response.data
             });
             break;
           default:
@@ -94,6 +114,24 @@ class TryOn extends React.Component {
       outfit: { 
         ...this.state.outfit, 
         pants: {}
+      }
+    })
+  }
+
+  handleDressOffClick(e) {
+    this.setState({
+      outfit: { 
+        ...this.state.outfit, 
+        dress: {}
+      }
+    })
+  }
+
+  handleShoesOffClick(e) {
+    this.setState({
+      outfit: { 
+        ...this.state.outfit, 
+        shoes: {}
       }
     })
   }
@@ -135,7 +173,7 @@ class TryOn extends React.Component {
   }
  
   render() {
-    const { model, outfit, clothList, pantsList, clothTabs } = this.state;
+    const { model, outfit, clothList, pantsList, dressList, shoesList, clothTabs } = this.state;
 
     const handleClothOnClick = (e) => {
       const { clothList } = this.state;
@@ -167,6 +205,36 @@ class TryOn extends React.Component {
       })
     } 
 
+    const handleDressOnClick = (e) => {
+      const { dressList } = this.state;
+      const id = e.target.getAttribute('data-key');
+      let dress = dressList.find((item)=>{
+        return item.product_id.toString() === id;
+      });
+
+      this.setState({
+        outfit: { 
+          ...this.state.outfit, 
+          dress: dress
+        }
+      })
+    }
+
+    const handleShoesOnClick = (e) => {
+      const { shoesList } = this.state;
+      const id = e.target.getAttribute('data-key');
+      let shoes = shoesList.find((item)=>{
+        return item.product_id.toString() === id;
+      });
+
+      this.setState({
+        outfit: { 
+          ...this.state.outfit, 
+          shoes: shoes
+        }
+      })
+    }
+
     return (
       <div className="page-body">
         <div className="bkg-circle-gray bkg-circle-big"></div>
@@ -184,6 +252,8 @@ class TryOn extends React.Component {
             outfit={outfit}
             handleClothOffClick={this.handleClothOffClick}
             handlePantsOffClick={this.handlePantsOffClick}
+            handledressOffClick={this.handleDressOffClick}
+            handleShoesOffClick={this.handleShoesOffClick}
           />
 
           <div className="clothes-info-section">
@@ -216,6 +286,26 @@ class TryOn extends React.Component {
                 />
                 :null
               }
+              {
+                clothTabs.active === 2?
+                <TabContent
+                  id="#tabs-3"
+                  list={dressList}
+                  outfit={outfit.dress}
+                  handleClick={handleDressOnClick}
+                />
+                :null
+              }
+              {
+                clothTabs.active === 3?
+                <TabContent
+                  id="#tabs-4"
+                  list={shoesList}
+                  outfit={outfit.shoes}
+                  handleClick={handleShoesOnClick}
+                />
+                :null
+              }
             </div>
 
             {
@@ -229,6 +319,13 @@ class TryOn extends React.Component {
               clothTabs.active === 1 && outfit.pants.product_id?
               <ClothInfo
                 outfit={outfit.pants}
+              />
+              :null
+            }
+            {
+              clothTabs.active === 2 && outfit.shoes.product_id?
+              <ClothInfo
+                outfit={outfit.shoes}
               />
               :null
             }
