@@ -19,9 +19,11 @@ const axios = require('axios');
 class TryOn extends React.Component {
   constructor(props) {
     super(props)
+    const { sex, model } = this.props;
 
     this.state = {
-      model: this.props.model,
+      sex: sex,
+      model: model,
       outfit: {
         cloth: {},
         pants: {},
@@ -61,9 +63,10 @@ class TryOn extends React.Component {
   }
 
   getProductList(kind) {
+    const { sex } = this.props;
     var self = this; 
 
-    axios.get(`${CONSTANT.WS_URL}/api/product/list/${kind}`)
+    axios.get(`${CONSTANT.WS_URL}/api/product/list/${kind}/${sex}`)
       .then(function(response) {
         // handle success
         switch (kind) {

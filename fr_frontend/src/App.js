@@ -60,8 +60,9 @@ class App extends React.Component {
     })
   }
 
-  onModelChoose(model) {
+  onModelChoose(sex, model) {
     this.setState({
+      sex: sex,
       model: model
     })
   }
@@ -192,6 +193,7 @@ class App extends React.Component {
                   user={this.state.user}
                   handleLogout={this.handleLogout}
                   handleHome={this.handleHome}
+                  sex={this.state.sex}
                   model={this.state.model}
                   confirm={this.onTryOnConfirm}
                   {...props} 
