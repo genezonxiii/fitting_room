@@ -13,9 +13,9 @@ import Register from './components/Register';
 import ChooseStyle from './components/ChooseStyle';
 import Quest from './components/Quest';
 import Selfie from './components/Selfie';
-import ChooseModel from './components/ChooseModel/ChooseModel';
-import TryOn from './components/TryOn/TryOn';
-import Order from './components/Order/Order';
+import ChooseModel from './components/ChooseModel';
+import TryOn from './components/TryOn';
+import Order from './components/Order';
 
 import MOrder from './components/Manage/Order/MOrder';
 import MOrderDetail from './components/Manage/Detail/MDetail';

@@ -1,9 +1,9 @@
 import React from "react";
 import Swiper from 'react-id-swiper';
 
-import HomeNav from "../HomeNav";
-import UserInfo from "../UserInfo";
-import * as CONSTANT from '../constant';
+import HomeNav from "./HomeNav";
+import UserInfo from "./UserInfo";
+import * as CONSTANT from './constant';
 
 const axios = require('axios');
  

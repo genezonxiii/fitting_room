@@ -1,18 +1,17 @@
 import React from "react";
 
-import HomeNav from "../HomeNav";
-import UserInfo from "../UserInfo";
-import Figure from "../Figure";
-import ClothTabs from "../ClothTabs";
-import TabContent from "../TabContent";
-import ClothInfo from "../ClothInfo";
+import HomeNav from "./HomeNav";
+import UserInfo from "./UserInfo";
+import Figure from "./Figure";
+import ClothTabs from "./ClothTabs";
+import TabContent from "./TabContent";
+import ClothInfo from "./ClothInfo";
 
-import "./TryOn.css";
-import tabClothes from "./../../images/tab-icon_clothes.png";
-import tabPants from "./../../images/tab-icon_pants.png";
-import tabDress from "./../../images/tab-icon_dress.png";
-import tabShoes from "./../../images/tab-icon_shoes.png";
-import * as CONSTANT from '../constant';
+import tabClothes from "./../images/tab-icon_clothes.png";
+import tabPants from "./../images/tab-icon_pants.png";
+import tabDress from "./../images/tab-icon_dress.png";
+import tabShoes from "./../images/tab-icon_shoes.png";
+import * as CONSTANT from './constant';
 
 const axios = require('axios');
  

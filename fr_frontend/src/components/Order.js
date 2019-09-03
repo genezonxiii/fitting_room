@@ -1,10 +1,9 @@
 import React from "react";
-import HomeNav from "../HomeNav";
-import UserInfo from "../UserInfo";
-import ClothInfo from "../ClothInfo";
+import HomeNav from "./HomeNav";
+import UserInfo from "./UserInfo";
+import ClothInfo from "./ClothInfo";
 
-import "./Order.css";
-import * as CONSTANT from '../constant';
+import * as CONSTANT from './constant';
 
 const axios = require('axios');
  
