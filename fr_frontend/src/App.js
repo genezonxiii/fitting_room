@@ -105,9 +105,9 @@ class App extends React.Component {
   render() {
     const { isLogin, isModel, isTryOn, user } = this.state;
     return (
-      <Router>
+      <Router basename="vfit">
         <div>
-          <Route exact path="/" component={Home} />
+          <Redirect exact from="/" to="/login" />
           <Route 
             path="/login" 
             render={(props) => {
