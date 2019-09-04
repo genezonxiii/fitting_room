@@ -22,7 +22,7 @@ function ClothInfo(props) {
       	</div>
       </div>
       <div className="form-row" data-key={props.outfit.product_id}>
-        <div className="form-label" data-key={props.outfit.product_id}>款式：</div>
+        <div className="form-label" data-key={props.outfit.product_id}>風格：</div>
         <div className="form-value" data-key={props.outfit.product_id}>{props.outfit.style}</div>
       </div>
       <div className="form-row" data-key={props.outfit.product_id}>
