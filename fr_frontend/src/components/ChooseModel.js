@@ -3,6 +3,7 @@ import Swiper from 'react-id-swiper';
 
 import HomeNav from "./HomeNav";
 import UserInfo from "./UserInfo";
+import Popup from "./Popup";
 import * as CONSTANT from './constant';
 
 const axios = require('axios');
@@ -11,10 +12,15 @@ class ChooseModel extends React.Component {
   constructor(props) {
     super(props)
       this.state = {
+        msgList: {
+          msg1: false
+        },
         modelList: []
       }
 
       this.getModelList = this.getModelList.bind(this);
+      this.confirmMsg1 = this.confirmMsg1.bind(this);
+      this.renderMsg1 = this.renderMsg1.bind(this);
   }
 
   componentDidMount () {
@@ -41,8 +47,45 @@ class ChooseModel extends React.Component {
       });
   }
 
+  confirmMsg1() {
+    const { orderList, finalOrderList, msgList } = this.state;
+
+    if(this.props.model === '') {
+      this.setState({
+        msgList: {
+          ...msgList,
+          msg1: true
+        }
+      })
+    } else {
+      this.props.confirm();
+    }
+  }
+
+  renderMsg1() {
+    const { msgList } = this.state;
+
+    const handelOK = (e) => {
+      this.setState({
+        msgList: {
+          ...msgList,
+          msg1: false
+        }
+      })
+    }
+
+    return (
+      <Popup
+        active={msgList.msg1}
+        msg="請挑選一位符合您風格的人物！"
+        btns={{ok:true}}
+        ok={handelOK}
+      />
+    )
+  }
+
   render() {
-    const { modelList } = this.state;
+    const { modelList, msgList } = this.state;
     const self = this;
 
     const params = {
@@ -125,12 +168,14 @@ class ChooseModel extends React.Component {
           <a 
             className="btn btn-icon-round btn-blue" 
             type="button"
-            onClick={this.props.confirm}
+            onClick={this.confirmMsg1}
           >
             <div className='icon-round-bkg'><i className="mdi mdi-check-circle-outline"></i></div>
             <span>符合風格</span>
           </a>
         </div>
+
+        { msgList.msg1?this.renderMsg1():null }
       </div>
     );
   }

@@ -24,7 +24,10 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      isLogin: false
+      isLogin: false,
+      isTryOn: false,
+      model: '',
+      orderList: []
     }
 
     this.handleHome = this.handleHome.bind(this);
@@ -94,7 +97,8 @@ class App extends React.Component {
   onOrderConfirm() {
     this.setState({
       isModel: false,
-      isTryOn: false
+      isTryOn: false,
+      model: ''
     })
   }
 

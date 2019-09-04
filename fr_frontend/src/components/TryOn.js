@@ -6,6 +6,7 @@ import Figure from "./Figure";
 import ClothTabs from "./ClothTabs";
 import TabContent from "./TabContent";
 import ClothInfo from "./ClothInfo";
+import Popup from "./Popup";
 
 import tabClothes from "./../images/tab-icon_clothes.png";
 import tabPants from "./../images/tab-icon_pants.png";
@@ -41,6 +42,9 @@ class TryOn extends React.Component {
           {tab: "#tabs-3", src: tabDress, desc: "洋裝", kind: "dress"},
           {tab: "#tabs-4", src: tabShoes, desc: "鞋子", kind: "shoes"}
         ]
+      },
+      msgList: {
+        msg1: false
       }
     }
 
@@ -51,6 +55,8 @@ class TryOn extends React.Component {
     this.handleShoesOffClick = this.handleShoesOffClick.bind(this);
     this.handleTabClick = this.handleTabClick.bind(this);
     this.confirm = this.confirm.bind(this);
+    this.confirmMsg1 = this.confirmMsg1.bind(this);
+    this.renderMsg1 = this.renderMsg1.bind(this);
   }
 
   componentDidMount () {
@@ -165,7 +171,7 @@ class TryOn extends React.Component {
         <a 
           className="btn btn-icon-round btn-yellow" 
           type="button"
-          onClick={this.confirm}
+          onClick={this.confirmMsg1}
         >
           <div className='icon-round-bkg'><i className="mdi mdi-tshirt-crew-outline"></i></div>
           <span>我要試穿</span>
@@ -173,9 +179,48 @@ class TryOn extends React.Component {
       </div>
     )
   }
+
+  confirmMsg1() {
+    const { outfit, msgList } = this.state;
+
+    if( !outfit.cloth.product_id 
+        && !outfit.pants.product_id 
+        && !outfit.dress.product_id ) {
+      this.setState({
+        msgList: {
+          ...msgList,
+          msg1: true
+        }
+      })
+    } else {
+      this.confirm();
+    }
+  }
+
+  renderMsg1() {
+    const { msgList } = this.state;
+
+    const handelOK = (e) => {
+      this.setState({
+        msgList: {
+          ...msgList,
+          msg1: false
+        }
+      })
+    }
+
+    return (
+      <Popup
+        active={msgList.msg1}
+        msg="請您至少挑選一件試穿的衣物！(鞋子除外)"
+        btns={{ok:true}}
+        ok={handelOK}
+      />
+    )
+  }
  
   render() {
-    const { model, outfit, clothList, pantsList, dressList, shoesList, clothTabs } = this.state;
+    const { model, outfit, clothList, pantsList, dressList, shoesList, clothTabs, msgList } = this.state;
 
     const handleClothOnClick = (e) => {
       const { clothList } = this.state;
@@ -336,6 +381,7 @@ class TryOn extends React.Component {
         </div>
 
         { this.renderControl() }
+        { msgList.msg1?this.renderMsg1():null }
       </div>
     );
   }
