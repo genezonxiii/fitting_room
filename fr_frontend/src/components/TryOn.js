@@ -370,7 +370,14 @@ class TryOn extends React.Component {
               :null
             }
             {
-              clothTabs.active === 2 && outfit.shoes.product_id?
+              clothTabs.active === 2 && outfit.dress.product_id?
+              <ClothInfo
+                outfit={outfit.dress}
+              />
+              :null
+            }
+            {
+              clothTabs.active === 3 && outfit.shoes.product_id?
               <ClothInfo
                 outfit={outfit.shoes}
               />
