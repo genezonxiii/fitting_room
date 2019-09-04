@@ -260,21 +260,12 @@ class Order extends React.Component {
       })
     }
 
-    const handelCancel = (e) => {
-      this.setState({
-        msgList: {
-          ...msgList,
-          msg1: false
-        }
-      })
-    }
-
     return (
       <Popup
         active={msgList.msg1}
         msg="請挑選您要試穿的尺寸！"
+        btns={{ok:true}}
         ok={handelOK}
-        cancel={handelCancel}
       />
     )
   }
@@ -306,6 +297,7 @@ class Order extends React.Component {
       <Popup
         active={msgList.msg2}
         msg="是否確認送出?"
+        btns={{ok:true, cancel: true}}
         ok={handelOK}
         cancel={handelCancel}
       />
@@ -325,22 +317,12 @@ class Order extends React.Component {
       })
     }
 
-    const handelCancel = (e) => {
-      this.props.confirm();
-      this.setState({
-        msgList: {
-          ...msgList,
-          msg3: false
-        }
-      })
-    }
-
     return (
       <Popup
         active={msgList.msg3}
         msg="店員已收到您的試衣清單。請稍候一會兒，將馬上為您送上！！您還可以繼續挑選其他的穿搭唷！！"
+        btns={{ok:true}}
         ok={handelOK}
-        cancel={handelCancel}
       />
     )
   }
