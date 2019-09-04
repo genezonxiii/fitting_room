@@ -49,7 +49,10 @@ class Order extends React.Component {
   confirmMsg1() {
     const { orderList, finalOrderList, msgList } = this.state;
 
-    if(finalOrderList.length === 0 || finalOrderList.length < orderList.length) {
+    if(finalOrderList.length === 0 
+      || orderList.some(item=>!item.color || !item.size)
+      || finalOrderList.some(item=>!item.color || !item.size)
+      || finalOrderList.length < orderList.length) {
       this.setState({
         msgList: {
           ...msgList,
@@ -94,7 +97,6 @@ class Order extends React.Component {
       axios.post(`${CONSTANT.WS_URL}/api/order`, order)
         .then(function(response) {
           // handle success
-          console.log(response);
           self.confirmMsg3();
         })
         .catch(function (error) {
@@ -263,7 +265,7 @@ class Order extends React.Component {
     return (
       <Popup
         active={msgList.msg1}
-        msg="請挑選您要試穿的尺寸！"
+        msg="請挑選您要試穿的尺寸及顏色！"
         btns={{ok:true}}
         ok={handelOK}
       />
