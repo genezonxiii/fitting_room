@@ -19,18 +19,20 @@ function Popup(props) {
           <p>{props.msg}</p>
         </div>
         <div className="modal-footer">
-          <a 
-            className="modal-btn btn-blue txt-bold"
-            onClick={props.ok}
-          >
-            確定
-          </a>
-          <a 
-            className="modal-btn btn-gray btn-close-modal"
-            onClick={props.cancel}
-          >
-            取消
-          </a>
+          <div className="modal-btn-wrap">
+            <a 
+              className="modal-btn btn-blue txt-bold"
+              onClick={props.ok}
+            >
+              確定
+            </a>
+            <a 
+              className="modal-btn btn-gray btn-close-modal"
+              onClick={props.cancel}
+            >
+              取消
+            </a>
+          </div>
         </div>
       </div>
     </div>

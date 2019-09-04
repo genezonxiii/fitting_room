@@ -813,15 +813,16 @@ select {
     width: 160px; }
 
 .modal-footer {
-  border-top: 2px solid #ddd;
   padding: 0;
   width: 100%;
   bottom: 0; }
-  .modal-footer .modal-btn {
+
+.modal-btn-wrap {
+  display: flex; }
+  .modal-btn-wrap .modal-btn {
     color: #333;
     display: block;
-    float: left;
-    width: 50%;
+    flex: 1;
     text-decoration: none;
     text-align: center;
     padding: 1rem 0; }
