@@ -2,6 +2,7 @@ import React from "react";
 import HomeNav from "./HomeNav";
 import UserInfo from "./UserInfo";
 import ClothInfo from "./ClothInfo";
+import Popup from "./Popup";
 
 import * as CONSTANT from './constant';
 
@@ -17,13 +18,24 @@ class Order extends React.Component {
       product: {},
       sizeList: [],
       colorList: [],
-      finalOrderList: []
+      finalOrderList: [],
+      msgList: {
+        msg1: false,
+        msg2: false,
+        msg3: false
+      }
     }
 
     this.setSizeAndColor = this.setSizeAndColor.bind(this);
     this.renderSize = this.renderSize.bind(this);
     this.renderColor = this.renderColor.bind(this);
-    this.confirm = this.confirm.bind(this);
+    this.renderMsg1 = this.renderMsg1.bind(this);
+    this.renderMsg2 = this.renderMsg2.bind(this);
+    this.renderMsg3 = this.renderMsg3.bind(this);
+    this.confirmMsg1 = this.confirmMsg1.bind(this);
+    this.confirmMsg2 = this.confirmMsg2.bind(this);
+    this.confirmMsg3 = this.confirmMsg3.bind(this);
+    this.confirmOrder = this.confirmOrder.bind(this);
   }
 
   componentDidMount() {
@@ -34,7 +46,40 @@ class Order extends React.Component {
     })
   }
 
-  confirm() {
+  confirmMsg1() {
+    const { orderList, finalOrderList, msgList } = this.state;
+
+    if(finalOrderList.length === 0 || finalOrderList.length < orderList.length) {
+      this.setState({
+        msgList: {
+          ...msgList,
+          msg1: true
+        }
+      })
+    } else {
+      this.confirmMsg2();
+    }
+  }
+
+  confirmMsg2() {
+    this.setState({
+      msgList: {
+        ...this.state.msgList,
+        msg2: true
+      }
+    })
+  }
+
+  confirmMsg3() {
+    this.setState({
+      msgList: {
+        ...this.state.msgList,
+        msg3: true
+      }
+    })
+  }
+
+  confirmOrder() {
     var self = this;
     const { orderList, finalOrderList } = this.state;
 
@@ -50,7 +95,7 @@ class Order extends React.Component {
         .then(function(response) {
           // handle success
           console.log(response);
-          self.props.confirm();
+          self.confirmMsg3();
         })
         .catch(function (error) {
           // handle error
@@ -203,8 +248,105 @@ class Order extends React.Component {
     )
   }
 
+  renderMsg1() {
+    const { msgList } = this.state;
+
+    const handelOK = (e) => {
+      this.setState({
+        msgList: {
+          ...msgList,
+          msg1: false
+        }
+      })
+    }
+
+    const handelCancel = (e) => {
+      this.setState({
+        msgList: {
+          ...msgList,
+          msg1: false
+        }
+      })
+    }
+
+    return (
+      <Popup
+        active={msgList.msg1}
+        msg="請挑選您要試穿的尺寸！"
+        ok={handelOK}
+        cancel={handelCancel}
+      />
+    )
+  }
+
+  renderMsg2() {
+    const { msgList } = this.state;
+
+    const handelOK = (e) => {
+      this.confirmOrder();
+
+      this.setState({
+        msgList: {
+          ...msgList,
+          msg2: false
+        }
+      })
+    }
+
+    const handelCancel = (e) => {
+      this.setState({
+        msgList: {
+          ...msgList,
+          msg2: false
+        }
+      })
+    }
+
+    return (
+      <Popup
+        active={msgList.msg2}
+        msg="是否確認送出?"
+        ok={handelOK}
+        cancel={handelCancel}
+      />
+    )
+  }
+
+  renderMsg3() {
+    const { msgList } = this.state;
+
+    const handelOK = (e) => {
+      this.props.confirm();
+      this.setState({
+        msgList: {
+          ...msgList,
+          msg3: false
+        }
+      })
+    }
+
+    const handelCancel = (e) => {
+      this.props.confirm();
+      this.setState({
+        msgList: {
+          ...msgList,
+          msg3: false
+        }
+      })
+    }
+
+    return (
+      <Popup
+        active={msgList.msg3}
+        msg="店員已收到您的試衣清單。請稍候一會兒，將馬上為您送上！！您還可以繼續挑選其他的穿搭唷！！"
+        ok={handelOK}
+        cancel={handelCancel}
+      />
+    )
+  }
+
   render() {
-    const { orderList, product, sizeList, colorList } = this.state;
+    const { orderList, product, sizeList, colorList, msgList } = this.state;
     
     const handleDivClick = (e) => {
       const product_id = parseInt(e.target.getAttribute('data-key'));
@@ -292,12 +434,16 @@ class Order extends React.Component {
           <a 
             className="btn btn-icon-round btn-blue" 
             type="button"
-            onClick={this.confirm}
+            onClick={this.confirmMsg1}
           >
             <div className='icon-round-bkg'><i className="mdi mdi-voice"></i></div>
             <span>通知店員</span>
           </a>
         </div>
+
+        { msgList.msg1?this.renderMsg1():null }
+        { msgList.msg2?this.renderMsg2():null }
+        { msgList.msg3?this.renderMsg3():null }
       </div>
     );
   }
