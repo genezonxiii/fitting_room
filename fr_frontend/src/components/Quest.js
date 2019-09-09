@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import HomeNav from "./HomeNav";
 import UserInfo from "./UserInfo";
+import Popup from "./Popup";
 import imgManBody from "./../images/man-body-silhouette.png";
 import imgWomanBody from "./../images/woman-body-silhouette.png";
 import imgBody from "./../images/body-silhouette.png";
+import * as CONSTANT from './constant';
 
+const axios = require('axios');
 const data = [{
 	id: 'figureM',
 	value: 'M',
@@ -27,6 +30,10 @@ class Quest extends Component {
 		super(props)
 		const defData = data[1];
 		this.state = {
+      msgList: {
+        msg1: false,
+        msg2: false
+      },
 			figure: defData.img,
 			quest: {
 				age: '',
@@ -35,16 +42,22 @@ class Quest extends Component {
 		}
 		this.onChangeAge = this.onChangeAge.bind(this);
 		this.onChangeSex = this.onChangeSex.bind(this);
-		this.confirm = this.confirm.bind(this);
+		this.handleChoose = this.handleChoose.bind(this);
 		this.renderSex = this.renderSex.bind(this);
 		this.renderFigure = this.renderFigure.bind(this);
+    this.confirmMsg1 = this.confirmMsg1.bind(this);
+    this.confirmMsg2 = this.confirmMsg2.bind(this);
+    this.renderMsg1 = this.renderMsg1.bind(this);
+    this.renderMsg2 = this.renderMsg2.bind(this);
 	}
 
 	onChangeAge (e) {
+		this.handleChoose(this.state.quest.sex, e.target.value);
 		this.setState({ quest: { ...this.state.quest, age: e.target.value} })
 	}
 
 	onChangeSex (e) {
+		this.handleChoose(e.target.getAttribute('data-key'), this.state.quest.age);
 		this.setState({ 
 			figure: e.target.getAttribute('data-img'),
 			quest: { 
@@ -54,8 +67,25 @@ class Quest extends Component {
 		})
 	}
 
-	confirm() {
-		console.log(this.state.quest);
+	handleChoose(sex, age) {
+		if(!age){ return; }
+
+		const self = this;
+		const real_sex = sex === 'X'?'F':sex;
+
+		axios.get(`${CONSTANT.WS_URL}/api/model/age/${real_sex}/${age}`)
+      .then(function(response) {
+        // handle success
+        const result = response.data[0];
+        self.props.choose(result.sex, result.photo);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .finally(function () {
+        // always executed
+      });
 	}
 
 	renderFigure(){
@@ -101,8 +131,87 @@ class Quest extends Component {
 		)
 	}
 
+	confirmMsg1() {
+    const { quest, msgList } = this.state;
+
+    if(quest.age === '' || quest.sex === '') {
+      this.setState({
+        msgList: {
+          ...msgList,
+          msg1: true
+        }
+      })
+    } else {
+      this.confirmMsg2();
+    }
+  }
+
+  renderMsg1() {
+    const { msgList } = this.state;
+
+    const handelOK = (e) => {
+      this.setState({
+        msgList: {
+          ...msgList,
+          msg1: false
+        }
+      })
+    }
+
+    return (
+      <Popup
+        active={msgList.msg1}
+        msg="請填寫年齡欄位！"
+        btns={{ok:true}}
+        ok={handelOK}
+      />
+    )
+  }
+
+  confirmMsg2() {
+    this.setState({
+      msgList: {
+        ...this.state.msgList,
+        msg2: true
+      }
+    })
+  }
+
+  renderMsg2() {
+    const { msgList } = this.state;
+
+    const handelOK = (e) => {
+      this.props.confirm();
+      this.setState({
+        msgList: {
+          ...msgList,
+          msg2: false
+        }
+      })
+    }
+
+    const handelCancel = (e) => {
+      this.setState({
+        msgList: {
+          ...msgList,
+          msg2: false
+        }
+      })
+    }
+
+    return (
+      <Popup
+        active={msgList.msg2}
+        msg="是否使用此設定，挑選一位符合您風格的人物！"
+        btns={{ok:true, cancel: true}}
+        ok={handelOK}
+        cancel={handelCancel}
+      />
+    )
+  }
+
 	render() {
-		const { quest } = this.state;
+		const { quest, msgList } = this.state;
 		return (
 			<div className="page-body">
 
@@ -145,12 +254,15 @@ class Quest extends Component {
 	        <a 
 	        	className="btn btn-icon-round btn-blue" 
 	        	type="button"
-	        	onClick={this.confirm}
+	        	onClick={this.confirmMsg1}
 	        >
 	          <div className='icon-round-bkg'><i className="mdi mdi-check-circle-outline"></i></div>
 	          <span>確認</span>
 	        </a>
 	      </div>
+
+	      { msgList.msg1?this.renderMsg1():null }
+	      { msgList.msg2?this.renderMsg2():null }
 			</div>
 		)
 	}

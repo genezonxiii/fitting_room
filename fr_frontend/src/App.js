@@ -148,10 +148,15 @@ class App extends React.Component {
           <Route 
             path="/quest" 
             render={(props) => {
-                return <Quest 
+                return isModel?
+                <Redirect to="/tryOn"/>
+                :
+                <Quest 
                   user={this.state.user}
                   handleLogout={this.handleLogout}
                   handleHome={this.handleHome}
+                  choose={this.onModelChoose}
+                  confirm={this.onModelConfirm} 
                   {...props} 
                 />
               }
