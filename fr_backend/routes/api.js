@@ -11,6 +11,25 @@ var logger = log4js.getLogger('API');
 // moment
 var moment = require('moment');
 
+router.get('/model/age/:sex/:age', function (req, res) {
+  logger.debug(`model: ${req.params.sex}, ${req.params.age}`)
+
+  let query = `SELECT * FROM tb_model where sex = ? order by ABS(age-?) limit 1`;
+  
+  db.getConnection(function(err, connection) { 
+    connection.query(query, [req.params.sex, req.params.age], function(err, rows) {
+      connection.release();
+
+      if (err) {
+          logger.error(err);
+          return;
+      }
+
+      res.send(rows);
+    })
+  });
+})
+
 router.get('/model/:sex', function (req, res) {
   logger.debug(`model: ${req.params.sex}`)
 
