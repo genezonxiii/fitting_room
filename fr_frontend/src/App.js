@@ -165,10 +165,15 @@ class App extends React.Component {
           <Route 
             path="/selfie"
             render={(props) => {
-                return <Selfie 
+                return isModel?
+                <Redirect to="/tryOn"/>
+                :
+                <Selfie 
                   user={this.state.user}
                   handleLogout={this.handleLogout}
                   handleHome={this.handleHome}
+                  choose={this.onModelChoose}
+                  confirm={this.onModelConfirm}
                   {...props} 
                 />
               }
