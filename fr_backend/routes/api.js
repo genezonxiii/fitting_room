@@ -8,6 +8,9 @@ var db = require('../model/db');
 var log4js = require('../log4js').log4js;
 var logger = log4js.getLogger('API');
 
+const axios = require('axios');
+const config = require('../config');
+
 // moment
 var moment = require('moment');
 
@@ -285,6 +288,32 @@ router.post('/user', function (req, res) {
   })
 })
 
+router.post('/selfie', function (req, res) {
+  const data = req.body.data;
+  const mobile = req.body.mobile;
+  logger.debug(`selfie: ${mobile}`);
+
+  const base64Data = data.replace(/^data:image\/jpeg;base64,/, "");
+
+  require("fs").writeFile(`${config.photo_path}/photo/${mobile}.jpg`, base64Data, 'base64', function(err) {
+    if (err) {
+      logger.error(err);
+      res.send(err);
+      return;
+    }
+
+    res.send({'success': true});
+  });
+})
+
+router.post('/recognize', async function (req, res) {
+  const mobile = req.body.mobile;
+  logger.debug(`recognize: ${mobile}`);
+
+  const { data } = await axios.post('http://sbi1.cdri.org.tw/agegender', {"file": `${mobile}.jpg`});
+  logger.debug( data );
+  res.send(data);
+})
 
 function paddingZero(n, width, z) {
   z = z || '0';
