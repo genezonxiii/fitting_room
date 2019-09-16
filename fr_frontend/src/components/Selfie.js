@@ -92,7 +92,17 @@ class Selfie extends React.Component {
       .then(function(response) {
         // handle success
         const result = response.data[0];
-        self.props.choose(result.sex, result.photo);
+        const data = {
+          model: result.photo,
+          model_id: result.model_id,
+          method: 'selfie',
+          sex: result.sex,
+          age: result.age,
+          sex_hide: '',
+          age_hide: age
+        };
+
+        self.props.choose(data);
         self.props.confirm();
       })
       .catch(function (error) {

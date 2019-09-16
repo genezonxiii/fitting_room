@@ -63,10 +63,19 @@ class App extends React.Component {
     })
   }
 
-  onModelChoose(sex, model) {
+  onModelChoose(data) {
     this.setState({
-      sex: sex,
-      model: model
+      sex: data.sex,
+      model: data.model,
+      setting: {
+        sex: data.sex,
+        model: data.model,
+        model_id: data.model_id,
+        method: data.method,
+        age: data.age,
+        sex_hide: data.sex_hide,
+        age_hide: data.age_hide
+      }
     })
   }
 
@@ -227,6 +236,7 @@ class App extends React.Component {
                   handleHome={this.handleHome}
                   orderList={this.state.orderList}
                   confirm={this.onOrderConfirm}
+                  setting={this.state.setting}
                   {...props} 
                 />
               }

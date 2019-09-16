@@ -88,7 +88,8 @@ class Order extends React.Component {
 
     const order = {
       user_id: this.props.user.id,
-      detail: finalOrderList
+      detail: finalOrderList,
+      setting: this.props.setting
     }
 
     if(finalOrderList.length === 0 || finalOrderList.length < orderList.length) {

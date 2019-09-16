@@ -77,7 +77,17 @@ class Quest extends Component {
       .then(function(response) {
         // handle success
         const result = response.data[0];
-        self.props.choose(result.sex, result.photo);
+        const data = {
+          model: result.photo,
+          model_id: result.model_id,
+          method: 'quest',
+          sex: result.sex,
+          age: age,
+          sex_hide: sex,
+          age_hide: null
+        };
+
+        self.props.choose(data);
       })
       .catch(function (error) {
         // handle error

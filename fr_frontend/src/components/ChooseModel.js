@@ -107,7 +107,17 @@ class ChooseModel extends React.Component {
     }
 
     const imageClick = (e) => {
-      this.props.choose(e.target.getAttribute('data-sex'), e.target.getAttribute('data-value'));
+      const data = {
+        model: e.target.getAttribute('data-value'),
+        model_id: e.target.getAttribute('data-id'),
+        method: 'choose',
+        sex: e.target.getAttribute('data-sex'),
+        age: e.target.getAttribute('data-age'),
+        sex_hide: '',
+        age_hide: null
+      };
+
+      this.props.choose(data);
     } 
 
     return (
@@ -133,24 +143,32 @@ class ChooseModel extends React.Component {
                 >
                   <div 
                     className="clothes-figure-wrap" 
+                    data-id={d.model_id}
                     data-sex={d.sex}
+                    data-age={d.age}
                     data-value={d.photo} 
                     onClick={imageClick}
                   >
                     <img 
                       className="model"
                       src={`${CONSTANT.WS_URL}/photo/model/${d.photo}`} alt={`${d.photo}`}
+                      data-id={d.model_id}
                       data-sex={d.sex}
+                      data-age={d.age}
                       data-value={d.photo}
                     />
                     <a 
                       className={self.props.model === d.photo?'btn-choose-figure active':'btn-choose-figure'}
+                      data-id={d.model_id}
                       data-sex={d.sex}
+                      data-age={d.age}
                       data-value={d.photo}
                     >
                       <i 
                         className="mdi mdi-heart"
+                        data-id={d.model_id}
                         data-sex={d.sex}
+                        data-age={d.age}
                         data-value={d.photo}
                       >
                       </i>
