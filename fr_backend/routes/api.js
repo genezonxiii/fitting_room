@@ -149,7 +149,13 @@ router.get('/color/:product_id/:size', function (req, res) {
 router.post('/order', function (req, res) {
   let user_id = req.body.user_id, 
     order_no = '',
-    detail = req.body.detail;
+    detail = req.body.detail,
+    method = req.body.setting.method,
+    model_id = req.body.setting.model_id,
+    sex = req.body.setting.sex,
+    age = req.body.setting.age,
+    sex_hide = req.body.setting.sex_hide,
+    age_hide = req.body.setting.age_hide;
   
   db.getConnection(function(err, connection) { 
     // get seq
@@ -171,33 +177,34 @@ router.post('/order', function (req, res) {
           if (err) {
               logger.error(err);
               return connection.rollback(function() {
-                throw error;
+                throw err;
               });
           }
         });
 
         // master
-        let query = `INSERT INTO tb_sale (user_id, order_no, sale_date) values (?, ?, now())`;
-        connection.query(query, [user_id, order_no], function(err, result) {
+        let query = `INSERT INTO tb_sale (user_id, order_no, model_id, method, sex, sex_hide, age, age_hide, sale_date) 
+          values (?,?,?,?,?,?,?,?,now())`;
+        connection.query(query, [user_id, order_no, model_id, method, sex, sex_hide, age, age_hide], function(err, result) {
+          if (err) {
+            logger.error(err);
+            return connection.rollback(function() {
+              throw err;
+            });
+          }
+
           const sale_id = result.insertId;
           const mResult = result;
-
-          if (err) {
-              logger.error(err);
-              return connection.rollback(function() {
-                throw error;
-              });
-          }
 
           // detail list
           detail.forEach(function(item) {
             let query = `INSERT INTO tb_sale_detail (sale_id, product_id, color, size, qty) values (?, ?, ?, ?, ?)`;
             connection.query(query, [sale_id, item.product_id, item.color, item.size, item.qty], function(err, result) {
               if (err) {
-                  logger.error(err);
-                  return connection.rollback(function() {
-                    throw error;
-                  });
+                logger.error(err);
+                return connection.rollback(function() {
+                  throw err;
+                });
               }
             });
           })
