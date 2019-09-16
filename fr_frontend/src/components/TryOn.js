@@ -48,6 +48,7 @@ class TryOn extends React.Component {
       }
     }
 
+    this.clearOutfit = this.clearOutfit.bind(this);
     this.getProductList = this.getProductList.bind(this);
     this.handleClothOffClick = this.handleClothOffClick.bind(this);
     this.handlePantsOffClick = this.handlePantsOffClick.bind(this);
@@ -153,6 +154,17 @@ class TryOn extends React.Component {
     })
   }
 
+  clearOutfit() {
+    this.setState({
+      outfit: {
+        cloth: {},
+        pants: {},
+        dress: {},
+        shoes: {}
+      },
+    })
+  }
+
   confirm() {
     const { outfit } = this.state;
     this.props.confirm(outfit);
@@ -164,6 +176,7 @@ class TryOn extends React.Component {
         <a
           className="btn btn-icon-round btn-red" 
           type="button"
+          onClick={this.clearOutfit}
         >
           <div className='icon-round-bkg'><i className="mdi mdi-delete"></i></div>
           <span>清空試衣籃</span>
