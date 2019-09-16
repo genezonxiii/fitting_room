@@ -94,14 +94,29 @@ router.get('/detail/:product_id', function (req, res) {
   let query = `SELECT * FROM tb_product_detail where product_id = ?`;
   db.getConnection(function(err, connection) { 
     connection.query(query, [req.params.product_id], function(err, rows) {
-      connection.release();
-
       if (err) {
+          connection.release();
           logger.error(err);
           return;
       }
 
-      res.send(rows);
+      if (rows.length > 0) {
+        connection.release();
+        res.send(rows);
+      } else {
+        let query_default = `SELECT * FROM tb_product_detail where product_id = ?`;
+ 
+        connection.query(query_default, [0], function(err, rows) {
+          connection.release();
+
+          if (err) {
+              logger.error(err);
+              return;
+          }
+
+          res.send(rows);
+        })
+      }
     })
   });
 })
