@@ -230,7 +230,7 @@ class Selfie extends React.Component {
   render() {
     const { msgList } = this.state;
     const videoConstraints = {
-      width: 1280,
+      width: 960,
       height: 720,
       facingMode: "user"
     };
@@ -249,27 +249,27 @@ class Selfie extends React.Component {
 
         <div className="take-photo-wrap">
           
-          <div className="photo-capture-section">
+          <div className="photo-capture-wrap">
             <div className="photo-section-inner">
               <Webcam
                 audio={false}
-                height={500}
-                width={420}
                 ref={this.setRef}
+                width={'100%'}
+                height={'100%'}
                 screenshotFormat="image/jpeg"
                 videoConstraints={videoConstraints}
               />
               <a 
-                className="btn btn-icon-round btn-yellow" 
+                className="btn btn-take-photo" 
                 type="button"
                 onClick={this.capture}
               >
-                <div className='icon-round-bkg'><i className="mdi mdi-camera"></i></div>
+                <i className="mdi mdi-camera"></i>
               </a>
             </div>
           </div>
 
-          <div className="photo-preview-section">
+          <div className="photo-preview-wrap">
             <div className="photo-section-inner">
               <img 
                 src={this.state.selfie || ''} 
