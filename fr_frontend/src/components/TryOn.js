@@ -174,7 +174,7 @@ class TryOn extends React.Component {
     return (
       <div className="footer-control-wrap">
         <a
-          className="btn btn-icon-round btn-red" 
+          className="btn btn-icon-round" 
           type="button"
           onClick={this.clearOutfit}
         >
@@ -182,7 +182,7 @@ class TryOn extends React.Component {
           <span>清空試衣籃</span>
         </a>
         <a 
-          className="btn btn-icon-round btn-yellow" 
+          className="btn btn-icon-round" 
           type="button"
           onClick={this.confirmMsg1}
         >
@@ -297,7 +297,6 @@ class TryOn extends React.Component {
 
     return (
       <div className="page-body">
-        <div className="bkg-circle-gray bkg-circle-big"></div>
 
         <UserInfo 
           user={this.props.user}

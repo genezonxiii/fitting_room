@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
-import LoginToggle from "./LoginToggle";
+import { Link, Redirect } from "react-router-dom";
 import * as CONSTANT from './constant';
 
 const axios = require('axios');
@@ -130,8 +129,6 @@ class Register extends Component {
 
 				<div className="login-panel-wrap">
 
-					<LoginToggle />
-
 					<div className="login-panel">
 						<label htmlFor="userMobile">帳戶申請</label>
 						<div className="input-icon-group">
@@ -168,6 +165,14 @@ class Register extends Component {
 						>
 							註冊
 						</a>
+
+						<Link 
+							to="login"
+							className="login-toggle toggle-signin"
+						>
+							<i className="mdi mdi-lock-open"></i>
+							<span>既有帳號登入</span>
+						</Link>
 					</div>
 
 				</div>

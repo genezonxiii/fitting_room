@@ -23,7 +23,7 @@ function Popup(props) {
             {
               props.btns && props.btns.ok?
               <a 
-                className="modal-btn btn-blue txt-bold"
+                className="modal-btn btn-primary-dark txt-bold"
                 onClick={props.ok}
               >確定
               </a>

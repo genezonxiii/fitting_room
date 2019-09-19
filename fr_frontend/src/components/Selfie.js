@@ -237,8 +237,6 @@ class Selfie extends React.Component {
  
     return (
       <div className="page-body">
-        <div className="bkg-circle-pink bkg-circle-big"></div>
-        <div className="bkg-circle-pink bkg-circle-small"></div>
 
         <UserInfo 
           user={this.props.user}
@@ -281,7 +279,7 @@ class Selfie extends React.Component {
 
         <div className="footer-control-wrap">
           <a 
-            className="btn btn-icon-round btn-blue" 
+            className="btn btn-icon-round" 
             type="button"
             onClick={this.confirmMsg1}
           >

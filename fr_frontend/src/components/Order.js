@@ -417,7 +417,7 @@ class Order extends React.Component {
 
         <div className="footer-control-wrap">
           <a 
-            className="btn btn-icon-round btn-blue" 
+            className="btn btn-icon-round" 
             type="button"
             onClick={this.confirmMsg1}
           >
