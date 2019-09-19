@@ -275,7 +275,7 @@ h2.clothes-select-title {
 
 .photo-capture-wrap {
   width: 640px;
-  height: 460px;
+  height: 480px;
   bottom: 100px;
   top: 50%;
   left: 5%;
@@ -336,10 +336,11 @@ h2.clothes-select-title {
       .clothes-figure-wrap .btn-choose-figure.active i {
         opacity: 1; }
 
+.swiper-container {
+  padding-bottom: 1.5rem; }
+
 .swiper-pagination-bullet-active {
-  background: #f5cf8a;
-  width: 20px;
-  border-radius: 4px; }
+  background: #a56f0e; }
 
 .swiper-button-prev, .swiper-button-next {
   top: 25%;
@@ -356,6 +357,13 @@ h2.clothes-select-title {
   background-image: url("data:image/png;base64,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");
   background-size: 64px 64px;
   background-position: center center; }
+
+.swiper-pagination-bullet {
+  width: 12px;
+  height: 12px; }
+
+.swiper-container-horizontal > .swiper-pagination-bullets {
+  bottom: 0; }
 
 .fill-form-section {
   font-size: 18px;
@@ -520,20 +528,16 @@ ul.clothes-tabs {
 .clothes-image-grid {
   display: flex;
   flex-wrap: wrap;
-  height: 20vh;
   overflow: hidden; }
+  .clothes-image-grid .swiper-container {
+    padding-bottom: 1.5rem;
+    width: 100%; }
   .clothes-image-grid .clothes-image-card {
-    border-radius: 3px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    margin: 10px;
-    padding: 10px 0;
-    width: calc((100% - 100px) / 5);
-    max-height: 135px;
-    transition: .2s;
-    cursor: pointer; }
+    cursor: pointer;
+    margin: 0 !important;
+    margin-bottom: 1rem;
+    padding: 1rem .5rem;
+    height: 140px; }
     .clothes-image-grid .clothes-image-card img {
       margin: 0;
       width: 100%;
