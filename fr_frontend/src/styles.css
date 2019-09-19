@@ -358,6 +358,10 @@ h2.clothes-select-title {
   background-size: 64px 64px;
   background-position: center center; }
 
+.swiper-button-next.swiper-button-disabled,
+.swiper-button-prev.swiper-button-disabled {
+  display: none; }
+
 .swiper-pagination-bullet {
   width: 12px;
   height: 12px; }
@@ -525,38 +529,40 @@ ul.clothes-tabs {
   text-align: left;
   padding: 0px; }
 
-.clothes-image-grid {
-  display: flex;
-  flex-wrap: wrap;
-  overflow: hidden; }
-  .clothes-image-grid .swiper-container {
-    padding-bottom: 1.5rem;
-    width: 100%; }
-  .clothes-image-grid .clothes-image-card {
-    cursor: pointer;
-    margin: 0 !important;
-    margin-bottom: 1rem;
-    padding: 1rem .5rem;
-    height: 140px; }
-    .clothes-image-grid .clothes-image-card img {
-      margin: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: contain; }
-    .clothes-image-grid .clothes-image-card.active {
-      background: #fff;
-      transform: translateY(-2px);
-      box-shadow: 0 0.46875rem 2.1875rem rgba(0, 0, 0, 0.03), 0 0.9375rem 1.40625rem rgba(0, 0, 0, 0.03), 0 0.25rem 0.53125rem rgba(0, 0, 0, 0.05), 0 0.125rem 0.1875rem rgba(0, 0, 0, 0.03); }
-  .clothes-image-grid .card-check-toggle {
-    position: absolute;
-    top: 3px;
-    right: 3px;
-    width: 18px;
-    height: 18px;
-    border-radius: 9px; }
-    .clothes-image-grid .card-check-toggle.active {
-      background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAA0NJREFUSA3FV99LVEEUPmcu6sKCUEGgpLGuSuhKDwVBT773UmhFL0L4EgRGP0h60L0uKRVEEL1JPWgQlWHRH5AQ9JQUuG5g7goJGj1VZGp4Zzpntll2bzvrLb01oOfOOd+c786ZM+eeRQgwXOUKyIwdBolHFcoDAFhPy/iPxxKAWkIlpkGop9DW88pFV+ZN9v9oNwG4C50RWFnsU0pdVKB2V8IaGwJ+QsSbEG247cam1ozeL63EQ+mmLg/gFijV4F8UaI646ACcTyZyT8rhhV9Ju8PkbHzYU2rir0nZKb0w+2Bf7NPPU6JgwFCm6YGUcNIP3MpcCHiYbMudoiNQxk/Jjt1M89XtJmUi9sm+DSnLwo71mXJ4QxwOYrc5c03M2StXPsxt6UyDvDAlnIg2tnK250NNVyZ0Un4xviHMRUNwceB7ypOtDArddxBwQtRUxRFhyuaLuZhTV6SgxcHmjPUKnDOp9oXHbutcjrJ31IbVXFQFBZdBGyioXiCMpjrmxw1eKThmnstK4hT52lvWHEyJ8Aaie/W58YLBmVgvhbO70mLmpOTSBd+Ko/P6KAReAcQypQ+/VCnnuKnJqXTrfsLfsTorGLCes9p8ZQrq4gdEkXTbc9dSiVw3vcDdYpvj4OmBjvks69z3zbUebExQmCPFGMuzJrbYfqmV3GMAO6vFWYrQNM8F4q1kW3bS2OS6vEchbjbzSpLqpuId0/fUPqSCSxxCRvS1zK9XOzVdFPbnde07+s2qwZmmc3RHu8x8M0lXbxmT6dgLCk9nRTBiVkRrD7qxt5/9uNRsy6EN6b2kTVT5bbY533OhOwcbwuiVistvX+9TKAu1nU0j7/bt8pT36E9ItUuE10K3K4agolRHhjLxAQPhl1jzfoyTbDS6oJK6lGeoS2Z6bDlI9aIQScry3khETa6uwiCRXghKZnC6NUr01OW/Tun4ZankdWMMUwoU/W4ie4OzGrgxo0xdDJNQ+2YO5qKhibnycGMWNjFzmCqX3zExcmcghBgOi5x9m+6DOUquB2fqf2n2uAvU3aAQI9u1cyRf/g7ztx0Xk/3zht6Q6zOnxozTn++e0W8mGctruKkrPlP/upIz9hvNPIwfbT8BTQ5b+6xVc5QAAAAASUVORK5CYII=");
-      background-size: cover; }
+.clothes-image-grid .swiper-container {
+  padding-bottom: 1.5rem;
+  width: 100%; }
+.clothes-image-grid .swiper-button-prev,
+.clothes-image-grid .swiper-button-next {
+  background-size: cover;
+  width: 36px;
+  height: 36px;
+  top: 45%; }
+.clothes-image-grid .clothes-image-card {
+  cursor: pointer;
+  margin: 0 !important;
+  margin-bottom: 1rem;
+  padding: 1rem .5rem;
+  height: 140px; }
+  .clothes-image-grid .clothes-image-card img {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; }
+  .clothes-image-grid .clothes-image-card.active {
+    background: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 0.46875rem 2.1875rem rgba(0, 0, 0, 0.03), 0 0.9375rem 1.40625rem rgba(0, 0, 0, 0.03), 0 0.25rem 0.53125rem rgba(0, 0, 0, 0.05), 0 0.125rem 0.1875rem rgba(0, 0, 0, 0.03); }
+.clothes-image-grid .card-check-toggle {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 9px; }
+  .clothes-image-grid .card-check-toggle.active {
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAA0NJREFUSA3FV99LVEEUPmcu6sKCUEGgpLGuSuhKDwVBT773UmhFL0L4EgRGP0h60L0uKRVEEL1JPWgQlWHRH5AQ9JQUuG5g7goJGj1VZGp4Zzpntll2bzvrLb01oOfOOd+c786ZM+eeRQgwXOUKyIwdBolHFcoDAFhPy/iPxxKAWkIlpkGop9DW88pFV+ZN9v9oNwG4C50RWFnsU0pdVKB2V8IaGwJ+QsSbEG247cam1ozeL63EQ+mmLg/gFijV4F8UaI646ACcTyZyT8rhhV9Ju8PkbHzYU2rir0nZKb0w+2Bf7NPPU6JgwFCm6YGUcNIP3MpcCHiYbMudoiNQxk/Jjt1M89XtJmUi9sm+DSnLwo71mXJ4QxwOYrc5c03M2StXPsxt6UyDvDAlnIg2tnK250NNVyZ0Un4xviHMRUNwceB7ypOtDArddxBwQtRUxRFhyuaLuZhTV6SgxcHmjPUKnDOp9oXHbutcjrJ31IbVXFQFBZdBGyioXiCMpjrmxw1eKThmnstK4hT52lvWHEyJ8Aaie/W58YLBmVgvhbO70mLmpOTSBd+Ko/P6KAReAcQypQ+/VCnnuKnJqXTrfsLfsTorGLCes9p8ZQrq4gdEkXTbc9dSiVw3vcDdYpvj4OmBjvks69z3zbUebExQmCPFGMuzJrbYfqmV3GMAO6vFWYrQNM8F4q1kW3bS2OS6vEchbjbzSpLqpuId0/fUPqSCSxxCRvS1zK9XOzVdFPbnde07+s2qwZmmc3RHu8x8M0lXbxmT6dgLCk9nRTBiVkRrD7qxt5/9uNRsy6EN6b2kTVT5bbY533OhOwcbwuiVistvX+9TKAu1nU0j7/bt8pT36E9ItUuE10K3K4agolRHhjLxAQPhl1jzfoyTbDS6oJK6lGeoS2Z6bDlI9aIQScry3khETa6uwiCRXghKZnC6NUr01OW/Tun4ZankdWMMUwoU/W4ie4OzGrgxo0xdDJNQ+2YO5qKhibnycGMWNjFzmCqX3zExcmcghBgOi5x9m+6DOUquB2fqf2n2uAvU3aAQI9u1cyRf/g7ztx0Xk/3zht6Q6zOnxozTn++e0W8mGctruKkrPlP/upIz9hvNPIwfbT8BTQ5b+6xVc5QAAAAASUVORK5CYII=");
+    background-size: cover; }
 
 .clothes-info-wrap {
   padding: 15px; }
