@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <%- include('../template/css.ejs') %>
+  </head>
+  <body>
+    <%- include('../menu'); -%>
+
+    <div class="content-wrap">
+      <h2 class="page-title"><%= title %></h2>
+
+      <div class="input-field-wrap">
+        <div class="form-wrap">
+          <div class="form-row">
+            <div id="dlg_update" style="display: none;">
+              <form id="form_update">
+                <div class="row">
+                  <label for="sex" class="label">性別</label>
+                  <input type="text" name="sex" id="upd_sex" />
+                </div>
+                <div class="row">
+                  <label for="kind" class="label">類別</label>
+                  <input type="text" name="kind" id="upd_kind" />
+                </div>
+                <div class="row">
+                  <label for="c_product_id" class="label">料號</label>
+                  <input type="text" name="c_product_id" id="upd_c_product_id" />
+                </div>
+                <div class="row">
+                  <label for="product_name" class="label">品名</label>
+                  <input type="text" name="product_name" id="upd_product_name" />
+                </div>
+                <div class="row">
+                  <label for="brand" class="label">品牌</label>
+                  <input type="text" name="brand" id="upd_brand" />
+                </div>
+                <div class="row">
+                  <label for="style" class="label">風格</label>
+                  <input type="text" name="style" id="upd_style" />
+                </div>
+                <div class="row">
+                  <label for="desc" class="label">說明</label>
+                  <input type="text" name="desc" id="upd_desc" />
+                </div>
+                <div class="row">
+                  <label for="photo" class="label">上傳相片</label>
+                  <input type="file" name="photo" id="upd_photo" type="file" accept="image/*" />
+                </div>
+                <div class="row">
+                  <img id="preview" class="preview" hidden>
+                </div>
+                <input type="hidden" name="product_id"/>
+                <input type="hidden" name="new_photo"/>
+                <input type="hidden" name="remove_photo"/>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="search-result-wrap">
+        <div class="form-wrap">
+          <div class="form-row">
+            <div class="row">
+              <button type="button" class="btn_insert btn btn-primary btn-wide">新增</button>
+            </div>
+          </div>
+        </div>
+        <div id="table_container">
+          <table id='list' style="width:100%"></table>
+        </div>
+      </div>
+    </div>
+
+    <%- include('../template/js_lib'); %>
+    <script type="text/javascript" src="/javascripts/page/product_list.js"></script>
+  </body>
+</html>

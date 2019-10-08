@@ -1,0 +1,1330 @@
+html, body, div, span, applet, object, iframe, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    /*vertical-align: baseline;*/
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+p {
+    margin: 0 0 10px;
+    line-height: 20px;
+}
+ul, li {
+    line-height: 20px;
+}
+b, strong {
+    font-weight: bold;
+}
+html, body {
+    /*font-family: Helvetica, Arial, '微軟正黑體', '新細明體', sans-serif;*/
+    background: #D6F6FF;
+    font-family: "微軟正黑體", "Microsoft JhengHei", 'LiHei Pro', Arial, Helvetica, sans-serif, \5FAE\8EDF\6B63\9ED1\9AD4,\65B0\7D30\660E\9AD4;
+    font-size: 16px;
+    text-rendering: optimizeLegibility;
+    width: 100%;
+}
+* {
+    box-sizing: border-box;
+}
+h1 {
+    font-size: 40px;
+}
+h2 {
+    font-size: 30px;
+}
+h3 {
+    font-size: 24px;
+}
+h4 {
+    font-size: 20px;
+}
+h5 {
+    font-size: 16px;
+}
+h6 {
+    font-size: 13px;
+}
+/* Login Styles
+---------------------------------- */
+.login-body {
+    background-image: url('/images/login-bkg.png');
+    background-position: center bottom;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+.login-wrapper {
+    position: absolute;
+    width: 100%;
+    top: 55%;
+    margin-top: -320px;
+}
+@media (max-device-width: 640px) {
+    .login-wrapper {
+        top: 0;
+        margin-top: 80px;
+    }
+}
+.login-panel-wrap {
+    background: #194A6B;
+    border-radius: 5px;
+    padding: 10px 0 50px;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    position: relative;
+    width: 500px;
+    zoom: 1;
+}
+.login-panel-wrap:before, .login-panel-wrap:after {
+    content: '';
+    display: table;
+}
+.login-panel-wrap:after {
+    clear: both;
+}
+@media (max-width: 640px) {
+    .login-panel-wrap {
+        width: 90%;
+        padding-bottom: 20px;
+    }
+}
+.login-panel {
+    margin: 0 auto;
+    padding-top: 45px;
+    position: relative;
+    width: 280px;
+}
+.login-panel .btn {
+    font-size: 16px;
+    font-weight: bold;
+}
+.login-panel h1.sys-logo {
+    background: url('/images/logo.svg') no-repeat;
+    background-size: contain;
+    left: 50%;
+    margin-left: -50px;
+    position: absolute;
+    text-indent: -9999px;
+    top: -20%;
+    height: 100px;
+    width: 100px;
+}
+.login-panel h2 {
+    color: #eee;
+    font-weight: 100;
+    /*letter-spacing: 23px;*/
+    text-align: justify;
+    margin-bottom: 0px;
+    position: relative;
+}
+.login-panel h2:before {
+    content: "";
+    border-bottom: 3px solid #fff;
+    position: absolute;
+    width: 100%;
+    bottom: 15px;
+    opacity: .5;
+}
+.login-panel h2:after {
+    content: "";
+    display: inline-block;
+    width: 100%;
+}
+.login-panel label {
+    color: #ddd;
+    display: block;
+    /*font-weight: bold;*/
+    margin-bottom: 5px;
+    margin-right: 0;
+    position: relative;
+}
+.login-panel input[type=text], .login-panel input[type=password] {
+    box-sizing: border-box;
+    font-size: 24px;
+    padding: 5px 12px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+.login-panel input[type=text].error, .login-panel input[type=password].error {
+    border: 1px solid #e92500;
+    background: rgb(255, 213, 204);
+}
+.login-panel input[type=text]:focus, .login-panel input[type=password]:focus {
+    border: 1px solid #35ceff;
+}
+.login-panel .error-msg {
+    box-sizing: border-box;
+    display: block;
+    color: #e92500;
+    font-size: 14px;
+    text-align: right;
+    padding: 6px 5px 0;
+    position: absolute;
+    top: -5px;
+    width: 100%;
+}
+@media (max-width: 480px) {
+    .login-panel {
+        padding-top: 36px;
+    }
+}
+@media (max-width: 320px) {
+    .login-panel {
+        width: 90%;
+    }
+}
+@media (max-width: 640px) {
+    .login-panel h1.sys-logo {}
+}
+@media (max-width: 480px) {
+    .login-panel h1.sys-logo {
+        top: -20%;
+        width: 100px;
+        height: 100px;
+        margin-left: -50px;
+    }
+}
+@media (max-width: 320px) {
+    .login-panel h1.sys-logo {}
+}
+@media (max-width: 480px) {
+    .login-panel h2 {
+        font-size: 21px;
+    }
+}
+@media (max-width: 320px) {
+    .login-panel h2 {}
+}
+@media (max-width: 640px) {
+    .login-panel input[type=text], .login-panel input[type=password] {
+        font-size: 16px;
+        padding: 5px 8px;
+    }
+}
+.verify-wrap {
+    zoom: 1;
+}
+.verify-wrap label {
+    float: left;
+    width: 50%;
+}
+.verify-wrap .captcha-wrap {
+    float: right;
+    width: 50%;
+    padding-top: 24px;
+    text-align: center;
+}
+.verify-wrap:before, .verify-wrap:after {
+    content: '';
+    display: table;
+}
+.verify-wrap:after {
+    clear: both;
+}
+.login-btn-wrap {
+    zoom: 1;
+}
+.login-btn-wrap:before, .login-btn-wrap:after {
+    content: '';
+    display: table;
+}
+.login-btn-wrap:after {
+    clear: both;
+}
+.login-button, .login-reset-button {
+    box-sizing: border-box;
+    color: #fff;
+    display: block;
+    font-size: 18px;
+    text-align: center;
+    text-decoration: none;
+    padding: 15px 0;
+    width: 49%;
+}
+.login-button {
+    float: left;
+    background: #35ceff;
+    border: 1px solid rgb(54, 147, 179);
+}
+.login-button:hover {
+    background: rgb(26, 198, 255);
+}
+.login-button:focus {
+    background: rgb(0, 191, 255);
+    border: 1px solid #35ceff;
+}
+.login-reset-button {
+    background: #999;
+    border: 1px solid #555;
+    float: right;
+}
+.login-reset-button:hover {
+    background: #777;
+}
+.login-reset-button:focus {
+    background: #555;
+}
+.login-footer {
+    color: #555;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: 1px;
+}
+.login-footer span {
+    font-weight: 100;
+    margin-left: 1em;
+}
+@media (max-width: 600px) {
+    .login-footer span {
+        display: block;
+        margin-top: 6px;
+    }
+}
+/* Page Styles
+---------------------------------- */
+.page-wrapper {
+    background: #3F7FAA;
+    color: #333;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+/* header
+---------------------------------- */
+.header {
+    background-image: linear-gradient(#EAFDFF,#C2F4FF);
+    border-bottom: 1px solid #62E0E9;
+    height: 56px;
+    position: fixed;
+    width: 100%;
+}
+.header .userinfo {
+    float: right;
+}
+.header .userinfo p {
+    color: #777;
+    display: block;
+    font-size: 13px;
+    float: left;
+    font-weight: 100;
+    margin-right: 20px;
+    padding-top: 8px;
+}
+.header .userinfo p span {
+    color: #000;
+    display: block;
+    font-weight: bold;
+    font-size: 16px;
+}
+.btn-logout {
+    background-image: linear-gradient(#FF4646,#FC0000);
+    border-radius: 20px;
+    color: #fff;
+    display: block;
+    float: left;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 10px;
+    margin-right: 15px;
+    padding: 10px 0;
+    width: 70px;
+    text-decoration: none;
+}
+@media (max-width: 800px) {
+    .btn-logout {
+        display: none;
+    }
+}
+.btn-logout:hover {
+    background: #FC3E3E;
+}
+.sideNav-toggle {
+    background: url('/images/sideNav-toggle.svg') no-repeat;
+    display: none;
+    float: left;
+    width: 28px;
+    height: 28px;
+    margin: 18px 8px;
+}
+@media (max-width: 800px) {
+    .sideNav-toggle {
+        display: block;
+    }
+}
+/* sidenav
+---------------------------------- */
+h1.sys-title {
+    margin: 0;
+    padding: 0;
+}
+h1.sys-title a {
+    background: #194A6B url('/images/logo.svg') no-repeat center center;
+    background-size: 80% 80%;
+    cursor: pointer;
+    display: block;
+    height: 90px;
+    width: 90px;
+    text-align: center;
+    text-indent: -99999px;
+}
+@media (max-width: 800px) {
+    h1.sys-title a {
+        background: transparent url('/images/logo.svg') no-repeat center center;
+        margin: 0 auto;
+        background-size: 75%;
+    }
+}
+.sidenav {
+    border-radius: 3px;
+	box-shadow: 0px 0px 2px rgba(0,0,0,0.4);
+    position: fixed;
+    top: 0px;
+    left: 15px;
+    z-index: 9999;
+    /* MENU - Level 1 */
+}
+.sidenav > ul > li > ul , .sidenav > ul > li > ul > li > ul {
+	border-radius:3px;
+}
+.sidenav > *:first-child > *:first-child {
+    border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+}
+.sidenav > *:last-child > *:last-child {
+    border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+}
+
+/* RWD - Side Menu -*/
+.sidenav ul {
+/*     width: 120px; Ben偷改的*/
+    width: 90px;
+}
+.sidenav > ul > li , .sidenav > ul > li > ul > li {
+    display: block;
+}
+.sidenav > ul > li > ul{
+	border-right:1px solid #06283d;
+}
+/* MENU - Level 2 */
+.sidenav > ul > li > ul ,.sidenav > ul > li > ul > li > ul {
+    background: #092c42;
+    min-width: 221px;
+    position: absolute;
+    left: 90px;
+    top: 0;
+    min-height: 40px;
+    box-shadow: 2px 1px 5px rgba(0,0,0,0.3);
+    /*--toggle--*/
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s linear;
+}
+/* .sidenav > ul > li > ul > li:has( > ul )::after{ */
+
+.sidenav > ul > li > ul > li.isMenu{
+	position:relative;
+}
+
+.sidenav > ul > li > ul > li.isMenu:after{
+	content: "\f105";
+	/* 	 box-sizing: border-box; */
+	font: normal normal normal 14px/1 FontAwesome;
+	position: absolute;
+	top: 11px;
+	width: 0px;
+	height: 0px;
+	right: 15px;
+}
+
+/* 這是關鍵行1 */
+.sidenav > ul > li > ul > li > ul {
+    background: #285677;
+    left: 221px;
+}
+
+.sidenav > ul > li > ul > li > a ,.sidenav > ul > li > ul > li > ul > li > a {
+    box-sizing: border-box;
+    color: #fff;
+    display: block;
+    font-size: 14px;
+    font-weight: 100;
+    text-align: left;
+    text-decoration: none;
+    padding: 8px 10px;
+}
+
+.sidenav > ul > li > ul > li > a:hover {
+    background: #285677;
+}
+
+.sidenav > ul > li > ul > li > ul > li > a:hover {
+    background: #3F7FAA;
+    border-radius: 3px;
+}
+
+@media (max-width: 800px) {
+    .sidenav {
+        display: none;
+    }
+}
+.sidenav > ul {}
+.sidenav > ul > li {
+    background: #194A6B;
+    color: #ddd;
+    font-size: 12px;
+    width: 90px;
+    /*height: 90px;*/
+    text-align: center;
+    position: relative;
+    padding: 12px 0;
+}
+.sidenav > ul > li img {
+    height: 42px;
+    width: 42px;
+    display: block;
+    margin: 0 auto 5px; 
+    /*padding: 12px 0 12px;*/
+}
+.sidenav > ul > li a {
+    color: #ddd;
+    text-decoration: none;
+}
+.sidenav > ul > li.active {
+    background-image: linear-gradient(#fff,#35ceff);
+    color: #092c42;
+    font-weight: bold;
+}
+.sidenav > ul > li.active:hover {}
+.sidenav > ul > li.active:hover > a {
+    color: #fff;
+}
+.sidenav > ul > li.active > a {
+    color: #194A6B;
+}
+.sidenav > ul > li:hover ,.sidenav > ul > li > ul > li:hover {
+    background: #092c42;
+    color: #fff;
+    transition: all .3s linear;
+}
+
+/* 這是關鍵行2 */
+.sidenav > ul > li > ul > li:hover {
+	background: #285677;
+}
+.sidenav > ul > li:hover > ul ,.sidenav > ul > li > ul > li:hover > ul {
+    opacity: 1;
+    visibility: visible;
+}
+.rwd-sidenav {
+    display: none;
+}
+.rwd-sidenav .btn-logout {
+    display: block;
+    float: none;
+    margin: 15px auto;
+    width: 70%;
+}
+@media (max-width: 800px) {
+    .rwd-sidenav {
+        display: block;
+        opacity: 0;
+        visibility: hidden;
+        margin-left: -100%;
+        margin-right: 100%;
+        padding-bottom: 20px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(5,30,45,.95);
+        overflow: scroll;
+        z-index: 3;
+        /* MENU - Level 1 */
+    }
+    .rwd-sidenav a {
+        color: #fff;
+        text-decoration: none;
+    }
+    .rwd-sidenav ul {
+        width: 100%;
+    }
+    .rwd-sidenav ul li {
+        display: block;
+    }
+    /* MENU - Level 2 */
+    .rwd-sidenav ul li ul {
+        //background: rgba(15,15,15,.5);
+        clear: both;
+        display: none;
+        padding: 0 0 10px 0;
+    }
+    .rwd-sidenav ul li ul li {
+        padding: 12px 15%;
+    }
+    .rwd-sidenav ul li ul li a {
+        font-size: 18px;
+    }
+    /* MENU - Level 3 */
+    .rwd-sidenav ul li ul ul {
+        display: none;
+    }
+    .rwd-sidenav ul li ul ul li {
+        padding: 12px 1em;
+    }
+    .rwd-sidenav ul li ul ul a {
+        color: #ccc;
+        font-size: 16px;
+    }
+    .rwd-sidenav.show {
+        //: block;
+        opacity: 1;
+        visibility: visible;
+        margin-left: 0;
+        margin-right: 0;
+        transition: .3s linear all;
+    }
+    .rwd-sidenav > ul {}
+    .rwd-sidenav > ul > li {
+        color: #fff;
+        padding: 15px 0;
+        font-size: 24px;
+        line-height: 48px;
+    }
+    .rwd-sidenav > ul > li img {
+        margin-right: 20px;
+        margin-left: 15%;
+        margin-bottom: 15px;
+        float: left;
+    }
+}
+@media (max-width: 800px) and (max-width: 320px) {
+    .rwd-sidenav ul li ul li a {
+        font-size: 16px;
+    }
+}
+@media (max-width: 800px) and (max-width: 320px) {
+    .rwd-sidenav ul li ul ul a {
+        font-size: 14px;
+    }
+}
+@media (max-width: 800px) and (max-width: 320px) {
+    .rwd-sidenav > ul > li {
+        font-size: 21px;
+        line-height: 42px;
+    }
+}
+.smenu-close {
+    background: url('/images/sidemenu-close.svg') no-repeat;
+    display: block;
+    width: 32px;
+    height: 32px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
+/* content-wrap
+---------------------------------- */
+h2.page-title {
+    border-top: 5px solid #194A6B;
+    color: #194A6B;
+    font-size: 28px;
+    height: 56px;
+    left: 160px;
+    letter-spacing: 5px;
+    line-height: 50px;
+    margin: 0;
+    padding: 0 1.2em;
+    position: absolute;
+    position: fixed;
+    text-align: center;
+    top: 0;
+}
+@media (max-width: 800px) {
+    h2.page-title {
+        left: 40px;
+        letter-spacing: 1px;
+        padding: 0 12px;
+    }
+}
+@media (max-width: 480px) {
+    h2.page-title {
+        font-size: 24px;
+        letter-spacing: 1px;
+        padding: 0;
+    }
+}
+.content-wrap {
+    /*background: #D6F6FF;*/
+    background-image: linear-gradient(#fff,#ccc);
+    box-sizing: border-box;
+    float: left;
+    margin-top: 56px;
+    padding-bottom: 60px;
+    height: calc(100vh - 56px);
+    width: 100%;
+    overflow: scroll;
+}
+.input-field-wrap {
+    /*background: #456488;*/
+    background-image: linear-gradient(#2d445d,#456488);
+    padding: 20px 30px 20px 160px;
+}
+.input-field-wrap .form-wrap {
+    text-align: center;
+    margin: 0 auto;
+}
+.input-field-wrap label {
+    color: #fff;
+}
+.input-field-wrap .form-row .btn {
+    vertical-align: bottom;
+}
+.input-field-wrap .btn-row {
+    text-align: center;
+    width: 100%;
+}
+@media (max-width: 800px) {
+    .input-field-wrap {
+        padding: 20px 30px;
+    }
+}
+@media (max-width: 480px) {
+    .input-field-wrap {
+        padding: 15px;
+    }
+}
+@media (max-width: 480px) {
+    .input-field-wrap .form-wrap {
+        text-align: left;
+    }
+}
+.forward-mark {
+    background: url(/images/icon-forward.svg) no-repeat;
+    display: inline-block;
+    width: 20px;
+    height: 32px;
+    margin: 0 5px 0 0px;
+    vertical-align: bottom;
+}
+@media (max-width: 600px) {
+    .forward-mark {
+        display: none;
+    }
+}
+.search-result-wrap {
+    padding: 20px 30px 20px 160px;
+    margin-bottom: 60px;
+}
+@media (max-width: 800px) {
+    .search-result-wrap {
+        padding-left: 30px;
+    }
+}
+@media (max-width: 640px) {
+    .search-result-wrap {
+        margin-bottom: 0;
+    }
+}
+@media (max-width: 480px) {
+    .search-result-wrap {
+        padding: 15px;
+    }
+}
+.result-table-func-wrap {
+    zoom: 1;
+}
+.result-table-func-wrap:before, .result-table-func-wrap:after {
+    content: '';
+    display: table;
+}
+.result-table-func-wrap:after {
+    clear: both;
+}
+.table-row-func {
+    margin: 0 auto;
+}
+.table-row-func:hover .table-function-list {
+    visibility: visible;
+    opacity: 1;
+}
+.table-function-list {
+    position: absolute;
+    top: 0;
+    right: 36px;
+    visibility: hidden;
+    opacity: 0;
+    transition: all .5s linear;
+    /*width: calc(36px * 4);*/
+    display: flex;
+}
+.table-function-list .btn-in-table {
+    float: right;
+}
+/*.table-function-list.hover {
+	visibility: visible;
+	opacity: 1;
+}*/
+.result-item-display {
+    float: left;
+}
+.result-item-search {
+    float: right;
+}
+/* footer
+---------------------------------- */
+.footer {
+    background: #194A6B;
+    border-radius: 3px 3px 0 0;
+    height: 28px;
+    text-align: right;
+    color: #eee;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.5;
+    padding: 5px 0;
+    position: fixed;
+    bottom: 0;
+    left: 15px;
+    right: 15px;
+}
+.footer span {
+    color: #ccc;
+    font-weight: normal;
+    margin-left: 1em;
+    margin-right: 20px;
+}
+@media (max-width: 640px) {
+    .footer span {
+        display: block;
+    }
+}
+@media (max-width: 640px) {
+    .footer {
+        position: relative;
+        text-align: center;
+        clear: both;
+        left: 0;
+        right: 0;
+        height: auto;
+    }
+}
+/* Forms */
+.form-wrap {}
+.form-row {
+    margin: 10px 0;
+    zoom: 1;
+}
+.form-row:before, .form-row:after {
+    content: '';
+    display: table;
+}
+.form-row:after {
+    clear: both;
+}
+.form-label {
+    display: inline-block;
+    font-size: 16px;
+    padding-right: 6px;
+    height: 100%;
+    line-height: 36px;
+}
+.block-label {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 3px;
+    text-align: left;
+}
+.block-label ~ input[type="text"], .block-label ~ input[type="password"] {
+    margin-bottom: 0;
+}
+@media (max-width: 360px) {
+    .block-label {
+        font-size: 14px;
+    }
+}
+label {
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+@media(max-width: 480px) {
+    label {
+        display: block;
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+    label input[type="text"], label input[type="password"], label input[type="date"] {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+}
+input[type="text"], input[type="password"], input[type="date"], select, textarea {
+    background: #efefef;
+    border: 1px solid #999;
+    font-size: 16px;
+    margin-bottom: 5px;
+    padding: 5px;
+}
+input[type="text"]:hover, input[type="password"]:hover, input[type="date"]:hover, select:hover, textarea:hover {}
+input[type="text"]:focus, input[type="text"].focus, input[type="password"]:focus, input[type="password"].focus, input[type="date"]:focus, input[type="date"].focus, select:focus, select.focus, textarea:focus, textarea.focus {
+    background-color: #fff;
+    border: 1px solid #3F7FAA;
+}
+input[type="text"]:disabled, input[type="text"].readonly, input[type="password"]:disabled, input[type="password"].readonly, input[type="date"]:disabled, input[type="date"].readonly, select:disabled, select.readonly, textarea:disabled, textarea.readonly {}
+input[type="text"].error, input[type="password"].error, input[type="date"].error, select.error, textarea.error {}
+select {
+    background: #eee url('/images/dropdown.svg') no-repeat 96% 2px;
+    border: 1px solid #999;
+    border-radius: 0;
+    font-size: 16px;
+    font-family: '微軟正黑體';
+    padding: 2px 50px 2px 5px;
+    height: 30px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+select::-ms-expand {
+    display: none;
+}
+/*Checkbox*/
+input[type=checkbox] {
+    position: absolute;
+    left: -9999px;
+    /*Disabled*/
+    /*Checked*/
+}
+input[type=checkbox] + label {
+    height: 32px;
+    margin: 0;
+    margin-right: 10px;
+    position: relative;
+    display: block;
+    float: left;
+    padding: 0px 0px 0px 28px;
+    cursor: pointer;
+    /*Checkbox setup*/
+}
+input[type=checkbox] + label:before {
+    display: block;
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin: -12px 0 0;
+    width: 24px;
+    height: 24px;
+    background-image: url(/images/checkbox.svg);
+    background-repeat: no-repeat;
+}
+input[type=checkbox]:disabled, input[type=checkbox].readonly {
+    /*Disabled checked*/
+}
+input[type=checkbox]:disabled + label, input[type=checkbox].readonly + label {
+    cursor: not-allowed;
+    color: #666;
+}
+input[type=checkbox]:disabled + label:before, input[type=checkbox].readonly + label:before {
+    background-position: -48px 0;
+}
+input[type=checkbox]:disabled:checked + label, input[type=checkbox].readonly:checked + label {}
+input[type=checkbox]:disabled:checked + label:before, input[type=checkbox].readonly:checked + label:before {
+    background-position: -72px 0;
+}
+input[type=checkbox]:checked + label {}
+input[type=checkbox]:checked + label:before {
+    background-position: -24px 0;
+}
+/*Radio Button*/
+input[type=radio] {
+    position: absolute;
+    left: -9999px;
+    /*Disabled*/
+    /*Checked*/
+}
+input[type=radio] + label {
+    box-sizing: border-box;
+    height: 32px;
+    margin: 0;
+    margin-right: 10px;
+    padding: 1px 0;
+    position: relative;
+    display: block;
+    float: left;
+    padding: 0px 0px 0px 28px;
+    cursor: pointer;
+}
+input[type=radio] + label:before {
+    display: block;
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin: -12px 0 0;
+    width: 24px;
+    height: 24px;
+    background-image: url(/images/radiobutton.svg);
+    background-repeat: no-repeat;
+}
+input[type=radio]:focus {}
+input[type=radio]:focus:before {
+    background-position: -72px 0;
+}
+input[type=radio]:disabled, input[type=radio].readonly {
+    /*Disabled checked*/
+}
+input[type=radio]:disabled + label, input[type=radio].readonly + label {
+    cursor: not-allowed;
+    color: #666;
+}
+input[type=radio]:disabled + label:before, input[type=radio].readonly + label:before {
+    background-position: -48px 0;
+}
+input[type=radio]:disabled:checked + label, input[type=radio].readonly:checked + label {
+    border-bottom: none;
+}
+input[type=radio]:disabled:checked + label:before, input[type=radio].readonly:checked + label:before {
+    background-position: -72px 0;
+}
+input[type=radio]:checked + label {
+    /*border-bottom: 2px solid var(--midBlue);*/
+}
+input[type=radio]:checked + label:before {
+    background-position: -24px 0;
+}
+/*Datepicker*/
+.input-date {
+    background-image: url('/images/icon-datepicker.svg') !important;
+    background-repeat: no-repeat  !important;
+    background-position: right center  !important;
+}
+/* JQuery UI Calendar Customize */
+.ui-widget-content {
+    background: #fefefe;
+    border: 1px solid #ccc;
+}
+.ui-datepicker {
+    border-radius: 0;
+    box-shadow: 2px 2px 3px #777;
+    font-family: Arial, sans-serif;
+}
+.ui-datepicker table {
+    table-layout: fixed;
+}
+.ui-datepicker table th, .ui-datepicker table td {
+    width: calc(100%/7) !important;
+}
+.ui-datepicker .ui-datepicker-header {
+    background: none !important;
+    border: none !important;
+}
+.ui-datepicker .ui-datepicker-title {
+    line-height: auto;
+    line-height: 100% \9;
+}
+.ui-datepicker .ui-datepicker-title select {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    margin: 0 6px !important;
+    padding: 0 10px;
+    width: auto;
+}
+.ui-datepicker .ui-datepicker-title select:hover {
+    background: #eee;
+}
+.ui-datepicker .ui-datepicker-title select:first-child {
+    border-right: 1px solid #aaa;
+}
+.ui-datepicker-year {
+    color: #194A6B;
+    font-size: 24px;
+    font-weight: 100;
+}
+.ui-datepicker-year:after {
+    content: ' /';
+}
+.ui-datepicker-month {
+    color: #194A6B;
+    font-size: 23px;
+    font-weight: 100;
+}
+.ui-datepicker-month:before {
+    content: '/ ';
+}
+.ui-datepicker-prev, .ui-datepicker-next {
+    background: none !important;
+    border: none !important;
+    cursor: pointer;
+}
+.ui-datepicker-prev .ui-icon, .ui-datepicker-next .ui-icon {
+    background: none !important;
+}
+.ui-datepicker-prev:before, .ui-datepicker-next:before {
+    color: #62E0E9;
+    font-size: 24px;
+    font-weight: 100;
+    position: absolute;
+    top: 3px;
+}
+.ui-datepicker-prev {}
+.ui-datepicker-prev:before {
+    content: '<';
+    font-family: "Helvetica Neue";
+    font-weight: 200;
+    top: 0px;
+    left: 10px;
+}
+.ui-datepicker-next {}
+.ui-datepicker-next:before {
+    content: '>';
+    font-family: "Helvetica Neue";
+    font-weight: 200;
+    top: 0px;
+    right: 10px;
+}
+.ui-datepicker-prev-hover, .ui-datepicker-next-hover {
+    top: 2px !important;
+}
+/*周六周日變色*/
+.ui-datepicker-calendar thead th {
+    font-family: "微軟正黑體", sans-serif;
+}
+.ui-datepicker-calendar tr th a, .ui-datepicker-calendar tr th span, .ui-datepicker-calendar tr td a, .ui-datepicker-calendar tr td span {
+    color: #555 !important;
+}
+.ui-datepicker-calendar tr th:first-child a, .ui-datepicker-calendar tr th:first-child span, .ui-datepicker-calendar tr td:first-child a, .ui-datepicker-calendar tr td:first-child span {
+    color: #FF7979 !important;
+}
+.ui-datepicker-calendar tr th, .ui-datepicker-calendar tr td {}
+.ui-datepicker-calendar tr th:last-child a, .ui-datepicker-calendar tr th:last-child span, .ui-datepicker-calendar tr td:last-child a, .ui-datepicker-calendar tr td:last-child span {
+    color: #417505 !important;
+}
+.ui-datepicker-calendar .ui-state-default {
+    background: none !important;
+    border: none !important;
+    padding: 6px 0 !important;
+    text-align: center !important;
+}
+.ui-datepicker-calendar .ui-state-active {}
+.ui-datepicker-current-day, .ui-datepicker-today {}
+.ui-datepicker-current-day {
+    background: #62E0E9 !important;
+    box-sizing: border-box;
+}
+.ui-datepicker-today {
+    border: 1px solid #ccc !important;
+}
+/* Table */
+.result-table-wrap {
+    background: #fff;
+}
+table.result-table {
+    border: 1px solid #ccc;
+    font-size: 14px;
+    width: 100%;
+}
+table.result-table tr {
+    /*background: #fff;*/
+}
+table.result-table tr:nth-child(2n+1) {
+    /*background: #efefef;*/
+}
+table.result-table th {
+    background: #194A6B;
+    border-bottom: 2px solid #62E0E9;
+    color: #fff;
+}
+table.result-table th, table.result-table td {
+    /*border: 1px solid #aaa;*/
+    padding: 10px;
+}
+table.result-table td {
+    border: 1px solid #ddd;
+}
+/* RWD Table */
+@media (max-width: 1200px) {
+    .scrollTable {
+        /*!
+	  // IE needs inline-block to position scrolling shadows otherwise use:
+	  // display: block;
+	  // max-width: min-content;
+	  */
+        display: inline-block;
+        vertical-align: top;
+        max-width: 100%;
+        overflow-x: auto;
+        /* for small cell values*/
+        white-space: nowrap;
+        border-collapse: collapse;
+        border-spacing: 0;
+        /* enable iOS momentum scrolling*/
+        -webkit-overflow-scrolling: touch;
+        /* scrolling shadows*/
+        /*background: radial-gradient(left, ellipse, rgba(0,0,0, .2) 0%, rgba(0,0,0, 0) 75%) 0 center,
+	              radial-gradient(right, ellipse, rgba(0,0,0, .2) 0%, rgba(0,0,0, 0) 75%) 100% center;*/
+        background: radial-gradient(ellipse at left, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%) 0 center, 
+	  						radial-gradient(ellipse at right, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%) 100% center;
+        background-size: 10px 100%, 10px 100%;
+        background-attachment: scroll, scroll;
+        background-repeat: no-repeat;
+    }
+    /* change these gradients from white to your background colour if it differs gradient on the first cells to hide the left shadow*/
+    .scrollTable td {
+        /* gradient on the last cells to hide the right shadow*/
+    }
+    .scrollTable td:first-child {
+        background-image: linear-gradient(to right, rgba(255,255,255, 1) 50%, rgba(255,255,255, 0) 100%);
+        background-repeat: no-repeat;
+        background-size: 20px 100%;
+    }
+    .scrollTable td:last-child {
+        background-image: linear-gradient(to left, rgba(255,255,255, 1) 50%, rgba(255,255,255, 0) 100%);
+        background-repeat: no-repeat;
+        background-position: 100% 0;
+        background-size: 20px 100%;
+    }
+}
+/*Button*/
+.btn-row {
+    padding: 10px 0;
+}
+.btn {
+    font-family: "微軟正黑體", "Microsoft JhengHei", 'LiHei Pro', Arial, Helvetica, sans-serif, \5FAE\8EDF\6B63\9ED1\9AD4,\65B0\7D30\660E\9AD4;
+    display: inline-block;
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+    box-shadow: 0px 3px 5px rgba(0,0,0,0.3);
+    padding: 4px 20px;
+}
+@media (max-width: 480px) {
+    .btn {
+        text-align: center;
+        width: 100%;
+    }
+}
+.btn:hover {
+    box-shadow: none;
+}
+/*- by Color -*/
+.btn-primary {
+    background: #16C1D5;
+    border: 1px solid rgb(23, 163, 179);
+}
+.btn-primary:hover {
+    background: rgb(47, 215, 233);
+}
+.btn-exec {
+    background: #D34200;
+    border: 1px solid rgb(179, 57, 0);
+}
+.btn-exec:hover {
+    background: rgb(230, 73, 0);
+}
+.btn-alert {
+    background: #FC3E3E;
+    border: 1px solid rgb(204, 61, 61);
+}
+.btn-alert:hover {
+    background: rgb(252, 79, 79);
+}
+.btn-darkblue {
+    background: rgb(26, 117, 179);
+    border: 1px solid rgb(26, 148, 230);
+}
+.btn-darkblue:hover {
+    background: rgb(69, 154, 211);
+}
+.btn-green {
+    background: #00ba95;
+    border: 1px solid rgb(0, 153, 122);
+}
+.btn-green:hover {
+    background: rgb(0, 204, 163);
+}
+.btn-orange {
+    background: #faaa00;
+    border: 1px solid rgb(204, 139, 0);
+}
+.btn-orange:hover {
+    background: rgb(255, 190, 51);
+}
+.btn-gray {
+    background: #999;
+    border: 1px solid #888;
+}
+.btn-gray:hover {
+    background: #aaa;
+}
+/*- by Size -*/
+.btn-wide {
+    padding: 10px 60px;
+}
+/*-by Function-*/
+.btn-in-table {
+    box-sizing: border-box;
+    color: #fff;
+    display: table;
+    font-size: 16px;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    width: 36px;
+    height: 36px;
+    position: relative;
+    cursor: pointer;
+}
+.btn-in-table i {
+    display: table-cell;
+    vertical-align: middle;
+}
+/* 預設驗證訊息樣式 */
+.error {
+    color: red;
+    font-size: 15px;
+    margin-top: 5px;
+}
+
+
+/* 以下是Ben自做主張加的  */
+.ui-widget {
+	font-family: unset;;
+}
+::-webkit-input-placeholder { /* WebKit browsers */
+    font-family:"微軟正黑體", "Microsoft JhengHei", 'LiHei Pro', Arial, Helvetica, sans-serif, \5FAE\8EDF\6B63\9ED1\9AD4,\65B0\7D30\660E\9AD4;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    font-family:"微軟正黑體", "Microsoft JhengHei", 'LiHei Pro', Arial, Helvetica, sans-serif, \5FAE\8EDF\6B63\9ED1\9AD4,\65B0\7D30\660E\9AD4;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    font-family:"微軟正黑體", "Microsoft JhengHei", 'LiHei Pro', Arial, Helvetica, sans-serif, \5FAE\8EDF\6B63\9ED1\9AD4,\65B0\7D30\660E\9AD4;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    font-family:"微軟正黑體", "Microsoft JhengHei", 'LiHei Pro', Arial, Helvetica, sans-serif, \5FAE\8EDF\6B63\9ED1\9AD4,\65B0\7D30\660E\9AD4;
+}
+
+
+/* 後來打算pageload完之後 用JS放進去 已免被蓋過去 還沒做 */

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <%- include('../template/css.ejs') %>
+  </head>
+  <body>
+    <%- include('../menu'); -%>
+
+    <div class="content-wrap">
+      <h2 class="page-title"><%= title %></h2>
+
+      <div class="input-field-wrap">
+        <div class="form-wrap">
+          <div class="form-row">
+            <div id="dlg_update" style="display: none;">
+              <form id="form_update">
+                <div class="row">
+                  <label for="sex" class="label">性別</label>
+                  <input type="text" name="sex" id="upd_sex" />
+                </div>
+                <div class="row">
+                  <label for="age" class="label">年齡</label>
+                  <input type="text" name="age" id="upd_age" />
+                </div>
+                <div class="row">
+                  <label for="photo" class="label">上傳相片</label>
+                  <input type="file" name="photo" id="upd_photo" type="file" accept="image/*" />
+                </div>
+                <div class="row">
+                  <img id="preview" class="preview" hidden>
+                </div>
+                <input type="hidden" name="model_id" value="" />
+                <input type="hidden" name="new_photo"/>
+                <input type="hidden" name="remove_photo"/>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="search-result-wrap">
+        <div class="form-wrap">
+          <div class="form-row">
+            <div class="row">
+              <button type="button" class="btn_insert btn btn-primary btn-wide">新增</button>
+            </div>
+          </div>
+        </div>
+        <div id="table_container">
+          <table id='list' style="width:100%"></table>
+        </div>
+      </div>
+    </div>
+
+    <%- include('../template/js_lib'); %>
+    <script type="text/javascript" src="/javascripts/page/model_list.js"></script>
+  </body>
+</html>

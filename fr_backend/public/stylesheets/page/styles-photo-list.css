@@ -1,0 +1,6 @@
+.preview {
+    width: 80px;
+}
+input[type="file"] {
+	padding: 5px;
+}
