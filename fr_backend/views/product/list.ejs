@@ -16,12 +16,19 @@
             <div id="dlg_update" style="display: none;">
               <form id="form_update">
                 <div class="row">
-                  <label for="sex" class="label">性別</label>
-                  <input type="text" name="sex" id="upd_sex" />
+                  <label for="upd_sex" class="label">性別</label>
+                  <select name="sex" id="upd_sex">
+                    <option value="F" selected>女性</option>
+                    <option value="M">男性</option>
+                  </select>
                 </div>
                 <div class="row">
-                  <label for="kind" class="label">類別</label>
-                  <input type="text" name="kind" id="upd_kind" />
+                  <label for="upd_kind" class="label">類別</label>
+                  <select name="kind" id="upd_kind">
+                    <option value="cloth" selected>上衣</option>
+                    <option value="pants">褲/裙</option>
+                    <option value="shoes">鞋子</option>
+                  </select>
                 </div>
                 <div class="row">
                   <label for="c_product_id" class="label">料號</label>
@@ -36,8 +43,12 @@
                   <input type="text" name="brand" id="upd_brand" />
                 </div>
                 <div class="row">
-                  <label for="style" class="label">風格</label>
-                  <input type="text" name="style" id="upd_style" />
+                  <label for="upd_style" class="label">風格</label>
+                  <select name="style" id="upd_style">
+                    <option value="上班" selected>上班</option>
+                    <option value="休閒">休閒</option>
+                    <option value="宴會">宴會</option>
+                  </select>
                 </div>
                 <div class="row">
                   <label for="desc" class="label">說明</label>

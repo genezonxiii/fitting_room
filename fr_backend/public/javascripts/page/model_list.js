@@ -80,7 +80,7 @@ $('body').on('click', 'button.btn_edit', function() {
   var row = $(this).closest("tr");
   var data = $("#list").DataTable().row(row).data();
 
-  $('#form_update input:text[name="sex"]').val(data.sex);
+  $('#form_update select[name="sex"]').val(data.sex);
   $('#form_update input:text[name="age"]').val(data.age);
   $('#form_update input:hidden[name="new_photo"]').val(data.photo);
   $('#form_update input:hidden[name="remove_photo"]').val(data.photo);
@@ -132,7 +132,7 @@ $('body').on('click', 'button.btn_insert', function() {
 });
 
 function btn_edit_click(cb){
-	let sex = $( "input:text[name='sex']").val(),
+	let sex = $( "select[name='sex']").val(),
 		age = $( "input:text[name='age']").val(),
 		photo = $( "input:hidden[name='new_photo']").val(),
 		remove = $( "input:hidden[name='remove_photo']").val(),
@@ -169,7 +169,7 @@ function btn_edit_click(cb){
 }
 
 function btn_insert_click(cb){
-	let sex = $( "input:text[name='sex']").val(),
+	let sex = $( "select[name='sex']").val(),
 		age = $( "input:text[name='age']").val(),
 		check_photo = $( "input:file[name='photo']").val(),
 		photo = $( "input:hidden[name='new_photo']").val();

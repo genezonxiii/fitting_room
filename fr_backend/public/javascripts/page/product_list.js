@@ -46,6 +46,25 @@ function getMaster(url) {
     		return data === 'F'?'女':'男';
     	}
     }, {
+     	targets: 1,
+    	className: 'dt-body-center',
+    	// width: "5%",
+    	render: function ( data, type, row ) {
+				switch(data) {
+					case "cloth": 
+						return "上衣";
+						break;
+					case "pants": 
+						return "褲/裙"; 
+						break;
+					case "shoes": 
+						return "鞋子"; 
+						break;
+					default:  
+						return "";
+				}
+    	}
+    }, {
     	targets: 3,
     	className: 'dt-body-center',
     	width: "10%"
@@ -99,16 +118,18 @@ $('body').on('click', 'button.btn_edit', function() {
   var row = $(this).closest("tr");
   var data = $("#list").DataTable().row(row).data();
 
-  $('#form_update input:text[name="sex"]').val(data.sex);
-  $('#form_update input:text[name="kind"]').val(data.kind);
+  $('#form_update select[name="sex"]').val(data.sex);
+  $('#form_update select[name="kind"]').val(data.kind);
   $('#form_update input:text[name="c_product_id"]').val(data.c_product_id);
   $('#form_update input:text[name="product_name"]').val(data.product_name);
   $('#form_update input:text[name="brand"]').val(data.brand);
-  $('#form_update input:text[name="style"]').val(data.style);
+  $('#form_update select[name="style"]').val(data.style);
   $('#form_update input:text[name="desc"]').val(data.desc);
   $('#form_update input:hidden[name="new_photo"]').val(data.photo);
   $('#form_update input:hidden[name="remove_photo"]').val(data.photo);
   $('#form_update input:hidden[name="product_id"]').val(data.product_id);
+
+  $('#form_update select[name="kind"]').attr("disabled", true); 
 
   $('#dlg_update').dialog({
     title: "更新資料",
@@ -133,6 +154,7 @@ $('body').on('click', 'button.btn_edit', function() {
 
 $('body').on('click', 'button.btn_insert', function() {
 	formReset();
+	$('#form_update select[name="kind"]').attr("disabled", false); 
   $('#dlg_update').dialog({
     title: "新增資料",
     modal: true,
@@ -155,12 +177,12 @@ $('body').on('click', 'button.btn_insert', function() {
 });
 
 function btn_edit_click(cb){
-	let sex = $( "input:text[name='sex']").val(),
-		kind = $( "input:text[name='kind']").val(),
+	let sex = $( "select[name='sex']").val(),
+		kind = $( "select[name='kind']").val(),
 		c_product_id = $( "input:text[name='c_product_id']").val(),
 		product_name = $( "input:text[name='product_name']").val(),
 		brand = $( "input:text[name='brand']").val(),
-		style = $( "input:text[name='style']").val(),
+		style = $( "select[name='style']").val(),
 		desc = $( "input:text[name='desc']").val(),
 		photo = $( "input:hidden[name='new_photo']").val(),
 		remove = $( "input:hidden[name='remove_photo']").val(),
@@ -202,12 +224,12 @@ function btn_edit_click(cb){
 }
 
 function btn_insert_click(cb){
-	let sex = $( "input:text[name='sex']").val(),
-		kind = $( "input:text[name='kind']").val(),
+	let sex = $( "select[name='sex']").val(),
+		kind = $( "select[name='kind']").val(),
 		c_product_id = $( "input:text[name='c_product_id']").val(),
 		product_name = $( "input:text[name='product_name']").val(),
 		brand = $( "input:text[name='brand']").val(),
-		style = $( "input:text[name='style']").val(),
+		style = $( "select[name='style']").val(),
 		desc = $( "input:text[name='desc']").val(),
 		check_photo = $( "input:file[name='photo']").val(),
 		photo = $( "input:hidden[name='new_photo']").val(),
