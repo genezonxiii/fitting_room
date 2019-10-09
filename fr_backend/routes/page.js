@@ -15,13 +15,9 @@ const	FILE_TYPE = config.photo.file.type,
 
 router.use(fileUpload());
 
-router.get('/test', function(req, res, next) {
-  res.render('', { 
-    title: '人物', 
-    file_type: FILE_TYPE, 
-    file_size: FILE_SIZE, 
-    file_width: FILE_WIDTH, 
-    file_height: FILE_HEIGHT 
+router.get('/order', function(req, res, next) {
+  res.render('order/list', { 
+    title: '試穿'
   });
 });
 

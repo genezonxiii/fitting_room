@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <%- include('../template/css.ejs') %>
+  </head>
+  <body>
+    <%- include('../menu'); -%>
+
+    <div class="content-wrap">
+      <h2 class="page-title"><%= title %></h2>
+
+      <div class="search-result-wrap">
+        <div id="table_container">
+          <table id='list' style="width:100%"></table>
+          
+        </div>
+      </div>
+    </div>
+
+    <div id="dlg_detail" style="display: none;">
+      <table id='detail' style="width:100%"></table>
+    </div>
+
+    <%- include('../template/js_lib'); %>
+    <script type="text/javascript" src="/javascripts/page/order_list.js"></script>
+  </body>
+</html>

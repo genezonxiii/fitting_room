@@ -36,8 +36,8 @@ router.get('/order', function (req, res) {
   });
 })
 
-router.post('/order/process', function (req, res) {
-  let sale_id = req.body.sale_id;
+router.put('/order', function (req, res) {
+  let {sale_id} = req.body;
   logger.debug(`Order Processed: ${sale_id}`);
 
   let query = `UPDATE tb_sale SET process = 1 where sale_id = ? and process = 0`;
@@ -50,7 +50,12 @@ router.post('/order/process', function (req, res) {
           return;
       }
 
-      res.send(result);
+      logger.debug(`Order: ${ result.affectedRows } record(s) updated`);
+      if (result.affectedRows > 0) {
+        res.send(`{ "result": "更新成功" }`);
+      } else {
+        res.send('{ "result": "更新失敗" }');
+      }
     })
   });
 })
