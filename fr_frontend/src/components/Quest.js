@@ -260,7 +260,7 @@ class Quest extends Component {
 					</div>
       	</div>
 
-      	<div className="footer-control-wrap">
+      	<div className="footer-control-wrap footer-float">
 	        <a 
 	        	className="btn btn-icon-round" 
 	        	type="button"

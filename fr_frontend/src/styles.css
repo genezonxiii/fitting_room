@@ -11,7 +11,7 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, "微軟正黑體", "Microsoft JhengHei", sans-serif;
   font-size: 16px;
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 80px);
   overflow: hidden;
   margin: 0;
   padding: 0; }
@@ -171,17 +171,17 @@ h1.sys-title {
     background: url("./images/icon_nav-home.svg") no-repeat;
     display: block;
     float: left;
-    width: 60px;
-    height: 60px; }
+    width: 48px;
+    height: 48px; }
   .home-navbar h2.page-title {
     color: #444;
     float: left;
-    font-size: 28px;
+    font-size: 24px;
     margin: 0;
     margin-left: 10px; }
 
 .footer-control-wrap {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   position: fixed;
   bottom: 0;
   padding: 1.1rem 0;
@@ -189,6 +189,9 @@ h1.sys-title {
   width: 100%;
   box-shadow: 0 -0.125rem 1.5rem rgba(0, 0, 0, 0.1);
   z-index: 1; }
+  .footer-control-wrap.footer-float {
+    width: 65%;
+    right: 0; }
 
 h2.clothes-select-title {
   position: absolute;
@@ -231,7 +234,7 @@ h2.clothes-select-title {
     justify-content: center;
     width: 18vw;
     height: 18vw;
-    border-radius: 50px;
+    border-radius: 15%;
     box-shadow: 0 0.46875rem 2.1875rem rgba(0, 0, 0, 0.03), 0 0.9375rem 1.40625rem rgba(0, 0, 0, 0.03), 0 0.25rem 0.53125rem rgba(0, 0, 0, 0.05), 0 0.125rem 0.1875rem rgba(0, 0, 0, 0.03);
     text-align: center;
     transition: .3s; }
@@ -419,7 +422,6 @@ h2.clothes-select-title {
 
 .figure-fitting-wrap {
   width: 65%;
-  height: 65%;
   position: relative;
   text-align: center; }
   .figure-fitting-wrap .fitting-figure {
@@ -448,7 +450,7 @@ h2.clothes-select-title {
 .clothes-info-section {
   align-self: flex-start;
   width: 75%;
-  padding: 60px 40px 120px;
+  padding: 40px 40px 120px;
   height: 100vh;
   overflow-y: auto; }
 
@@ -466,6 +468,7 @@ ul.clothes-tabs {
   background: none;
   display: inline-block;
   margin: 0 auto 1rem;
+  padding: 0;
   zoom: 1; }
   ul.clothes-tabs:before, ul.clothes-tabs:after {
     content: '';
@@ -492,7 +495,7 @@ ul.clothes-tabs {
     ul.clothes-tabs li a {
       color: #aaa;
       display: block;
-      padding: 0 30px;
+      padding: 0 25px;
       font-size: 13px;
       text-decoration: none; }
       ul.clothes-tabs li a img {
@@ -638,9 +641,10 @@ ul.clothes-tabs {
 
 .clothes-list-section {
   width: 40%;
-  padding: 80px 40px 120px;
+  padding: 60px 40px 120px;
   height: 100vh;
-  overflow-y: auto; }
+  overflow-y: auto;
+  align-self: flex-start; }
 
 .clothes-list-card {
   background: #fff;
@@ -835,5 +839,53 @@ select {
     text-decoration: none;
     text-align: center;
     padding: 1rem 0; }
+
+/* Responsive */
+@media screen and (max-width: 820px) and (orientation: landscape) {
+  .home-navbar {
+    left: .5rem;
+    top: .5rem; }
+    .home-navbar a.go-home {
+      width: 42px;
+      height: 42px; }
+    .home-navbar h2.page-title {
+      font-size: 1.5rem; }
+
+  .btn-icon-round {
+    height: 36px; }
+    .btn-icon-round .icon-round-bkg {
+      width: 36px;
+      height: 36px; }
+
+  h2.clothes-select-title {
+    font-size: 6vw; }
+
+  .clothes-select-section .clothes-select-btn-name {
+    font-size: 1.2rem;
+    margin-top: 1rem; }
+
+  .clothes-info-section {
+    padding: 30px 20px 80px; }
+
+  .title-clothes-suggest {
+    font-size: 1.1rem; }
+
+  .clothes-image-grid .clothes-image-card {
+    height: 100px; }
+  .clothes-image-grid .swiper-container {
+    padding-bottom: 1rem; }
+
+  .clothes-info-wrap {
+    font-size: 13px; }
+    .clothes-info-wrap .form-row {
+      margin-bottom: 2px; }
+
+  .footer-control-wrap {
+    padding: .8rem;
+    right: 0;
+    width: auto; }
+    .footer-control-wrap .btn-icon-round {
+      min-width: 160px;
+      font-size: 13px; } }
 
 /*# sourceMappingURL=styles.css.map */
