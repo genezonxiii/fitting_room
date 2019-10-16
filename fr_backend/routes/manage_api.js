@@ -100,12 +100,12 @@ router.get('/model/list', function (req, res) {
 })
 
 router.post('/model/', function (req, res) {
-  let { sex, age, photo } = req.body;
-  logger.info(`Model Insert: ${sex}, ${age}, ${photo} `);
+  let { sex, age, photo, persona } = req.body;
+  logger.info(`Model Insert: ${sex}, ${age}, ${photo}, ${persona} `);
 
-  let query = `INSERT INTO tb_model (sex, age, photo) VALUES (?,?,?)`;
+  let query = `INSERT INTO tb_model (sex, age, photo, persona) VALUES (?,?,?,?)`;
   db.getConnection(function(err, connection) { 
-    connection.query(query, [sex, age, photo], function(err, result) {
+    connection.query(query, [sex, age, photo, persona], function(err, result) {
       connection.release();
 
       if (err) {
@@ -125,12 +125,12 @@ router.post('/model/', function (req, res) {
 })
 
 router.put('/model/', function (req, res) {
-  let { model_id, sex, age, photo, remove } = req.body;
-  logger.info(`Model Update: ${model_id}, ${sex}, ${age}, ${photo} `);
+  let { model_id, sex, age, photo, remove, persona } = req.body;
+  logger.info(`Model Update: ${model_id}, ${sex}, ${age}, ${photo}, ${persona} `);
 
-  let query = `UPDATE tb_model SET sex=?, age=?, photo=? WHERE model_id=?`;
+  let query = `UPDATE tb_model SET sex=?, age=?, photo=?, persona=? WHERE model_id=?`;
   db.getConnection(function(err, connection) { 
-    connection.query(query, [sex, age, photo, model_id], function(err, result) {
+    connection.query(query, [sex, age, photo, persona, model_id], function(err, result) {
       connection.release();
 
       if (err) {

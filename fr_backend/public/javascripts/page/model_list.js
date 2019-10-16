@@ -18,6 +18,9 @@ function getMaster(url) {
 				"title": "年齡",
 				"data": "age"
 	    }, {
+				"title": "Persona",
+				"data": "persona"
+	    }, {
 				"title": "圖檔",
 				"data": "photo"
 			}, {
@@ -34,6 +37,40 @@ function getMaster(url) {
 	    	targets: 1,
 	    	className: 'dt-body-center',
 	    	width: "10%"
+	    }, {
+	    	targets: 2,
+	    	className: 'dt-body-center',
+	    	width: "10%",
+	    	render: function ( data, type, row ) {
+					switch(data) {
+						case "A": 
+							return "精算管家型";
+							break;
+						case "B": 
+							return "享樂翻糖型"; 
+							break;
+						case "C": 
+							return "知性陀飛輪型"; 
+							break;
+						case "D": 
+							return "神秘暹羅貓型"; 
+							break;
+						case "E": 
+							return "刻苦力爭型"; 
+							break;
+						case "F": 
+							return "積極開創者型"; 
+							break;
+						case "G": 
+							return "決策苦手型"; 
+							break;
+						case "H": 
+							return "生活從眾型"; 
+							break;
+						default:  
+							return "";
+					}
+	    	}
 	    }, {
 	    	targets: -2,
 	    	className: 'dt-body-center',
@@ -82,6 +119,7 @@ $('body').on('click', 'button.btn_edit', function() {
 
   $('#form_update select[name="sex"]').val(data.sex);
   $('#form_update input:text[name="age"]').val(data.age);
+  $('#form_update select[name="persona"]').val(data.persona);
   $('#form_update input:hidden[name="new_photo"]').val(data.photo);
   $('#form_update input:hidden[name="remove_photo"]').val(data.photo);
   $('#form_update input:hidden[name="model_id"]').val(data.model_id);
@@ -134,18 +172,22 @@ $('body').on('click', 'button.btn_insert', function() {
 function btn_edit_click(cb){
 	let sex = $( "select[name='sex']").val(),
 		age = $( "input:text[name='age']").val(),
+		persona = $( "select[name='persona']").val(),
 		photo = $( "input:hidden[name='new_photo']").val(),
 		remove = $( "input:hidden[name='remove_photo']").val(),
 		model_id = $( "input:hidden[name='model_id']").val();
 
 	if( sex == "" ){
-		message("請輸入性別");
+		message("請選擇性別");
 	} else if( age == "" ){
 		message("請輸入年齡");
+	} else if( persona == "" ){
+		message("請選擇persona");
 	} else {
 		let data = {
 			"sex": sex, 
 			"age": age, 
+			"persona": persona, 
 			"photo": photo,
 			"remove": remove,
 			"model_id": model_id
@@ -171,19 +213,23 @@ function btn_edit_click(cb){
 function btn_insert_click(cb){
 	let sex = $( "select[name='sex']").val(),
 		age = $( "input:text[name='age']").val(),
+		persona = $( "select[name='persona']").val(),
 		check_photo = $( "input:file[name='photo']").val(),
 		photo = $( "input:hidden[name='new_photo']").val();
 
 	if( sex == "" ){
-		message("請輸入性別");
+		message("請選擇性別");
 	} else if( age == "" ){
 		message("請輸入年齡");
+	} else if( persona == "" ){
+		message("請選擇persona");
 	} else if( check_photo == "" ){
 		message("請挑選相片");
 	} else {
 		let data = {
 			"sex": sex, 
 			"age": age,
+			"persona": persona,
 			"photo": photo
 		};
 
