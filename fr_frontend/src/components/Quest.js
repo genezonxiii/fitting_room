@@ -84,7 +84,8 @@ class Quest extends Component {
           sex: result.sex,
           age: age,
           sex_hide: sex,
-          age_hide: null
+          age_hide: null,
+          persona: result.persona
         };
 
         self.props.choose(data);

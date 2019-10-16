@@ -99,7 +99,8 @@ class Selfie extends React.Component {
           sex: result.sex,
           age: result.age,
           sex_hide: '',
-          age_hide: age
+          age_hide: age,
+          persona: result.persona
         };
 
         self.props.choose(data);

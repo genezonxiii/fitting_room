@@ -74,7 +74,8 @@ class App extends React.Component {
         method: data.method,
         age: data.age,
         sex_hide: data.sex_hide,
-        age_hide: data.age_hide
+        age_hide: data.age_hide,
+        persona: data.persona
       }
     })
   }
