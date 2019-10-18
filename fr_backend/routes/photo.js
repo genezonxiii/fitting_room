@@ -12,16 +12,25 @@ const PREVIEW_PATH = config.photo.path.preview;
 const fileUpload = require('express-fileupload');
 router.use(fileUpload());
 
+router.get('/:type/3d/:photo', function (req, res) {
+  logger.debug(`3D: ${req.params.type}, ${req.params.photo}`)
+  res.sendFile(`${config.photo_path}/${req.params.type}/3d/${req.params.photo}`);
+})
+
+router.get('/:type/thumbnail/:photo', function (req, res) {
+  logger.debug(`thumbnail: ${req.params.type}, ${req.params.photo}`)
+  res.sendFile(`${config.photo_path}/${req.params.type}/thumbnail/${req.params.photo}`);
+})
+
 router.get('/:type/:photo', function (req, res) {
-  logger.debug(`PHOTO PATH: ${config.photo_path}`)
-  logger.debug(`get photo: ${req.params.type}, ${req.params.photo}`)
+  logger.debug(`photo: ${req.params.type}, ${req.params.photo}`)
   res.sendFile(`${config.photo_path}/${req.params.type}/${req.params.photo}`);
 })
 
 router.get('/preview', function(req, res, next) {
 	const { kind, name } = req.query;
 	let full_path = `${ PREVIEW_PATH }/${ name }`;
-	console.log(`PREVIEW HERE ${name}`);
+	console.log(`Preview: ${name}`);
 	
 	if (kind == 'model') {
 		full_path = `${ PREVIEW_PATH }/${ name }`
@@ -37,7 +46,6 @@ router.get('/preview', function(req, res, next) {
 
 
 router.post('/preview', function(req, res, next) {
-	console.log('preview !!! ');
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   let sampleFile = req.files.photo;
 
