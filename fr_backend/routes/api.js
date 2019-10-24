@@ -326,7 +326,7 @@ router.post('/recognize', async function (req, res) {
   const mobile = req.body.mobile;
   logger.debug(`recognize: ${mobile}`);
 
-  const { data } = await axios.post('http://sbi1.cdri.org.tw/agegender', {"file": `${mobile}.jpg`});
+  const { data } = await axios.post('https://sbi1.cdri.org.tw/agegender', {"file": `${mobile}.jpg`});
   logger.debug( data );
   res.send(data);
 })
