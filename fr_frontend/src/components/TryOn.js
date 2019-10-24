@@ -6,6 +6,7 @@ import Figure from "./Figure";
 import ClothTabs from "./ClothTabs";
 import TabContent from "./TabContent";
 import ClothInfo from "./ClothInfo";
+import Popup3DInfo from "./Popup3DInfo";
 import Popup from "./Popup";
 
 import tabClothes from "./../images/tab-icon_clothes.png";
@@ -45,6 +46,10 @@ class TryOn extends React.Component {
       },
       msgList: {
         msg1: false
+      },
+      preview3D: {
+        flag: false,
+        outfit: {}
       }
     }
 
@@ -55,6 +60,9 @@ class TryOn extends React.Component {
     this.handleDressOffClick = this.handleDressOffClick.bind(this);
     this.handleShoesOffClick = this.handleShoesOffClick.bind(this);
     this.handleTabClick = this.handleTabClick.bind(this);
+    this.confirmPreview = this.confirmPreview.bind(this);
+    this.renderPreview = this.renderPreview.bind(this);
+    this.renderClothInfo3D = this.renderClothInfo3D.bind(this);
     this.confirm = this.confirm.bind(this);
     this.confirmMsg1 = this.confirmMsg1.bind(this);
     this.renderMsg1 = this.renderMsg1.bind(this);
@@ -193,6 +201,46 @@ class TryOn extends React.Component {
     )
   }
 
+  confirmPreview() {
+    const { preview3D } = this.state;
+
+    this.setState({
+      preview3D: {
+        ...preview3D,
+        flag: true
+      }
+    })
+  }
+
+  renderPreview() {
+    return (
+      <a className="btn-preview" onClick={this.confirmPreview}><i className="mdi mdi-eye"></i></a>
+    )
+  }
+
+  renderClothInfo3D() {
+    const { preview3D, clothTabs, outfit } = this.state;
+
+    const handelCancel = (e) => {
+      this.setState({
+        preview3D: {
+          ...preview3D,
+          flag: false
+        }
+      })
+    }
+
+    return (
+      <Popup3DInfo
+        active={preview3D.flag}
+        clothTabs={clothTabs}
+        outfit={preview3D.outfit}
+        btns={{cancel:true}}
+        cancel={handelCancel}
+      />
+    )
+  }
+
   confirmMsg1() {
     const { outfit, msgList } = this.state;
 
@@ -246,6 +294,10 @@ class TryOn extends React.Component {
         outfit: { 
           ...this.state.outfit, 
           cloth: cloth
+        },
+        preview3D: {
+          ...this.state.preview3D,
+          outfit: cloth
         }
       })
     } 
@@ -261,6 +313,10 @@ class TryOn extends React.Component {
         outfit: { 
           ...this.state.outfit, 
           pants: pants
+        },
+        preview3D: {
+          ...this.state.preview3D,
+          outfit: pants
         }
       })
     } 
@@ -276,6 +332,10 @@ class TryOn extends React.Component {
         outfit: { 
           ...this.state.outfit, 
           dress: dress
+        },
+        preview3D: {
+          ...this.state.preview3D,
+          outfit: dress
         }
       })
     }
@@ -291,6 +351,10 @@ class TryOn extends React.Component {
         outfit: { 
           ...this.state.outfit, 
           shoes: shoes
+        },
+        preview3D: {
+          ...this.state.preview3D,
+          outfit: shoes
         }
       })
     }
@@ -371,6 +435,7 @@ class TryOn extends React.Component {
               clothTabs.active === 0 && outfit.cloth.product_id?
               <ClothInfo
                 outfit={outfit.cloth}
+                preview={this.renderPreview}
               />
               :null
             }
@@ -378,6 +443,7 @@ class TryOn extends React.Component {
               clothTabs.active === 1 && outfit.pants.product_id?
               <ClothInfo
                 outfit={outfit.pants}
+                preview={this.renderPreview}
               />
               :null
             }
@@ -385,6 +451,7 @@ class TryOn extends React.Component {
               clothTabs.active === 2 && outfit.dress.product_id?
               <ClothInfo
                 outfit={outfit.dress}
+                preview={this.renderPreview}
               />
               :null
             }
@@ -392,6 +459,7 @@ class TryOn extends React.Component {
               clothTabs.active === 3 && outfit.shoes.product_id?
               <ClothInfo
                 outfit={outfit.shoes}
+                preview={this.renderPreview}
               />
               :null
             }
@@ -400,6 +468,7 @@ class TryOn extends React.Component {
         </div>
 
         { this.renderControl() }
+        { this.renderClothInfo3D() }
         { msgList.msg1?this.renderMsg1():null }
       </div>
     );

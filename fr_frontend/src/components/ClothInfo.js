@@ -32,6 +32,7 @@ function ClothInfo(props) {
         </div>
       </div>
 
+      { props.preview && props.outfit.photo3d?props.preview():null }
       {
         props.sizeList?props.renderSize():null
       }
