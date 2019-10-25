@@ -54,12 +54,13 @@ class App extends React.Component {
     })
   }
 
-  onLoginConfirm(result) {
+  onLoginConfirm(result, store) {
     this.setState({
       isLogin: result.success,
       isModel: false,
       isTryOn: false,
-      user: result.result
+      user: result.result,
+      store: store
     })
   }
 
@@ -114,6 +115,7 @@ class App extends React.Component {
 
   render() {
     const { isLogin, isModel, isTryOn, user } = this.state;
+    const { sex, model, setting, orderList, store } = this.state;
     return (
       <Router basename="vfit">
         <div>
@@ -162,7 +164,7 @@ class App extends React.Component {
                 <Redirect to="/tryOn"/>
                 :
                 <Quest 
-                  user={this.state.user}
+                  user={user}
                   handleLogout={this.handleLogout}
                   handleHome={this.handleHome}
                   choose={this.onModelChoose}
@@ -179,7 +181,7 @@ class App extends React.Component {
                 <Redirect to="/tryOn"/>
                 :
                 <Selfie 
-                  user={this.state.user}
+                  user={user}
                   handleLogout={this.handleLogout}
                   handleHome={this.handleHome}
                   choose={this.onModelChoose}
@@ -196,12 +198,12 @@ class App extends React.Component {
                 <Redirect to="/tryOn"/>
                 :
                 <ChooseModel 
-                  user={this.state.user}
+                  user={user}
                   handleLogout={this.handleLogout}
                   handleHome={this.handleHome}
                   choose={this.onModelChoose}
                   confirm={this.onModelConfirm} 
-                  model={this.state.model}
+                  model={model}
                   {...props} 
                 />
               }
@@ -214,11 +216,11 @@ class App extends React.Component {
                 <Redirect to="/order"/>
                 :
                 <TryOn 
-                  user={this.state.user}
+                  user={user}
                   handleLogout={this.handleLogout}
                   handleHome={this.handleHome}
-                  sex={this.state.sex}
-                  model={this.state.model}
+                  sex={sex}
+                  model={model}
                   confirm={this.onTryOnConfirm}
                   {...props} 
                 />
@@ -232,12 +234,13 @@ class App extends React.Component {
                 <Redirect to="/style"/>
                 :
                 <Order 
-                  user={this.state.user}
+                  user={user}
                   handleLogout={this.handleLogout}
                   handleHome={this.handleHome}
-                  orderList={this.state.orderList}
+                  orderList={orderList}
                   confirm={this.onOrderConfirm}
-                  setting={this.state.setting}
+                  setting={setting}
+                  store={store}
                   {...props} 
                 />
               }

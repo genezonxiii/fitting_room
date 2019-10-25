@@ -85,11 +85,13 @@ class Order extends React.Component {
   confirmOrder() {
     var self = this;
     const { orderList, finalOrderList } = this.state;
+    const { user, setting, store } = this.props;
 
     const order = {
-      user_id: this.props.user.id,
+      user_id: user.id,
       detail: finalOrderList,
-      setting: this.props.setting
+      setting: setting,
+      store: store
     }
 
     if(finalOrderList.length === 0 || finalOrderList.length < orderList.length) {

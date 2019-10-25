@@ -59,13 +59,13 @@ h1.sys-title {
       color: #999;
       font-size: 1.5rem;
       text-align: center;
-      width: 48px; }
+      padding: 0 0 0 8px; }
     .login-panel .input-icon-group input {
       border: none;
       flex-grow: 1;
-      font-size: 1.3rem;
+      font-size: 16px;
       outline: none;
-      padding: 10px 20px 10px 0;
+      padding: 12px 20px 12px 10px;
       width: 100%; }
       .login-panel .input-icon-group input::placeholder {
         color: #999;
@@ -73,6 +73,14 @@ h1.sys-title {
         line-height: 1; }
   .login-panel#user-register {
     display: none; }
+  .login-panel select {
+    background-color: #fff;
+    border: none;
+    font-family: '微軟正黑體';
+    font-size: 16px;
+    outline: none;
+    padding: 10px 20px 10px 10px;
+    width: 100%; }
 
 .btn-login {
   border-radius: 1px;

@@ -8,14 +8,48 @@ class Login extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			mobile: ''
+			mobile: '',
+			store: '',
+			storeList: []
 		}
+		this.setStore = this.setStore.bind(this);
 		this.onChangeMobile = this.onChangeMobile.bind(this);
+		this.onChangeStore = this.onChangeStore.bind(this);
 		this.confirm = this.confirm.bind(this);
+	}
+
+	componentDidMount () {
+		this.getStoreList();
+	}
+
+	getStoreList() {
+		const self = this;
+    axios.get(`${CONSTANT.WS_URL}/api/store/wen`)
+      .then(function(response) {
+        // handle success
+        self.setStore(response.data);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .finally(function () {
+        // always executed
+      });
+	}
+
+	setStore(data) {
+		this.setState({
+			storeList: data
+		})
 	}
 
 	onChangeMobile (e) {
 		this.setState({ mobile: e.target.value });
+	}
+
+	onChangeStore (e) {
+		this.setState({ store: e.target.value });
 	}
 
 	confirm() {
@@ -24,7 +58,7 @@ class Login extends Component {
     axios.get(`${CONSTANT.WS_URL}/api/user/${this.state.mobile}`)
       .then(function(response) {
         // handle success
-        self.props.confirm(response.data);
+        self.props.confirm(response.data, self.state.store);
       })
       .catch(function (error) {
         // handle error
@@ -36,7 +70,7 @@ class Login extends Component {
 	}
 
 	render() {
-		const { mobile } = this.state;
+		const { mobile, storeList } = this.state;
 
 		return (
 			<div className="login-body">
@@ -56,6 +90,18 @@ class Login extends Component {
 								value={mobile}
 							/>
 						</div>
+						<div className="input-icon-group">
+							<i className="mdi mdi-map-marker"></i>
+	            <select name="store" onChange={this.onChangeStore} value={this.state.store}>
+		            {
+			            storeList.map(function(d, idx){
+			              return (
+			                <option value={d.type} key={`store-${idx}`}>{d.value}</option>
+		                )
+		              })
+	              }
+	            </select>
+            </div>
 						<a 
 							className="btn-login btn-signin"
 							onClick={this.confirm}
