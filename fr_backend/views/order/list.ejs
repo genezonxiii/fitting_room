@@ -11,6 +11,20 @@
       <h2 class="page-title"><%= title %></h2>
 
       <div class="search-result-wrap">
+        <div class="form-wrap">
+          <div class="form-row">
+            <div class="row">
+              <label>秒數</label>
+              <input type="text" name="interval" value="10"/>
+              <button type="button" class="btn-interval btn btn-green">啟動</button>
+            </div>
+            <div class="row">
+              <label>選擇店點</label>
+              <select id="store"></select>
+            </div>
+          </div>
+        </div>
+        
         <div id="table_container">
           <table id='list' style="width:100%"></table>
           
@@ -23,6 +37,7 @@
     </div>
 
     <%- include('../template/js_lib'); %>
+    <script type="text/javascript" src="/javascripts/moment.min.js"></script>
     <script type="text/javascript" src="/javascripts/page/order_list.js"></script>
   </body>
 </html>

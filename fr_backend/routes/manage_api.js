@@ -16,14 +16,17 @@ var config = require('../config');
 const MAIN_PATH = config.photo_path,
   PREVIEW_PATH = config.photo.path.preview;
 
-router.get('/order', function (req, res) {
-  logger.debug(`order`);
+router.get('/order/:store', function (req, res) {
+  const { store } = req.params;
+  logger.debug(`order: ${store}`);
 
   let query = `SELECT * FROM tb_sale 
     left join tb_user on tb_user.id = tb_sale.user_id
-    where process = 0 order by sale_id`;
+    where process = 0 
+    and store = ?
+    order by sale_id`;
   db.getConnection(function(err, connection) { 
-    connection.query(query, function(err, rows) {
+    connection.query(query, [store], function(err, rows) {
       connection.release();
 
       if (err) {

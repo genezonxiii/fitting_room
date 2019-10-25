@@ -1,6 +1,8 @@
 let table = null,
-	template_url = `/mapi/order`;
+	template_url = `/mapi/order/A`;
 getMaster(template_url);
+let flag = false, process = null;
+setStore();
 
 function getMaster(url) {
 	table = $("#list").DataTable({
@@ -26,7 +28,18 @@ function getMaster(url) {
     columnDefs: [{
 			targets: 0,
 			className: 'dt-body-center',
-			width: "10%"
+			width: "20%"
+		}, {
+			targets: 1,
+			className: 'dt-body-center',
+			width: "20%",
+			render: function ( data, type, row ) {
+				return moment(data).format("YYYY/MM/DD")
+			}
+		}, {
+			targets: 2,
+			className: 'dt-body-center',
+			width: "20%"
 		}, {
 			targets: -1,
 			className: 'dt-body-center',
@@ -158,3 +171,42 @@ $('body').on('click', 'button.btn_detail', function() {
     }]
 	});
 });
+
+function setStore() {
+	$.ajax({
+		url: '/api/store/wen',
+		type: 'GET',
+		dataType: 'text',
+		success: function(response) {
+			let res = JSON.parse(response);
+			res.forEach(item => {
+				$('#store').append(`<option value="${item.type}">${item.value}</option>`)
+			})
+		}
+	});
+}
+
+$('#store').change(function(){
+	getMaster(`/mapi/order/${$(this).val()}`);
+})
+
+function start() {
+	process = setInterval(function(){ 		
+		getMaster(`/mapi/order/${$('#store').val()}`)
+	}, 1000 * parseInt($('input[name="interval"]').val()));
+}
+
+function stop() {
+	clearInterval(process);
+}
+
+$('.btn-interval').click(function() {
+	flag = !flag;
+	if (flag) {
+		$(this).text('停止').addClass('btn-alert').removeClass('btn-green');
+		start();
+	} else {
+		$(this).text('啟動').addClass('btn-green').removeClass('btn-alert');
+		stop();
+	}
+})
