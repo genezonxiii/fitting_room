@@ -113,8 +113,9 @@ class Order extends React.Component {
   }
 
   setSizeAndColor(order) {
+    const { store } = this.props;
     const self=this;
-    axios.get(`${CONSTANT.WS_URL}/api/detail/${order.product_id}`)
+    axios.get(`${CONSTANT.WS_URL}/api/detail/${order.product_id}/${store}`)
       .then(function(response) {
         // handle success
         const result = response.data;

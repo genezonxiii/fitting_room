@@ -88,12 +88,13 @@ router.get('/product/:product_id', function (req, res) {
   });
 })
 
-router.get('/detail/:product_id', function (req, res) {
-  logger.debug(`detail - product id: ${req.params.product_id}`)
+router.get('/detail/:product_id/:store', function (req, res) {
+  const { product_id, store } = req.params;
+  logger.debug(`detail - product id: ${product_id}, store: ${store}`)
 
-  let query = `SELECT * FROM tb_product_detail where product_id = ?`;
+  let query = `SELECT * FROM tb_product_detail where product_id = ? and store = ?`;
   db.getConnection(function(err, connection) { 
-    connection.query(query, [req.params.product_id], function(err, rows) {
+    connection.query(query, [product_id, store], function(err, rows) {
       if (err) {
           connection.release();
           logger.error(err);
