@@ -9,7 +9,7 @@ class Login extends Component {
 		super(props)
 		this.state = {
 			mobile: '',
-			store: '',
+			store: 'A',
 			storeList: []
 		}
 		this.setStore = this.setStore.bind(this);
