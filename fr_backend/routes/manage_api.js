@@ -24,7 +24,7 @@ router.get('/order/:store', function (req, res) {
     left join tb_user on tb_user.id = tb_sale.user_id
     where process = 0 
     and store = ?
-    order by sale_id`;
+    order by sale_id desc`;
   db.getConnection(function(err, connection) { 
     connection.query(query, [store], function(err, rows) {
       connection.release();

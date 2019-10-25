@@ -6,6 +6,7 @@ setStore();
 
 function getMaster(url) {
 	table = $("#list").DataTable({
+		ordering: false,
 		destroy: true,
 		ajax: {
       url: url,
