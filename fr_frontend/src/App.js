@@ -98,6 +98,10 @@ class App extends React.Component {
     if (outfit.pants && outfit.pants.product_id) {
       orderList.push(outfit.pants);
     }
+    // dress
+    if (outfit.dress && outfit.dress.product_id) {
+      orderList.push(outfit.dress);
+    }
 
     this.setState({
       isTryOn: true,
