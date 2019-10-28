@@ -375,7 +375,7 @@ class TryOn extends React.Component {
             outfit={outfit}
             handleClothOffClick={this.handleClothOffClick}
             handlePantsOffClick={this.handlePantsOffClick}
-            handledressOffClick={this.handleDressOffClick}
+            handleDressOffClick={this.handleDressOffClick}
             handleShoesOffClick={this.handleShoesOffClick}
           />
 

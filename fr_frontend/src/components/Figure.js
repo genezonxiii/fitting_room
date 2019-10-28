@@ -35,6 +35,18 @@ function Figure(props) {
 		        :null
         }
         {
+          props.outfit.dress && props.outfit.dress.product_id?
+            <div className="fitting-dress-wrap">
+              <img 
+                className="fitting-dress" 
+                src={`${CONSTANT.WS_URL}/photo/dress/${props.outfit.dress.photo}`} 
+                alt={props.outfit.dress.photo}
+                onClick={props.handleDressOffClick}
+              />
+            </div>
+            :null
+        }
+        {
           props.outfit.shoes && props.outfit.shoes.product_id?
             <div className="fitting-shoes-wrap">
               <img 
