@@ -204,11 +204,12 @@ router.get('/product/list', function (req, res) {
 
 router.post('/product/', function (req, res) {
   let { product_id, sex, kind, c_product_id, product_name, brand, style, desc, photo } = req.body;
+  let { thumbnail, photo3d } = req.body;
   logger.info(`Product Insert: ${product_id}, ${sex}, ${kind}, ${c_product_id}, ${product_name} `);
 
-  let query = `INSERT INTO tb_product (sex, kind, c_product_id, product_name, brand, style, \`desc\`, photo) values (?,?,?,?,?,?,?,?)`;
+  let query = `INSERT INTO tb_product (sex, kind, c_product_id, product_name, brand, style, \`desc\`, photo, thumbnail, photo3d) values (?,?,?,?,?,?,?,?,?,?)`;
   db.getConnection(function(err, connection) { 
-    connection.query(query, [sex, kind, c_product_id, product_name, brand, style, desc, photo], 
+    connection.query(query, [sex, kind, c_product_id, product_name, brand, style, desc, photo, thumbnail, photo3d], 
       function(err, result) {
         connection.release();
 
@@ -220,6 +221,8 @@ router.post('/product/', function (req, res) {
         logger.debug(`Product: new ID is ${ result.insertId }`);
         if (result.affectedRows > 0) {
           movePreviewToFolder(`${kind}`, `${photo}`);
+          movePreviewToThumbnail(`${kind}`, `${thumbnail}`);
+          movePreviewTo3D(`${kind}`, `${photo3d}`);
           res.send(`{ "result": "新增成功，ID為 [${ result.insertId }]" }`);
         } else {
           res.send('{ "result": "更新失敗" }');
@@ -230,11 +233,12 @@ router.post('/product/', function (req, res) {
 
 router.put('/product/', function (req, res) {
   let { product_id, sex, kind, c_product_id, product_name, brand, style, desc, photo, remove } = req.body;
+  let { thumbnail, removeThumbnail, photo3d, removePhoto3d } = req.body;
   logger.info(`Product Update: ${product_id}, ${sex}, ${kind}, ${c_product_id}, ${product_name} `);
 
-  let query = `UPDATE tb_product SET sex=?, kind=?, c_product_id=?, product_name=?, brand=?, style=?, \`desc\`=?, photo=? WHERE product_id=?`;
+  let query = `UPDATE tb_product SET sex=?, kind=?, c_product_id=?, product_name=?, brand=?, style=?, \`desc\`=?, photo=?, thumbnail=?, photo3d=? WHERE product_id=?`;
   db.getConnection(function(err, connection) { 
-    connection.query(query, [sex, kind, c_product_id, product_name, brand, style, desc, photo, product_id], 
+    connection.query(query, [sex, kind, c_product_id, product_name, brand, style, desc, photo, thumbnail, photo3d, product_id], 
       function(err, result) {
         connection.release();
 
@@ -249,6 +253,14 @@ router.put('/product/', function (req, res) {
           if (photo != remove) {
             removePhoto(`${kind}`, `${remove}`);
           }
+          movePreviewToThumbnail(`${kind}`, `${thumbnail}`);
+          if (thumbnail != removeThumbnail) {
+            removeFileThumbnail(`${kind}`, `${removeThumbnail}`);
+          }
+          movePreviewTo3D(`${kind}`, `${photo3d}`);
+          if (photo3d != removePhoto3d) {
+            removeFile3D(`${kind}`, `${removePhoto3d}`);
+          }
           res.send(`{ "result": "更新成功" }`);
         } else {
           res.send('{ "result": "更新失敗" }');
@@ -258,7 +270,7 @@ router.put('/product/', function (req, res) {
 })
 
 router.delete('/product/', function (req, res) {
-  let { product_id, kind, photo } = req.body;
+  let { product_id, kind, photo, thumbnail, photo3d } = req.body;
   logger.info(`Product Delete: ${product_id} `);
 
   let query = `DELETE FROM tb_product WHERE product_id=?`;
@@ -274,6 +286,8 @@ router.delete('/product/', function (req, res) {
       logger.debug(`Product: ${ result.affectedRows } record(s) updated`);
       if (result.affectedRows > 0) {
         removePhoto(`${kind}`, `${photo}`);
+        removeFileThumbnail(`${kind}`, `${thumbnail}`);
+        removeFile3D(`${kind}`, `${photo3d}`);;
         res.send(`{ "result": "刪除成功" }`);
       } else {
         res.send('{ "result": "刪除失敗" }');
@@ -282,6 +296,7 @@ router.delete('/product/', function (req, res) {
   });
 })
 
+// 穿搭圖
 movePreviewToFolder = (kind, photo) => {
   // MOVE PREVIEW TO NEW FOLDER
   logger.info(`Move File: ${kind}, ${photo}`);
@@ -311,5 +326,68 @@ removePhoto = (kind, photo) => {
     }
   });
 }
+
+// 3D
+movePreviewTo3D = (kind, photo) => {
+  // MOVE PREVIEW TO NEW FOLDER
+  logger.info(`Move File 3D: ${kind}, ${photo}`);
+  
+  fs.access(`${ PREVIEW_PATH }/${ photo }`, fs.constants.F_OK, (err) => {
+    if (!err) {
+      logger.info('Preview File EXISTS!!!');
+      fs.rename(`${ PREVIEW_PATH }/${ photo }`, `${ MAIN_PATH }/${kind}/3d/${ photo }`, (err)=> {
+        if (err) throw err;
+        logger.info('MOVE DONE');
+      })
+    }
+  });
+}
+
+removeFile3D = (kind, photo) => {
+  // REMOVE PHOTO
+  logger.info(`Remove File 3D: ${kind}, ${photo}`)
+
+  fs.access(`${ MAIN_PATH }/${kind}/3d/${ photo }`, fs.constants.F_OK, (err) => {
+    if (!err) {
+      logger.info('Remove File EXISTS!!!');
+      fs.unlink(`${ MAIN_PATH }/${kind}/3d/${ photo }`, (err)=> {
+        if (err) throw err;
+        logger.info(`${ MAIN_PATH }/${kind}/3d/${ photo } DONE`);
+      })
+    }
+  });
+}
+
+// 展示圖
+movePreviewToThumbnail = (kind, photo) => {
+  // MOVE PREVIEW TO NEW FOLDER
+  logger.info(`Move File Thumbnail: ${kind}, ${photo}`);
+  
+  fs.access(`${ PREVIEW_PATH }/${ photo }`, fs.constants.F_OK, (err) => {
+    if (!err) {
+      logger.info('Preview File EXISTS!!!');
+      fs.rename(`${ PREVIEW_PATH }/${ photo }`, `${ MAIN_PATH }/${kind}/thumbnail/${ photo }`, (err)=> {
+        if (err) throw err;
+        logger.info('MOVE DONE');
+      })
+    }
+  });
+}
+
+removeFileThumbnail = (kind, photo) => {
+  // REMOVE PHOTO
+  logger.info(`Remove File Thumbnail: ${kind}, ${photo}`)
+
+  fs.access(`${ MAIN_PATH }/${kind}/thumbnail/${ photo }`, fs.constants.F_OK, (err) => {
+    if (!err) {
+      logger.info('Remove File EXISTS!!!');
+      fs.unlink(`${ MAIN_PATH }/${kind}/thumbnail/${ photo }`, (err)=> {
+        if (err) throw err;
+        logger.info(`${ MAIN_PATH }/${kind}/thumbnail/${ photo } DONE`);
+      })
+    }
+  });
+}
+
 
 module.exports = router;

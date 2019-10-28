@@ -55,15 +55,29 @@
                   <input type="text" name="desc" id="upd_desc" />
                 </div>
                 <div class="row">
-                  <label for="photo" class="label">上傳相片</label>
+                  <label for="photo" class="label">上傳穿搭圖</label>
                   <input type="file" name="photo" id="upd_photo" type="file" accept="image/*" />
                 </div>
                 <div class="row">
+                  <label for="thumbnail" class="label">上傳展示圖</label>
+                  <input type="file" name="thumbnail" id="upd_thumbnail" type="file" accept="image/*" />
+                </div>
+                <div class="row">
+                  <label for="photo3d" class="label">上傳3D圖</label>
+                  <input type="file" name="photo3d" id="upd_photo3d" type="file" accept="image/*" />
+                </div>
+                <div class="row">
                   <img id="preview" class="preview" hidden>
+                  <img id="previewThumbnail" class="preview" hidden>
+                  <img id="previewPhoto3d" class="preview" hidden>
                 </div>
                 <input type="hidden" name="product_id"/>
                 <input type="hidden" name="new_photo"/>
                 <input type="hidden" name="remove_photo"/>
+                <input type="hidden" name="new_thumbnail"/>
+                <input type="hidden" name="remove_thumbnail"/>
+                <input type="hidden" name="new_photo3d"/>
+                <input type="hidden" name="remove_photo3d"/>
               </form>
             </div>
           </div>

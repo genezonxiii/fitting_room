@@ -33,8 +33,14 @@ function getMaster(url) {
 			"title": "說明",
 			"data": "desc"
     }, {
-			"title": "圖檔",
+			"title": "穿搭圖",
 			"data": "photo"
+		}, {
+			"title": "展示圖",
+			"data": "thumbnail"
+		}, {
+			"title": "3D圖",
+			"data": "photo3d"
 		}, {
     	"title": "功能"
     }],
@@ -73,11 +79,25 @@ function getMaster(url) {
     	className: 'dt-body-center',
     	width: "20%"
     }, {
-    	targets: -2,
+    	targets: -4,
     	className: 'dt-body-center',
     	width: "10%",
     	render: function ( data, type, row ) {
     		return `<img src="/photo/${ row.kind }/${ data }" alt="${ data }" class="preview" style="display: inline;">`;
+    	}
+    }, {
+    	targets: -3,
+    	className: 'dt-body-center',
+    	width: "10%",
+    	render: function ( data, type, row ) {
+    		return `<img src="/photo/${ row.kind }/thumbnail/${ data }" alt="${ data }" class="preview" style="display: inline;">`;
+    	}
+    }, {
+    	targets: -2,
+    	className: 'dt-body-center',
+    	width: "10%",
+    	render: function ( data, type, row ) {
+    		return `<img src="/photo/${ row.kind }/3d/${ data }" alt="${ data }" class="preview" style="display: inline;">`;
     	}
     }, {
     	targets: -1,
@@ -127,6 +147,10 @@ $('body').on('click', 'button.btn_edit', function() {
   $('#form_update input:text[name="desc"]').val(data.desc);
   $('#form_update input:hidden[name="new_photo"]').val(data.photo);
   $('#form_update input:hidden[name="remove_photo"]').val(data.photo);
+  $('#form_update input:hidden[name="new_thumbnail"]').val(data.thumbnail);
+  $('#form_update input:hidden[name="remove_thumbnail"]').val(data.thumbnail);
+  $('#form_update input:hidden[name="new_photo3d"]').val(data.photo3d);
+  $('#form_update input:hidden[name="remove_photo3d"]').val(data.photo3d);
   $('#form_update input:hidden[name="product_id"]').val(data.product_id);
 
   $('#form_update select[name="kind"]').attr("disabled", true); 
@@ -186,6 +210,10 @@ function btn_edit_click(cb){
 		desc = $( "input:text[name='desc']").val(),
 		photo = $( "input:hidden[name='new_photo']").val(),
 		remove = $( "input:hidden[name='remove_photo']").val(),
+		thumbnail = $( "input:hidden[name='new_thumbnail']").val(),
+		removeThumbnail = $( "input:hidden[name='remove_thumbnail']").val(),
+		photo3d = $( "input:hidden[name='new_photo3d']").val(),
+		removePhoto3d = $( "input:hidden[name='remove_photo3d']").val(),
 		product_id = $( "input:hidden[name='product_id']").val();
 
 	// if( sex == "" ){
@@ -203,6 +231,10 @@ function btn_edit_click(cb){
 			"desc": desc, 
 			"photo": photo,
 			"remove": remove,
+			"thumbnail": thumbnail,
+			"removeThumbnail": removeThumbnail,
+			"photo3d": photo3d,
+			"removePhoto3d": removePhoto3d,
 			"product_id": product_id
 		};
 
@@ -233,6 +265,10 @@ function btn_insert_click(cb){
 		desc = $( "input:text[name='desc']").val(),
 		check_photo = $( "input:file[name='photo']").val(),
 		photo = $( "input:hidden[name='new_photo']").val(),
+		check_thumbnail = $( "input:file[name='thumbnail']").val(),
+		thumbnail = $( "input:hidden[name='new_thumbnail']").val(),
+		check_photo3d = $( "input:file[name='photo3d']").val(),
+		photo3d = $( "input:hidden[name='new_photo3d']").val(),
 		product_id = $( "input:hidden[name='product_id']").val();
 
 	if( sex == "" ){
@@ -250,7 +286,11 @@ function btn_insert_click(cb){
 	} else if( desc == "" ){
 		message("請輸入說明");
 	} else if( check_photo == "" ){
-		message("請挑選相片");
+		message("請挑選穿搭圖");
+	} else if( check_thumbnail == "" ){
+		message("請挑選展示圖");
+	} else if( check_photo3d == "" ){
+		message("請挑選3D圖");
 	} else {
 		let data = {
 			"sex": sex, 
@@ -261,6 +301,8 @@ function btn_insert_click(cb){
 			"style": style, 
 			"desc": desc,
 			"photo": photo, 
+			"thumbnail": thumbnail,
+			"photo3d": photo3d,
 			"product_id": product_id
 		};
 
@@ -298,8 +340,6 @@ $('#upd_photo').change(function(){
 		processData: false,
 		data: form_data,
 		success: function (response) {
-			console.log(response);
-			// $('.btn-primary').prop('disabled', false);
 			$('#preview')
 				.attr('src', `/photo/preview?name=${ response }&kind=model`)
 				.show();
@@ -313,7 +353,69 @@ $('#upd_photo').change(function(){
 	});
 })
 
+$('#upd_thumbnail').change(function(){
+	var file_data = $('#upd_thumbnail').prop('files')[0];
+	if (!file_data) {
+		return;
+	}
+	var form_data = new FormData();
+	form_data.append('photo', file_data);
+
+	$.ajax({
+		url: '/photo/preview', // point to server-side controller method
+		type: 'POST',
+		dataType: 'text', // what to expect back from the server
+		cache: false,
+		contentType: false,
+		processData: false,
+		data: form_data,
+		success: function (response) {
+			$('#previewThumbnail')
+				.attr('src', `/photo/preview?name=${ response }&kind=model`)
+				.show();
+
+			$( "input:hidden[name='new_thumbnail']").val(response);
+		},
+		error: function (response) {
+			// $('.btn-primary').prop('disabled', true);
+			// $('#msg').html(`<font color='red'>${ response.responseText }</font>`); // display error response from the server
+		}
+	});
+})
+
+$('#upd_photo3d').change(function(){
+	var file_data = $('#upd_photo3d').prop('files')[0];
+	if (!file_data) {
+		return;
+	}
+	var form_data = new FormData();
+	form_data.append('photo', file_data);
+
+	$.ajax({
+		url: '/photo/preview', // point to server-side controller method
+		type: 'POST',
+		dataType: 'text', // what to expect back from the server
+		cache: false,
+		contentType: false,
+		processData: false,
+		data: form_data,
+		success: function (response) {
+			$('#previewPhoto3d')
+				.attr('src', `/photo/preview?name=${ response }&kind=model`)
+				.show();
+
+			$( "input:hidden[name='new_photo3d']").val(response);
+		},
+		error: function (response) {
+			// $('.btn-primary').prop('disabled', true);
+			// $('#msg').html(`<font color='red'>${ response.responseText }</font>`); // display error response from the server
+		}
+	});
+})
+
 function formReset() {
 	document.getElementById("form_update").reset();
-	$('#preview').attr('src','').hide()
+	$('#preview').attr('src','').hide();
+	$('#previewThumbnail').attr('src','').hide();
+	$('#previewPhoto3d').attr('src','').hide();
 }
