@@ -358,4 +358,23 @@ router.get('/store/:kind', function (req, res) {
     })
   });
 })
+
+router.get('/persona/list', function (req, res) {
+  logger.debug(`Persona List`);
+
+  let query = `SELECT * from tb_persona`;
+  db.getConnection(function(err, connection) { 
+    connection.query(query, function(err, rows) {
+      connection.release();
+
+      if (err) {
+          logger.error(err);
+          return;
+      }
+
+      res.send(rows);
+    })
+  });
+})
+
 module.exports = router;

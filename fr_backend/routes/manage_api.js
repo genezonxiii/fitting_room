@@ -87,7 +87,8 @@ router.get('/detail/:sale_id', function (req, res) {
 router.get('/model/list', function (req, res) {
   logger.debug(`Model List`);
 
-  let query = `SELECT * FROM tb_model`;
+  let query = `SELECT tb_model.*, tb_persona.description FROM tb_model 
+    INNER JOIN tb_persona ON tb_persona.type = tb_model.persona`;
   db.getConnection(function(err, connection) { 
     connection.query(query, function(err, rows) {
       connection.release();

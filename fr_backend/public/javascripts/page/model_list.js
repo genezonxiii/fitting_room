@@ -1,6 +1,7 @@
 let table = null,
 	template_url = `/mapi/model/list`;
 getMaster(template_url);
+setPersona();
 
 function getMaster(url) {
 	table = $("#list").DataTable({
@@ -42,34 +43,7 @@ function getMaster(url) {
 	    	className: 'dt-body-center',
 	    	width: "10%",
 	    	render: function ( data, type, row ) {
-					switch(data) {
-						case "A": 
-							return "精算管家型";
-							break;
-						case "B": 
-							return "享樂翻糖型"; 
-							break;
-						case "C": 
-							return "知性陀飛輪型"; 
-							break;
-						case "D": 
-							return "神秘暹羅貓型"; 
-							break;
-						case "E": 
-							return "刻苦力爭型"; 
-							break;
-						case "F": 
-							return "積極開創者型"; 
-							break;
-						case "G": 
-							return "決策苦手型"; 
-							break;
-						case "H": 
-							return "生活從眾型"; 
-							break;
-						default:  
-							return "";
-					}
+					return `${row.description} (${row.persona})`
 	    	}
 	    }, {
 	    	targets: -2,
@@ -285,4 +259,18 @@ $('#upd_photo').change(function(){
 function formReset() {
 	document.getElementById("form_update").reset();
 	$('#preview').attr('src','').hide()
+}
+
+function setPersona() {
+	$.ajax({
+		url: '/api/persona/list',
+		type: 'GET',
+		dataType: 'json',
+		success: function (response) {
+			response.forEach(function(item){
+				$('select[name="persona"]')
+					.append(`<option value="${item.type}">${item.description} (${item.type})</option>`)
+			})
+		}
+	});
 }
