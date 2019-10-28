@@ -63,6 +63,9 @@ function getMaster(url) {
 					case "pants": 
 						return "褲/裙"; 
 						break;
+					case "dress": 
+						return "洋裝"; 
+						break;
 					case "shoes": 
 						return "鞋子"; 
 						break;
@@ -83,21 +86,21 @@ function getMaster(url) {
     	className: 'dt-body-center',
     	width: "10%",
     	render: function ( data, type, row ) {
-    		return `<img src="/photo/${ row.kind }/${ data }" alt="${ data }" class="preview" style="display: inline;">`;
+    		return data?`<img src="/photo/${ row.kind }/${ data }" alt="${ data }" class="preview" style="display: inline;">`:'';
     	}
     }, {
     	targets: -3,
     	className: 'dt-body-center',
     	width: "10%",
     	render: function ( data, type, row ) {
-    		return `<img src="/photo/${ row.kind }/thumbnail/${ data }" alt="${ data }" class="preview" style="display: inline;">`;
+    		return data?`<img src="/photo/${ row.kind }/thumbnail/${ data }" alt="${ data }" class="preview" style="display: inline;">`:'';
     	}
     }, {
     	targets: -2,
     	className: 'dt-body-center',
     	width: "10%",
     	render: function ( data, type, row ) {
-    		return `<img src="/photo/${ row.kind }/3d/${ data }" alt="${ data }" class="preview" style="display: inline;">`;
+    		return data?`<img src="/photo/${ row.kind }/3d/${ data }" alt="${ data }" class="preview" style="display: inline;">`:'';
     	}
     }, {
     	targets: -1,
