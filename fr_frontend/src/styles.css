@@ -495,13 +495,13 @@ ul.clothes-tabs {
     overflow: hidden;
     position: relative;
     text-align: center; }
-    ul.clothes-tabs li:nth-child(1) {
+    ul.clothes-tabs li:nth-child(2) {
       background: url("./images/tab-icon_clothes_gray.png") no-repeat top center;
       background-size: 48px; }
-    ul.clothes-tabs li:nth-child(2) {
+    ul.clothes-tabs li:nth-child(3) {
       background: url("./images/tab-icon_pants_gray.png") no-repeat top center;
       background-size: 48px; }
-    ul.clothes-tabs li:nth-child(3) {
+    ul.clothes-tabs li:nth-child(1) {
       background: url("./images/tab-icon_dress_gray.png") no-repeat top center;
       background-size: 48px; }
     ul.clothes-tabs li:nth-child(4) {

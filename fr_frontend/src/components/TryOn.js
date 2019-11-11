@@ -38,9 +38,9 @@ class TryOn extends React.Component {
       clothTabs: {
         active: 0,
         tabs: [
-          {tab: "#tabs-1", src: tabClothes, desc: "上衣", kind: "cloth"},
-          {tab: "#tabs-2", src: tabPants, desc: "褲/裙", kind: "pants"},
-          {tab: "#tabs-3", src: tabDress, desc: "洋裝", kind: "dress"},
+          {tab: "#tabs-1", src: tabDress, desc: "洋裝", kind: "dress"},
+          {tab: "#tabs-2", src: tabClothes, desc: "上衣", kind: "cloth"},
+          {tab: "#tabs-3", src: tabPants, desc: "褲/裙", kind: "pants"},
           {tab: "#tabs-4", src: tabShoes, desc: "鞋子", kind: "shoes"}
         ]
       },
@@ -390,9 +390,9 @@ class TryOn extends React.Component {
 
             <div className="tabs_container">
               {
-                clothTabs.active === 0?
+                clothTabs.active === 1?
                 <TabContent
-                  id="#tabs-1"
+                  id="#tabs-2"
                   list={clothList}
                   outfit={outfit.cloth}
                   handleClick={handleClothOnClick}
@@ -400,9 +400,9 @@ class TryOn extends React.Component {
                 :null
               }
               {
-                clothTabs.active === 1?
+                clothTabs.active === 2?
                 <TabContent
-                  id="#tabs-2"
+                  id="#tabs-3"
                   list={pantsList}
                   outfit={outfit.pants}
                   handleClick={handlePantsOnClick}
@@ -410,9 +410,9 @@ class TryOn extends React.Component {
                 :null
               }
               {
-                clothTabs.active === 2?
+                clothTabs.active === 0?
                 <TabContent
-                  id="#tabs-3"
+                  id="#tabs-1"
                   list={dressList}
                   outfit={outfit.dress}
                   handleClick={handleDressOnClick}
@@ -432,7 +432,7 @@ class TryOn extends React.Component {
             </div>
 
             {
-              clothTabs.active === 0 && outfit.cloth.product_id?
+              clothTabs.active === 1 && outfit.cloth.product_id?
               <ClothInfo
                 outfit={outfit.cloth}
                 preview={this.renderPreview}
@@ -440,7 +440,7 @@ class TryOn extends React.Component {
               :null
             }
             {
-              clothTabs.active === 1 && outfit.pants.product_id?
+              clothTabs.active === 2 && outfit.pants.product_id?
               <ClothInfo
                 outfit={outfit.pants}
                 preview={this.renderPreview}
@@ -448,7 +448,7 @@ class TryOn extends React.Component {
               :null
             }
             {
-              clothTabs.active === 2 && outfit.dress.product_id?
+              clothTabs.active === 0 && outfit.dress.product_id?
               <ClothInfo
                 outfit={outfit.dress}
                 preview={this.renderPreview}
