@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <%- include('../template/css.ejs') %>
+  </head>
+  <body>
+    <%- include('../menu'); -%>
+
+    <div class="content-wrap">
+      <h2 class="page-title"><%= title %></h2>
+
+      <div class="input-field-wrap">
+        <div class="form-wrap">
+          <div class="form-row">
+            <div id="dlg_update" style="display: none;">
+              <form id="form_update">
+                <div class="row">
+                  <label for="photo_name" class="label">照片名稱</label>
+                  <input type="text" name="photo_name" id="upd_photo_name" />
+                </div>
+                <div class="row">
+                  <label for="photo1" class="label">上傳相片1</label>
+                  <input type="file" name="photo1" id="upd_photo1" type="file" accept="image/*" />
+                  <img id="preview_photo1" class="preview" hidden>
+                </div>
+                <div class="row">
+                  <label for="photo2" class="label">上傳相片2</label>
+                  <input type="file" name="photo2" id="upd_photo2" type="file" accept="image/*" />
+                  <img id="preview_photo2" class="preview" hidden>
+                </div>
+                <div class="row">
+                  <label for="photo3" class="label">上傳相片3</label>
+                  <input type="file" name="photo3" id="upd_photo3" type="file" accept="image/*" />
+                  <img id="preview_photo3" class="preview" hidden>
+                </div>
+                <div class="row">
+                  <label for="photo4" class="label">上傳相片4</label>
+                  <input type="file" name="photo4" id="upd_photo4" type="file" accept="image/*" />
+                  <img id="preview_photo4" class="preview" hidden>
+                </div>
+                <div class="row">
+                  <label for="photo5" class="label">上傳相片5</label>
+                  <input type="file" name="photo5" id="upd_photo5" type="file" accept="image/*" />
+                  <img id="preview_photo5" class="preview" hidden>
+                </div>
+                <div class="row">
+                  <label for="photo6" class="label">上傳相片6</label>
+                  <input type="file" name="photo6" id="upd_photo6" type="file" accept="image/*" />
+                  <img id="preview_photo6" class="preview" hidden>
+                </div>
+                <input type="hidden" name="photo_id" value="" />
+                <input type="hidden" name="new_photo1"/>
+                <input type="hidden" name="remove_photo1"/>
+                <input type="hidden" name="new_photo2"/>
+                <input type="hidden" name="remove_photo2"/>
+                <input type="hidden" name="new_photo3"/>
+                <input type="hidden" name="remove_photo3"/>
+                <input type="hidden" name="new_photo4"/>
+                <input type="hidden" name="remove_photo4"/>
+                <input type="hidden" name="new_photo5"/>
+                <input type="hidden" name="remove_photo5"/>
+                <input type="hidden" name="new_photo6"/>
+                <input type="hidden" name="remove_photo6"/>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="search-result-wrap">
+        <div class="form-wrap">
+          <div class="form-row">
+            <div class="row">
+              <button type="button" class="btn_insert btn btn-primary btn-wide">新增</button>
+            </div>
+          </div>
+        </div>
+        <div id="table_container">
+          <table id='list' style="width:100%"></table>
+        </div>
+      </div>
+    </div>
+
+    <%- include('../template/js_lib'); %>
+    <script type="text/javascript" src="/javascripts/page/3d_list.js"></script>
+  </body>
+</html>

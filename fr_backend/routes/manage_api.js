@@ -301,6 +301,8 @@ router.delete('/product/', function (req, res) {
 movePreviewToFolder = (kind, photo) => {
   // MOVE PREVIEW TO NEW FOLDER
   logger.info(`Move File: ${kind}, ${photo}`);
+
+  if (!photo) return;
   
   fs.access(`${ PREVIEW_PATH }/${ photo }`, fs.constants.F_OK, (err) => {
     if (!err) {
@@ -317,6 +319,8 @@ removePhoto = (kind, photo) => {
   // REMOVE PHOTO
   logger.info(`Remove File: ${kind}, ${photo}`)
 
+  if (!photo) return;
+
   fs.access(`${ MAIN_PATH }/${kind}/${ photo }`, fs.constants.F_OK, (err) => {
     if (!err) {
       logger.info('Remove File EXISTS!!!');
@@ -332,6 +336,8 @@ removePhoto = (kind, photo) => {
 movePreviewTo3D = (kind, photo) => {
   // MOVE PREVIEW TO NEW FOLDER
   logger.info(`Move File 3D: ${kind}, ${photo}`);
+
+  if(!photo) return; 
   
   fs.access(`${ PREVIEW_PATH }/${ photo }`, fs.constants.F_OK, (err) => {
     if (!err) {
@@ -348,6 +354,8 @@ removeFile3D = (kind, photo) => {
   // REMOVE PHOTO
   logger.info(`Remove File 3D: ${kind}, ${photo}`)
 
+  if(!photo) return; 
+
   fs.access(`${ MAIN_PATH }/${kind}/3d/${ photo }`, fs.constants.F_OK, (err) => {
     if (!err) {
       logger.info('Remove File EXISTS!!!');
@@ -363,6 +371,8 @@ removeFile3D = (kind, photo) => {
 movePreviewToThumbnail = (kind, photo) => {
   // MOVE PREVIEW TO NEW FOLDER
   logger.info(`Move File Thumbnail: ${kind}, ${photo}`);
+
+  if(!photo) return; 
   
   fs.access(`${ PREVIEW_PATH }/${ photo }`, fs.constants.F_OK, (err) => {
     if (!err) {
@@ -379,6 +389,8 @@ removeFileThumbnail = (kind, photo) => {
   // REMOVE PHOTO
   logger.info(`Remove File Thumbnail: ${kind}, ${photo}`)
 
+  if(!photo) return; 
+
   fs.access(`${ MAIN_PATH }/${kind}/thumbnail/${ photo }`, fs.constants.F_OK, (err) => {
     if (!err) {
       logger.info('Remove File EXISTS!!!');
@@ -390,5 +402,135 @@ removeFileThumbnail = (kind, photo) => {
   });
 }
 
+router.get('/3d', function (req, res) {
+  logger.debug(`3D List`);
+
+  let query = `SELECT * FROM tb_3d`;
+  db.getConnection(function(err, connection) { 
+    connection.query(query, function(err, rows) {
+      connection.release();
+
+      if (err) {
+          logger.error(err);
+          return;
+      }
+
+      res.send(rows);
+    })
+  });
+})
+
+router.post('/3d/', function (req, res) {
+  let { photo_name, photo1, photo2, photo3, photo4, photo5, photo6 } = req.body;
+  logger.info(`3D Insert: ${photo_name}, ${photo1}, ${photo2}, ${photo3}, ${photo4}, ${photo5}, ${photo6} `);
+
+  let query = `INSERT INTO tb_3d (photo_name, photo1, photo2, photo3, photo4, photo5, photo6) values (?,?,?,?,?,?,?)`;
+  db.getConnection(function(err, connection) { 
+    connection.query(query, [photo_name, photo1, photo2, photo3, photo4, photo5, photo6], 
+      function(err, result) {
+        connection.release();
+
+        if (err) {
+            logger.error(err);
+            return;
+        }
+
+        logger.debug(`3D: new ID is ${ result.insertId }`);
+        if (result.affectedRows > 0) {
+          movePreviewToFolder('3d', `${photo1}`);
+          movePreviewToFolder('3d', `${photo2}`);
+          movePreviewToFolder('3d', `${photo3}`);
+          movePreviewToFolder('3d', `${photo4}`);
+          movePreviewToFolder('3d', `${photo5}`);
+          movePreviewToFolder('3d', `${photo6}`);
+          res.send(`{ "result": "新增成功，ID為 [${ result.insertId }]" }`);
+        } else {
+          res.send('{ "result": "更新失敗" }');
+        }
+    })
+  });
+})
+
+router.put('/3d/', function (req, res) {
+  let { photo_id, photo_name, photo1, photo2, photo3, photo4, photo5, photo6 } = req.body;
+  let { remove1, remove2, remove3, remove4, remove5, remove6 } = req.body;
+  logger.info(`3D Update: ${photo_name}, ${photo_name}, ${photo1}, ${photo2}, ${photo3}, ${photo4}, ${photo5}, ${photo6} `);
+
+  let query = `UPDATE tb_3d SET photo_name=?, photo1=?, photo2=?, photo3=?, photo4=?, photo5=?, photo6=? WHERE id=?`;
+  db.getConnection(function(err, connection) { 
+    connection.query(query, [ photo_name, photo1, photo2, photo3, photo4, photo5, photo6, photo_id ], 
+      function(err, result) {
+        connection.release();
+
+        if (err) {
+            logger.error(err);
+            return;
+        }
+
+        logger.debug(`3D: ${ result.affectedRows } record(s) updated`);
+        if (result.affectedRows > 0) {
+          movePreviewToFolder('3d', `${photo1}`);
+          if (photo1 != remove1) {
+            removePhoto('3d', `${remove1}`);
+          }
+          movePreviewToFolder('3d', `${photo2}`);
+          if (photo2 != remove2) {
+            removePhoto('3d', `${remove2}`);
+          }
+          movePreviewToFolder('3d', `${photo3}`);
+          if (photo3 != remove3) {
+            removePhoto('3d', `${remove3}`);
+          }
+          movePreviewToFolder('3d', `${photo4}`);
+          if (photo4 != remove4) {
+            removePhoto('3d', `${remove4}`);
+          }
+          movePreviewToFolder('3d', `${photo5}`);
+          if (photo5 != remove5) {
+            removePhoto('3d', `${remove5}`);
+          }
+          movePreviewToFolder('3d', `${photo6}`);
+          if (photo6 != remove6) {
+            removePhoto('3d', `${remove6}`);
+          }
+          
+          res.send(`{ "result": "更新成功" }`);
+        } else {
+          res.send('{ "result": "更新失敗" }');
+        }
+    })
+  });
+})
+
+router.delete('/3d/', function (req, res) {
+  let { id, photo1, photo2, photo3, photo4, photo5, photo6, photo3d } = req.body;
+  logger.info(`3D Delete: ${id} `);
+
+  let query = `DELETE FROM tb_3d WHERE id=?`;
+  db.getConnection(function(err, connection) { 
+    connection.query(query, [id], function(err, result) {
+      connection.release();
+
+      if (err) {
+          logger.error(err);
+          return;
+      }
+
+      logger.debug(`3D: ${ result.affectedRows } record(s) updated`);
+      if (result.affectedRows > 0) {
+        removePhoto('3d', `${photo1}`);
+        removePhoto('3d', `${photo2}`);
+        removePhoto('3d', `${photo3}`);
+        removePhoto('3d', `${photo4}`);
+        removePhoto('3d', `${photo5}`);
+        removePhoto('3d', `${photo6}`);
+        removePhoto('3d', `${photo3d}`);
+        res.send(`{ "result": "刪除成功" }`);
+      } else {
+        res.send('{ "result": "刪除失敗" }');
+      }
+    })
+  });
+})
 
 module.exports = router;

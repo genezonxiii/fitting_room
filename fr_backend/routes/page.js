@@ -41,4 +41,14 @@ router.get('/product', function(req, res, next) {
   });
 });
 
+router.get('/3d', function(req, res, next) {
+  res.render('3d/list', { 
+    title: '3D維護', 
+    file_type: FILE_TYPE, 
+    file_size: FILE_SIZE, 
+    file_width: FILE_WIDTH, 
+    file_height: FILE_HEIGHT 
+  });
+});
+
 module.exports = router;
