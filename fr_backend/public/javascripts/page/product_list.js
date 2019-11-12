@@ -78,10 +78,6 @@ function getMaster(url) {
     	className: 'dt-body-center',
     	width: "10%"
     }, {
-    	targets: -3,
-    	className: 'dt-body-center',
-    	width: "20%"
-    }, {
     	targets: -4,
     	className: 'dt-body-center',
     	width: "10%",
