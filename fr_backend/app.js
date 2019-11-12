@@ -8,6 +8,7 @@ var cors = require('cors')
 // Routers
 var apiRouter = require('./routes/api');
 var photoRouter = require('./routes/photo');
+var downloadRouter = require('./routes/download');
 var systemRouter = require('./routes/system');
 var mapiRouter = require('./routes/manage_api');
 var pageRouter = require('./routes/page');
@@ -27,6 +28,7 @@ app.use(cors())
 
 app.use('/api', apiRouter);
 app.use('/photo', photoRouter);
+app.use('/download', downloadRouter);
 app.use('/system', systemRouter);
 
 // manage

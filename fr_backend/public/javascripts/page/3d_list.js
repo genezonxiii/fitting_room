@@ -52,8 +52,9 @@ function getMaster(url) {
     	width: "10%",
     	render: function ( data, type, row ) {
     		let btn_edit = '<button type="button" class="btn_edit btn btn-primary btn-wide">修改</button>',
+    			btn_download = '<a class="btn_download btn btn-primary btn-wide" href="*">下載</a>',
     			btn_delete = '<button type="button" class="btn_delete btn btn-alert btn-wide">刪除</button>';
-      	return `<div class="btn-row">${ btn_edit }<br><br>${ btn_delete }</div>`;
+      	return `<div class="btn-row">${ btn_edit }<br><br>${ btn_delete }<br><br>${ btn_download }</div>`;
       }
     }, {
     	targets: '_all',
@@ -266,3 +267,11 @@ function formReset() {
 	document.getElementById("form_update").reset();
 	$(`img[id^=preview]`).attr('src', '').hide()
 }
+
+$('body').on('click', 'a.btn_download', function(e) {
+  var row = $(this).closest("tr");
+  var data = $("#list").DataTable().row(row).data();
+
+  e.preventDefault();
+  window.open(`/download/3d/${ data.photo3d }`, 'download');
+})
