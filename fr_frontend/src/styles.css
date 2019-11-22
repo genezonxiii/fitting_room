@@ -590,6 +590,36 @@ ul.clothes-tabs {
   display: flex;
   align-items: center;
   justify-content: center; }
+  .tryon-wrap .reserveForm {
+    border: 2px solid #ccc;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    padding: 10px 15px; }
+  .tryon-wrap label {
+    color: #666;
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 3px;
+    margin-right: 10px; }
+  .tryon-wrap input[type=date],
+  .tryon-wrap input[type=time] {
+    background: none;
+    border: 1px solid #555;
+    float: left;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    padding: 7px;
+    height: 40px; }
+  .tryon-wrap input[type=date] {
+    width: 55%;
+    margin-right: 5%; }
+  .tryon-wrap input[type=time] {
+    width: 40%; }
+  .tryon-wrap select {
+    border: 1px solid #555;
+    font-size: 16px;
+    width: 100%; }
 
 .clothes-customize-section {
   padding: 40px 10px 40px 40px;
@@ -657,7 +687,7 @@ ul.clothes-tabs {
 
 .clothes-list-section {
   width: 40%;
-  padding: 60px 40px 120px;
+  padding: 40px 40px 120px;
   height: 100vh;
   overflow-y: auto;
   align-self: flex-start; }
@@ -762,6 +792,8 @@ ul.clothes-tabs {
     display: table; }
   .form-row:after {
     clear: both; }
+  .form-row:last-child {
+    margin-bottom: 0; }
 
 .form-label, .form-value {
   float: left;

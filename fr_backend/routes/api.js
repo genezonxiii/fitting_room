@@ -164,7 +164,7 @@ router.get('/color/:product_id/:size', function (req, res) {
 
 router.post('/order', function (req, res) {
   let order_no = '';
-  const { user_id, detail, setting, store } = req.body;
+  const { user_id, detail, setting, store, reserve } = req.body;
   const { method, model_id, sex, age, sex_hide, age_hide, persona } = setting;
   
   db.getConnection(function(err, connection) { 
@@ -194,10 +194,10 @@ router.post('/order', function (req, res) {
 
         // master
         let query = `INSERT INTO tb_sale (user_id, order_no, model_id, method, 
-          sex, sex_hide, age, age_hide, persona, store, sale_date) 
-          values (?,?,?,?,?,?,?,?,?,?,now())`;
+          sex, sex_hide, age, age_hide, persona, store, reserve, sale_date) 
+          values (?,?,?,?,?,?,?,?,?,?,?,now())`;
         connection.query(query, [user_id, order_no, model_id, method, sex, 
-          sex_hide, age, age_hide, persona, store], function(err, result) {
+          sex_hide, age, age_hide, persona, store, reserve], function(err, result) {
           if (err) {
             logger.error(err);
             return connection.rollback(function() {

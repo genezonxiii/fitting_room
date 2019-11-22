@@ -11,14 +11,19 @@ const axios = require('axios');
 class Order extends React.Component {
   constructor(props) {
     super(props)
+    const { user, orderList, store } = this.props;
 
     this.state = {
-      user: this.props.user,
-      orderList: this.props.orderList,
+      user: user,
+      orderList: orderList,
       product: {},
       sizeList: [],
       colorList: [],
       finalOrderList: [],
+      store: store,
+      storeList: [],
+      reserveDate: '',
+      reserveTime: '',
       msgList: {
         msg1: false,
         msg2: false,
@@ -26,6 +31,9 @@ class Order extends React.Component {
       }
     }
 
+    this.onChangeStore = this.onChangeStore.bind(this);
+    this.onChangeReserveDate = this.onChangeReserveDate.bind(this);
+    this.onChangeReserveTime = this.onChangeReserveTime.bind(this);
     this.setSizeAndColor = this.setSizeAndColor.bind(this);
     this.renderSize = this.renderSize.bind(this);
     this.renderColor = this.renderColor.bind(this);
@@ -44,6 +52,7 @@ class Order extends React.Component {
     this.setState({
       product: order
     })
+    this.getStoreList();
   }
 
   confirmMsg1() {
@@ -84,14 +93,15 @@ class Order extends React.Component {
 
   confirmOrder() {
     var self = this;
-    const { orderList, finalOrderList } = this.state;
-    const { user, setting, store } = this.props;
+    const { orderList, finalOrderList, store, reserveDate, reserveTime } = this.state;
+    const { user, setting } = this.props;
 
     const order = {
       user_id: user.id,
       detail: finalOrderList,
       setting: setting,
-      store: store
+      store: store,
+      reserve: `${reserveDate} ${reserveTime}`
     }
 
     if(finalOrderList.length === 0 || finalOrderList.length < orderList.length) {
@@ -333,8 +343,42 @@ class Order extends React.Component {
     )
   }
 
+  getStoreList() {
+    const self = this;
+    axios.get(`${CONSTANT.WS_URL}/api/store/wen`)
+      .then(function(response) {
+        // handle success
+        self.setStore(response.data);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .finally(function () {
+        // always executed
+      });
+  }
+
+  setStore(data) {
+    this.setState({
+      storeList: data
+    })
+  }
+
+  onChangeStore (e) {
+    this.setState({ store: e.target.value });
+  }
+
+  onChangeReserveDate(e) {
+    this.setState({ reserveDate: e.target.value });
+  }
+
+  onChangeReserveTime(e) {
+    this.setState({ reserveTime: e.target.value });
+  }
+
   render() {
-    const { orderList, product, sizeList, colorList, msgList } = this.state;
+    const { orderList, product, sizeList, colorList, msgList, storeList } = this.state;
     
     const handleDivClick = (e) => {
       const product_id = parseInt(e.target.getAttribute('data-key'));
@@ -388,6 +432,25 @@ class Order extends React.Component {
           </div>
 
           <div className="clothes-list-section">
+            <div className="reserveForm">
+              <div className="form-row">
+                <label for="reserveDate"><i className="mdi mdi-calendar-clock"></i> 預約時間</label>
+                <input type="date" id="reserveDate" onChange={this.onChangeReserveDate} value={this.state.reserveDate} />
+                <input type="time" onChange={this.onChangeReserveTime} value={this.state.reserveTime} />
+              </div>
+              <div className="form-row">
+                <label for="reserveStore" for=""><i className="mdi mdi-map-marker"></i> 預約店面</label>
+                <select name="store" id="reserveStore" onChange={this.onChangeStore} value={this.state.store}>
+                  {
+                    storeList.map(function(d, idx){
+                      return (
+                        <option value={d.type} key={`store-${idx}`}>{d.value}</option>
+                      )
+                    })
+                  }
+                </select>
+              </div>
+            </div>
             <div className="clothes-list-wrap">
             {
               orderList.map(function(d, idx){
