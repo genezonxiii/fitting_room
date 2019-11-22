@@ -606,6 +606,7 @@ ul.clothes-tabs {
   .tryon-wrap input[type=time] {
     background: none;
     border: 1px solid #555;
+    border-radius: 0;
     float: left;
     font-family: Arial, sans-serif;
     font-size: 16px;
