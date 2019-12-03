@@ -5,10 +5,10 @@ module.exports = {
 	    password: "mysql",
 	    database: "fitting_room"
 	},
-	photo_path: 'd:/fitting_room',
+	photo_path: 'd:/data/fitting_room',
 	photo: {
 		"path": {
-			"preview": "d:/fitting_room/preview"
+			"preview": "d:/data/fitting_room/preview"
 		},
 		"file": {
 			"type": "image/jpeg",
