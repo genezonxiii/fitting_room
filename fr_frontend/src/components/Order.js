@@ -7,6 +7,7 @@ import Popup from "./Popup";
 import * as CONSTANT from './constant';
 
 const axios = require('axios');
+var moment = require('moment');
  
 class Order extends React.Component {
   constructor(props) {
@@ -53,15 +54,22 @@ class Order extends React.Component {
       product: order
     })
     this.getStoreList();
+    this.setState({
+      reserveDate: moment().format("YYYY-MM-DD"),
+      reserveTime: moment().add(5, "minutes").format("HH:mm"),
+    })
   }
 
   confirmMsg1() {
     const { orderList, finalOrderList, msgList } = this.state;
+    const { reserveDate, reserveTime } = this.state;
 
     if(finalOrderList.length === 0 
       || orderList.some(item=>!item.color || !item.size)
       || finalOrderList.some(item=>!item.color || !item.size)
-      || finalOrderList.length < orderList.length) {
+      || finalOrderList.length < orderList.length
+      || reserveDate == ''
+      || reserveTime == '') {
       this.setState({
         msgList: {
           ...msgList,
@@ -279,7 +287,7 @@ class Order extends React.Component {
     return (
       <Popup
         active={msgList.msg1}
-        msg="請挑選您要試穿的尺寸及顏色！"
+        msg="請挑選您要試穿的尺寸及顏色，並選擇預約時間唷！"
         btns={{ok:true}}
         ok={handelOK}
       />
@@ -321,7 +329,7 @@ class Order extends React.Component {
   }
 
   renderMsg3() {
-    const { msgList } = this.state;
+    const { msgList, reserveDate, reserveTime } = this.state;
 
     const handelOK = (e) => {
       this.props.confirm();
@@ -336,7 +344,7 @@ class Order extends React.Component {
     return (
       <Popup
         active={msgList.msg3}
-        msg="店員已收到您的試衣清單。請稍候一會兒，將馬上為您送上！！您還可以繼續挑選其他的穿搭唷！！"
+        msg={`店員已收到您的試衣清單。於${reserveDate} ${reserveTime} 恭候您的大駕光臨！！您還可以繼續挑選其他的穿搭唷！！`}
         btns={{ok:true}}
         ok={handelOK}
       />
@@ -434,12 +442,12 @@ class Order extends React.Component {
           <div className="clothes-list-section">
             <div className="reserveForm">
               <div className="form-row">
-                <label for="reserveDate"><i className="mdi mdi-calendar-clock"></i> 預約時間</label>
+                <label htmlFor="reserveDate"><i className="mdi mdi-calendar-clock"></i> 預約時間</label>
                 <input type="date" id="reserveDate" onChange={this.onChangeReserveDate} value={this.state.reserveDate} />
                 <input type="time" onChange={this.onChangeReserveTime} value={this.state.reserveTime} />
               </div>
               <div className="form-row">
-                <label for="reserveStore" for=""><i className="mdi mdi-map-marker"></i> 預約店面</label>
+                <label htmlFor="reserveStore"><i className="mdi mdi-map-marker"></i> 預約店面</label>
                 <select name="store" id="reserveStore" onChange={this.onChangeStore} value={this.state.store}>
                   {
                     storeList.map(function(d, idx){
