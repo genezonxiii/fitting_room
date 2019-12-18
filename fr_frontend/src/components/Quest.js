@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import HomeNav from "./HomeNav";
 import UserInfo from "./UserInfo";
 import Popup from "./Popup";
+import Chatbot from "./Chatbot";
 import imgManBody from "./../images/man-body-silhouette.png";
 import imgWomanBody from "./../images/woman-body-silhouette.png";
 import imgBody from "./../images/body-silhouette.png";
@@ -274,6 +275,7 @@ class Quest extends Component {
 
 	      { msgList.msg1?this.renderMsg1():null }
 	      { msgList.msg2?this.renderMsg2():null }
+        <Chatbot/>
 			</div>
 		)
 	}

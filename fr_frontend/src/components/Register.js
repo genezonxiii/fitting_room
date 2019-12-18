@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
+import Chatbot from "./Chatbot";
 import * as CONSTANT from './constant';
 
 const axios = require('axios');
@@ -176,6 +177,7 @@ class Register extends Component {
 					</div>
 
 				</div>
+        <Chatbot/>
 			</div>
 		)
 	}

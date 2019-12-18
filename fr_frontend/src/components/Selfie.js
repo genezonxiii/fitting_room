@@ -3,6 +3,7 @@ import Webcam from "react-webcam";
 import HomeNav from "./HomeNav";
 import UserInfo from "./UserInfo";
 import Popup from "./Popup";
+import Chatbot from "./Chatbot";
 import * as CONSTANT from './constant';
 
 const axios = require('axios');
@@ -292,6 +293,7 @@ class Selfie extends React.Component {
         { msgList.msg1?this.renderMsg1():null }
         { msgList.msg2?this.renderMsg2():null }
         { msgList.msg3?this.renderMsg3():null }
+        <Chatbot/>
       </div>
     );
   }

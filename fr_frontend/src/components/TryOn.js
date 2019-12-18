@@ -8,6 +8,7 @@ import TabContent from "./TabContent";
 import ClothInfo from "./ClothInfo";
 import Popup3DInfo from "./Popup3DInfo";
 import Popup from "./Popup";
+import Chatbot from "./Chatbot";
 
 import tabClothes from "./../images/tab-icon_clothes.png";
 import tabPants from "./../images/tab-icon_pants.png";
@@ -470,6 +471,7 @@ class TryOn extends React.Component {
         { this.renderControl() }
         { this.renderClothInfo3D() }
         { msgList.msg1?this.renderMsg1():null }
+        <Chatbot/>
       </div>
     );
   }

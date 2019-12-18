@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Chatbot from "./Chatbot";
 import iconTakePhoto from "./../images/icon_take-photo.svg";
 import iconChooseByself from "./../images/icon_choose-byself.svg";
 import iconFillForm from "./../images/icon_fill-form.svg";
@@ -56,6 +57,7 @@ function ChooseStyle() {
         </div>
 
       </div>
+      <Chatbot/>
     </div>
   )
 }

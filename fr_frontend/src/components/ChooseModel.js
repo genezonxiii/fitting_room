@@ -4,6 +4,7 @@ import Swiper from 'react-id-swiper';
 import HomeNav from "./HomeNav";
 import UserInfo from "./UserInfo";
 import Popup from "./Popup";
+import Chatbot from "./Chatbot";
 import * as CONSTANT from './constant';
 
 const axios = require('axios');
@@ -183,6 +184,7 @@ class ChooseModel extends React.Component {
         </div>
 
         { msgList.msg1?this.renderMsg1():null }
+        <Chatbot/>
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import * as CONSTANT from './constant';
+import Chatbot from "./Chatbot";
 
 const axios = require('axios');
 
@@ -119,6 +120,7 @@ class Login extends Component {
 					</div>
 
 				</div>
+        <Chatbot/>
 			</div>
 		)
 	}
