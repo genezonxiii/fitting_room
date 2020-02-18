@@ -1571,4 +1571,13 @@ select {
     height: 210px;
   }
 }
+
+@media screen and (orientation: landscape) {
+  body {
+    height: 100vh;
+  }
+  .chatbot-window {
+    height: 90%;
+  }
+}
 /*# sourceMappingURL=styles.css.map */
